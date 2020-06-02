@@ -55,7 +55,7 @@ export default class App extends React.Component {
   }
 }
 
-const styles = StyleSheet.CreateStyles({
+const styles = StyleSheet.create({
   barStyle: {
     backgroundColor: '#30444E',
     width: '100%',
