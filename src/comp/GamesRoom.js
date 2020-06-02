@@ -12,11 +12,10 @@ const GamesRoom = (props) => {
         <View style={styles.container}>
             <Header navigation={props.navigation} />
             <View style={DataContainerStyles.dataContainer}>
-                <Text style={styles.text}> Games Room</Text>
-                <CreateBox>
-                    <Text style={styles.createText}>Create Room
-                </Text>
-                </CreateBox>
+                <View style={styles.textContainer}>
+                    <Text style={styles.createText}>Create Room</Text>
+                </View>
+                <CreateBox />
                 <JoinBox />
             </View>
         </View>
@@ -29,7 +28,7 @@ GamesRoom.propTypes = {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#22343C'
+        backgroundColor: '#22343C',
     },
     text: {
         justifyContent: 'center',
@@ -43,10 +42,15 @@ const styles = StyleSheet.create({
     createText: {
         fontSize: 16,
         fontWeight: 'bold',
-        fontFamily: 'Roboto',
         justifyContent: 'center',
         color: 'white',
         textAlign: 'center',
+    },
+    textContainer: {
+        zIndex: 1,
+        position: 'absolute',
+        top: '7%',
+        left: '35%'
     }
 
 });
