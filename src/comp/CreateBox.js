@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text,TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
 
 const CreateBox = (props) => {
@@ -8,9 +8,9 @@ const CreateBox = (props) => {
         <View style={styles.container}>
             <View style={styles.boxCreate}>
                 <Text style={styles.text}>Create Room</Text>
-                <Button style={styles.createButton}>
+                <TouchableOpacity style={styles.createButton}>
                     <Text style={styles.buttonText}>+</Text>
-                </Button>
+                </TouchableOpacity>
                 <Text style={styles.infoText}>You will get the PIN room at your email,{"\n"}sent it to your friend to join!</Text>
                 <View style={styles.circle}></View>
                 <View style={styles.square}></View>
@@ -65,29 +65,26 @@ const styles = StyleSheet.create({
     },
     createButton: {
         position: 'absolute',
-        width: 20,
-        height: 60,
         borderColor: '#286053',
         backgroundColor: '#3ED598',
-        borderRadius: 40,
+        width: 60,
+        height: 60,
+        borderRadius: 50,
         borderWidth: 6,
         justifyContent: 'center',
+        alignItems:'center',
         marginTop: 50,
         marginLeft: 121,
     },
     buttonText: {
-        position: 'absolute',
+        position: 'relative',
         color: 'white',
         fontSize: 34,
-        textAlign: 'center',
-        justifyContent: 'center',
-        fontFamily: 'sans-serif-thin'
     },
-    infoText:{
+    infoText: {
         position: 'absolute',
         textAlign: 'center',
         justifyContent: 'center',
-        fontFamily: 'sans-serif-thin',
         color: 'white',
         marginTop: 120,
         marginLeft: 20,
