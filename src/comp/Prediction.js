@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white',
     textAlign: 'center',
-    fontFamily: 'Roboto',
     fontSize: 30,
     marginRight: -160,
     marginTop: 10

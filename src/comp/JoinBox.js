@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Icon } from 'react-native-elements';
 
@@ -9,9 +9,10 @@ const JoinBox = (props) => {
         <View style={styles.container}>
             <View style={styles.boxJoin}>
                 <Text style={styles.text}>Join Room</Text>
-                <Button style={styles.joinButton} title="">
-                </Button>
-                <Icon style={styles.playIcon} name="play-arrow" color="#3DD598"/>
+                <TouchableOpacity style={styles.joinButton} title="">
+                    <Icon name="play-arrow" color="#3DD598" />
+                </TouchableOpacity>
+                {/* <Icon style={styles.playIcon} name="play-arrow" color="#3DD598" /> */}
                 <Text style={styles.infoText}>Enter the PIN you got from your{"\n"}friend and join!</Text>
             </View>
         </View>
@@ -47,38 +48,34 @@ const styles = StyleSheet.create({
         marginLeft: 110,
         marginTop: 20,
     },
+
     joinButton: {
         position: 'absolute',
-        width: 20,
-        height: 60,
+        borderColor: '#286053',
         backgroundColor: '#286053',
-        borderRadius: 40,
+        width: 60,
+        height: 60,
+        borderRadius: 50,
+        borderWidth: 6,
         justifyContent: 'center',
+        alignItems: 'center',
         marginTop: 50,
         marginLeft: 121,
     },
     buttonText: {
-        position: 'absolute',
+        position: 'relative',
         color: 'white',
         fontSize: 34,
-        textAlign: 'center',
-        justifyContent: 'center',
-        fontFamily: 'sans-serif-thin'
     },
-    infoText:{
+    infoText: {
         position: 'absolute',
         textAlign: 'center',
         justifyContent: 'center',
-        fontFamily: 'sans-serif-thin',
         color: 'white',
         marginTop: 120,
         marginLeft: 50,
         zIndex: 5,
         fontWeight: 'bold'
-    },
-    playIcon:{
-        marginTop: 65,
-        marginRight: 10
     },
 });
 
