@@ -14,13 +14,16 @@ const CreateBox = (props) => {
 }
 
 const styles = StyleSheet.create({
+    container:{
+        flex:1,
+    },  
     boxCreate: {
         margin: '6%',
         width: 319,
         height: 187,
         backgroundColor: '#FFC542',
-        alignItems: 'center',
-        justifyContent: 'center',
+        // alignItems: 'center',
+        // justifyContent: 'center',
         borderRadius: 20,
         shadowColor: "#000",
         shadowOffset: {
@@ -36,8 +39,7 @@ const styles = StyleSheet.create({
         width: 74,
         backgroundColor: '#FFBC25',
         borderRadius: 42,
-        marginRight: 160,
-        marginTop: 71,
+        marginTop: 85,
     },
     square: {
         height: 110,
