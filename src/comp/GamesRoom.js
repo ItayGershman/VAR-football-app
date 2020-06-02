@@ -11,7 +11,6 @@ const GamesRoom = (props) => {
     return (
         <View style={styles.container}>
             <Header navigation={props.navigation} />
-            <Text style={styles.text}> Games Room</Text>
             <View style={DataContainerStyles.dataContainer}>
                 <View style={styles.textContainer}>
                     <Text style={styles.createText}>Create Room</Text>
@@ -34,7 +33,11 @@ const styles = StyleSheet.create({
     text: {
         justifyContent: 'center',
         color: 'white',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Roboto',
+        fontSize: 30,
+        marginRight: -125,
+        marginTop: 10
     },
     createText: {
         fontSize: 16,

@@ -15,9 +15,10 @@ class Livescore extends React.Component {
     return (
       <View style={styles.container}>
         <Header navigation={this.props.navigation} />
-        <Text style={styles.text}> Livescore</Text>
         {/* <Content /> */}
-        <View style={DataContainerStyles.dataContainer}></View>
+        <View style={DataContainerStyles.dataContainer}>
+        <Text style={styles.text}> Livescore</Text>
+        </View>
       </View>
     );
   }
@@ -33,7 +34,11 @@ const styles = StyleSheet.create({
   text: {
     justifyContent: 'center',
     color: 'white',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'Roboto',
+    fontSize: 30,
+    marginRight: -160,
+    marginTop: 10
   }
 });
 export default Livescore;
