@@ -16,9 +16,9 @@ class Prediction extends React.Component {
     return (
       <View style={styles.container}>
         <Header navigation={this.props.navigation} />
+        <View style={DataContainerStyles.dataContainer}>
         <Text style={styles.text}> Prediction</Text>
-        {/* <Content /> */}
-        <View style={DataContainerStyles.dataContainer}></View>
+        </View>
       </View>
     );
   }
@@ -34,7 +34,11 @@ const styles = StyleSheet.create({
   text:{
     justifyContent: 'center',
     color: 'white',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'Roboto',
+    fontSize: 30,
+    marginRight: -160,
+    marginTop: 10
 }
 });
 export default Prediction;
