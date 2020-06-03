@@ -4,28 +4,21 @@ import { StyleSheet, View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import Header from './Header';
 import DataContainerStyles from '../styles'
-import CreateBox from './CreateBox'
-import JoinBox from './JoinBox';
 
-const GamesRoom = (props) => {
-    console.log(`props.navigation:${props.navigation}`)
+
+const CreateRoom = (props) => {
     return (
         <View style={styles.container}>
             <Header navigation={props.navigation} />
             <View style={DataContainerStyles.dataContainer}>
-                <Text style={styles.text}>Games Room</Text>
-                <View style={styles.textContainer}>
-                </View>
-                <CreateBox
-                    navigation={props.navigation}
-                />
-                <JoinBox />
+            <Text style={styles.text}>Create Room</Text>
+            
             </View>
         </View>
     );
 }
 
-GamesRoom.propTypes = {
+CreateRoom.propTypes = {
     navigation: PropTypes.object
 };
 const styles = StyleSheet.create({
@@ -50,4 +43,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default GamesRoom;
+export default CreateRoom;

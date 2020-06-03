@@ -1,34 +1,40 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import React from 'react';
 import GamesRoom from './src/comp/GamesRoom'
 import Livescore from './src/comp/Livescore'
 import Prediction from './src/comp/Prediction'
+import CreateRoom from './src/comp/CreateRoom'
 import { StyleSheet } from 'react-native';
 
 const Tab = createMaterialBottomTabNavigator();
+const Stack = createStackNavigator();
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <NavigationContainer>
+function MainTabNavigator({navigation}) {
+  console.log(`navigation:${navigation}`)
+  return(
         <Tab.Navigator
           labeled={false}
           initialRouteName="Livescore"
           activeColor="#3DD598"
           inactiveColor="#FFFFFF"
           barStyle={styles.barStyle}
+          navigation={navigation}
         >
           <Tab.Screen
             name="GamesRoom"
             component={GamesRoom}
+            navigation={navigation}
             options={{
               tabBarIcon: ({ color }) => (
                 <MaterialCommunityIcons name="controller-classic-outline" color={color} size={26} />
               ),
+              
             }}
+            
           />
           <Tab.Screen
             name="Prediction"
@@ -48,8 +54,30 @@ export default class App extends React.Component {
               ),
             }}
           />
-
         </Tab.Navigator>
+  )
+}
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator
+           screenOptions={{
+            headerShown: false
+          }}
+        >
+          <Stack.Screen 
+            name='tabScreens'
+            component={MainTabNavigator}
+            options={{
+            }}
+          />
+          <Stack.Screen 
+            name='CreateRoom'
+            component={CreateRoom}
+          />
+        </Stack.Navigator>
       </NavigationContainer>
     );
   }
