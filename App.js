@@ -1,7 +1,3 @@
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import React from 'react';
 import GamesRoom from './src/comp/GamesRoom'
@@ -9,6 +5,10 @@ import Livescore from './src/comp/Livescore'
 import Prediction from './src/comp/Prediction'
 import CreateRoom from './src/comp/CreateRoom'
 import { StyleSheet } from 'react-native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
