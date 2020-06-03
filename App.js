@@ -14,7 +14,6 @@ const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function MainTabNavigator({navigation}) {
-  console.log(`navigation:${navigation}`)
   return(
         <Tab.Navigator
           labeled={false}

@@ -4,7 +4,6 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 
 const CreateBox = ({navigation}) => {
-    console.log(`createBox navigation:${navigation}`)
     return (
         <View style={styles.container}>
             <View style={styles.boxCreate}>
