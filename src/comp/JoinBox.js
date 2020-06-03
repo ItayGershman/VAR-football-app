@@ -1,7 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { Button } from 'react-native-paper';
 import { Icon } from 'react-native-elements';
 
 const JoinBox = (props) => {
@@ -12,7 +11,6 @@ const JoinBox = (props) => {
                 <TouchableOpacity style={styles.joinButton} title="">
                     <Icon name="play-arrow" color="#3DD598" />
                 </TouchableOpacity>
-                {/* <Icon style={styles.playIcon} name="play-arrow" color="#3DD598" /> */}
                 <Text style={styles.infoText}>Enter the PIN you got from your{"\n"}friend and join!</Text>
             </View>
         </View>
@@ -51,7 +49,7 @@ const styles = StyleSheet.create({
 
     joinButton: {
         position: 'absolute',
-        borderColor: '#286053',
+        borderColor: '#3ED598',
         backgroundColor: '#286053',
         width: 60,
         height: 60,
@@ -60,7 +58,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 50,
-        marginLeft: 121,
+        marginLeft: 125,
     },
     buttonText: {
         position: 'relative',
@@ -75,7 +73,8 @@ const styles = StyleSheet.create({
         marginTop: 120,
         marginLeft: 50,
         zIndex: 5,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontFamily: 'sans-serif-thin'
     },
 });
 
