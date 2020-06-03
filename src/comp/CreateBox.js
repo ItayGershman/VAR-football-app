@@ -1,14 +1,17 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, View, Text,TouchableOpacity } from 'react-native';
-import { Button } from 'react-native-paper';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import PropTypes from 'prop-types';
 
-const CreateBox = (props) => {
+const CreateBox = ({navigation}) => {
     return (
         <View style={styles.container}>
             <View style={styles.boxCreate}>
                 <Text style={styles.text}>Create Room</Text>
-                <TouchableOpacity style={styles.createButton}>
+                <TouchableOpacity
+                    style={styles.createButton}
+                    onPress={() => navigation.navigate('CreateRoom')}
+                >
                     <Text style={styles.buttonText}>+</Text>
                 </TouchableOpacity>
                 <Text style={styles.infoText}>You will get the PIN room at your email,{"\n"}sent it to your friend to join!</Text>
@@ -19,6 +22,9 @@ const CreateBox = (props) => {
     );
 }
 
+CreateBox.propTypes = {
+    navigation: PropTypes.object
+};
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -72,14 +78,15 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         borderWidth: 6,
         justifyContent: 'center',
-        alignItems:'center',
+        alignItems: 'center',
         marginTop: 50,
-        marginLeft: 121,
+        marginLeft: 125,
     },
     buttonText: {
         position: 'relative',
         color: 'white',
         fontSize: 34,
+        fontFamily: 'sans-serif-thin'
     },
     infoText: {
         position: 'absolute',
@@ -89,7 +96,8 @@ const styles = StyleSheet.create({
         marginTop: 120,
         marginLeft: 20,
         zIndex: 5,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontFamily: 'sans-serif-thin'
 
     },
 });
