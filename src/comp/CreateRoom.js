@@ -74,7 +74,7 @@ const CreateRoom = (props) => {
                             shadeOpacity={0.20}
                         />
                         <Dropdown
-                        style={styles.score}
+                            style={styles.score}
                             label='Home'
                             data={score}
                             containerStyle={{ width: 50 }}
@@ -85,7 +85,7 @@ const CreateRoom = (props) => {
                             shadeOpacity={0.20}
                         />
                         <Dropdown
-                                                style={styles.score}
+                            style={styles.score}
                             label='Away'
                             data={score}
                             containerStyle={{ width: 50 }}
