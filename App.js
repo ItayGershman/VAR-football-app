@@ -69,8 +69,6 @@ export default class App extends React.Component {
           <Stack.Screen 
             name='tabScreens'
             component={MainTabNavigator}
-            options={{
-            }}
           />
           <Stack.Screen 
             name='CreateRoom'
