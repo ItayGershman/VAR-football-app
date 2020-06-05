@@ -1,19 +1,40 @@
 import 'react-native-gesture-handler';
-import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Button } from 'react-native';
 import { Icon } from 'react-native-elements';
+import Modal from 'react-native-modal';
 
-const JoinBox = (props) => {
+const JoinBox = ({ navigation }) => {
+    const [isModalVisible, setModalVisible] = useState(false);
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    }
+    const moveAndHide = ({ navigation }) => {
+        navigation.navigate('JoinRoom')
+        setModalVisible(false)
+    }
     return (
         <View style={styles.container}>
             <View style={styles.boxJoin}>
                 <Text style={styles.text}>Join Room</Text>
-                <TouchableOpacity style={styles.joinButton} title="">
+                <TouchableOpacity
+                    style={styles.joinButton}
+                    title=""
+                    onPress={toggleModal}
+                >
                     <Icon name="play-arrow" color="#3DD598" />
                 </TouchableOpacity>
                 <Text style={styles.infoText}>Enter the PIN you got from your{"\n"}friend and join!</Text>
+                <Modal isVisible={isModalVisible} style={styles.modal}>
+                    <View style={styles.msgContainer}>
+                        <Text style={styles.titleRoom}>Enter the room code:</Text>
+                        <Button style={styles.enterButton} title="LETS PLAY!" onPress={() => moveAndHide({ navigation })} >
+                            <Text style={styles.enterButton}>LET'S PLAY!</Text>
+                        </Button>
+                    </View>
+                </Modal>
             </View>
-        </View>
+        </View >
     );
 }
 
@@ -75,6 +96,42 @@ const styles = StyleSheet.create({
         zIndex: 5,
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin'
+    },
+    modal: {
+        flex: 1,
+        color: 'white',
+        justifyContent: 'space-around'
+    },
+    titleRoom: {
+        fontFamily: 'sans-serif-thin',
+        color: 'white',
+        textAlign: 'center',
+        justifyContent: 'center',
+        fontSize: 30,
+    },
+    enterButton: {
+        marginTop: 50,
+        marginLeft: 100,
+        fontFamily: 'sans-serif-thin',
+        color: 'white',
+        textAlign: 'center',
+        backgroundColor: '#286053',
+        width: 120,
+        shadowColor: 'rgb(255, 197, 66)',
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 24,
+    },
+    msgContainer: {
+        flex: 1,
+        fontFamily: 'sans-serif-thin',
+        color: 'white',
+        textAlign: 'center',
+        justifyContent: 'center',
     },
 });
 
