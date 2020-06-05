@@ -1,12 +1,13 @@
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Clipboard } from 'react-native';
 import PropTypes from 'prop-types';
 import Header from './Header';
 import DataContainerStyles from '../styles'
 import Form from 'react-native-form'
 import { Dropdown } from 'react-native-material-dropdown';
 import { Button } from 'react-native-paper';
+import Modal from 'react-native-modal';
 
 let league = [{
     value: 'Spain',
@@ -41,6 +42,18 @@ let score = [{
 }];
 
 const CreateRoom = (props) => {
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [copiedText, setCopiedText] = useState('')
+    var randomString = require('random-string');
+    var roomCode = randomString();
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    }
+
+    const copyToClipboard = () => {
+        Clipboard.setString(JSON.stringify({ roomCode }))
+    }
+
     return (
         <View style={styles.container}>
             <Header navigation={props.navigation} />
@@ -98,9 +111,22 @@ const CreateRoom = (props) => {
                                 shadeOpacity={0.20}
                             />
                         </View>
-                        <TouchableOpacity style={styles.submit} title="SUBMIT">
+                        <TouchableOpacity style={styles.submit} title="SUBMIT" onPress={toggleModal}>
                             <Text style={styles.buttonText} >SUBMIT</Text>
                         </TouchableOpacity>
+                        <Modal isVisible={isModalVisible} style={styles.modal}>
+                            <View style={styles.msgContainer}>
+                                <Text style={styles.titleRoom}>The Room has been created!</Text>
+                                <Text style={styles.titleCode}>Room Code:</Text>
+                                <Text style={styles.roomCode}>{roomCode}</Text>
+                                <TouchableOpacity onPress={() => copyToClipboard()}>
+                                    <Text style={styles.copyCode}>Click here to copy to Clipboard</Text>
+                                </TouchableOpacity>
+                                <Button style={styles.goBackButton} title="Hide modal" onPress={() => props.navigation.goBack()} >
+                                    <Text style={styles.goBackButton}>Good Luck!</Text>
+                                </Button>
+                            </View>
+                        </Modal>
                     </Form>
                 </View>
             </View>
@@ -126,10 +152,7 @@ const styles = StyleSheet.create({
     },
     createText: {
         fontSize: 16,
-        // fontWeight: 'bold',
-        // justifyContent: 'center',
         color: 'white',
-        // textAlign: 'center',
         fontFamily: 'sans-serif-thin',
         marginTop: 25,
         marginRight: 140,
@@ -141,7 +164,6 @@ const styles = StyleSheet.create({
         marginTop: 15,
         textAlign: 'center',
         justifyContent: 'center',
-        // flexDirection: 'column',
         color: 'white',
         fontSize: 20
     },
@@ -171,12 +193,11 @@ const styles = StyleSheet.create({
         width: 120,
         height: 50,
         borderRadius: 7,
-        // borderWidth: 6,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 65,
         marginLeft: 40,
-        shadowColor:'rgb(255, 197, 66)',
+        shadowColor: 'rgb(255, 197, 66)',
         shadowOffset: {
             width: 0,
             height: 12,
@@ -189,6 +210,63 @@ const styles = StyleSheet.create({
         fontFamily: 'sans-serif-thin',
         fontSize: 20,
         color: 'white'
+    },
+    modal: {
+        flex: 1,
+        color: 'white',
+        justifyContent: 'space-around'
+    },
+    msgContainer: {
+        flex: 1,
+        fontFamily: 'sans-serif-thin',
+        color: 'white',
+        textAlign: 'center',
+        justifyContent: 'center',
+    },
+    titleRoom: {
+        fontFamily: 'sans-serif-thin',
+        color: 'white',
+        textAlign: 'center',
+        justifyContent: 'center',
+        fontSize: 30,
+    },
+    titleCode: {
+        fontFamily: 'sans-serif-thin',
+        color: 'white',
+        textAlign: 'center',
+        justifyContent: 'center',
+        fontSize: 25
+    },
+    roomCode: {
+        fontFamily: 'sans-serif-thin',
+        color: 'white',
+        textAlign: 'center',
+        justifyContent: 'center',
+        fontSize: 20
+    },
+    copyCode: {
+        fontFamily: 'sans-serif-thin',
+        color: 'white',
+        textAlign: 'center',
+        justifyContent: 'center',
+    },
+    goBackButton: {
+        marginTop: 50,
+        marginLeft: 100,
+        fontFamily: 'sans-serif-thin',
+        color: 'white',
+        textAlign: 'center',
+        backgroundColor: '#286053',
+        width: 120,
+        shadowColor: 'rgb(255, 197, 66)',
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 24,
+
     }
 });
 
