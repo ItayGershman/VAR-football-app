@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Button } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Icon, Input } from 'react-native-elements';
 import Modal from 'react-native-modal';
 
 const JoinBox = ({ navigation }) => {
@@ -28,9 +28,14 @@ const JoinBox = ({ navigation }) => {
                 <Modal isVisible={isModalVisible} style={styles.modal}>
                     <View style={styles.msgContainer}>
                         <Text style={styles.titleRoom}>Enter the room code:</Text>
-                        <Button style={styles.enterButton} title="LETS PLAY!" onPress={() => moveAndHide({ navigation })} >
-                            <Text style={styles.enterButton}>LET'S PLAY!</Text>
-                        </Button>
+                        <Input
+                            style={styles.inputText}
+                            placeholder=''
+                            inputStyle={{color:'white', justifyContent:'center',textAlign:'center',fontFamily:'sans-serif-thin'}}
+                        />
+                        <TouchableOpacity style={styles.enterButton} title="LETS PLAY!" onPress={() => moveAndHide({ navigation })}>
+                            <Text style={styles.enterButtonText}>LET'S PLAY!</Text>
+                        </TouchableOpacity>
                     </View>
                 </Modal>
             </View>
@@ -67,7 +72,6 @@ const styles = StyleSheet.create({
         marginLeft: 110,
         marginTop: 20,
     },
-
     joinButton: {
         position: 'absolute',
         borderColor: '#3ED598',
@@ -125,6 +129,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
         elevation: 24,
+        height:30,
+        borderRadius:4
     },
     msgContainer: {
         flex: 1,
@@ -133,6 +139,35 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         justifyContent: 'center',
     },
+    inputText: {
+        fontFamily: 'sans-serif-thin',
+        color: 'white',
+        textAlign: 'center',
+        justifyContent: 'center'
+    },
+    enterButtonText: {
+        fontFamily: 'sans-serif-thin',
+        color: 'white',
+        textAlign: 'center',
+        justifyContent: 'center',
+        fontFamily: 'sans-serif-thin',
+        color: 'white',
+        textAlign: 'center',
+        backgroundColor: '#286053',
+        width: 120,
+        shadowColor: 'rgb(255, 197, 66)',
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 24,
+        height:30,
+        borderRadius:4,
+        alignItems:'center',
+        marginTop:11
+    }
 });
 
 export default JoinBox;
