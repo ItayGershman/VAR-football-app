@@ -8,7 +8,6 @@ import CreateBox from './CreateBox'
 import JoinBox from './JoinBox';
 
 const GamesRoom = (props) => {
-    console.log(`props.navigation:${props.navigation}`)
     return (
         <View style={styles.container}>
             <Header navigation={props.navigation} />
@@ -19,7 +18,9 @@ const GamesRoom = (props) => {
                 <CreateBox
                     navigation={props.navigation}
                 />
-                <JoinBox />
+                <JoinBox
+                    navigation={props.navigation}
+                />
             </View>
         </View>
     );
