@@ -18,16 +18,49 @@ import DataContainerStyles from '../styles'
 //   .then(response => response.json())
 //   .then(data => {
 //     console.log('Success:', data);
+//     console.log(data.api.fixtures[0].league.name)
+//     this.setState({
+//       matchData: data,
+//     })
 //   })
 //   .catch((error) => {
 //     console.error('Error:', error);
 //   });
 
 class Livescore extends React.Component {
+  _isMounted = false
   constructor() {
     super()
     this.state = {
+      matchData: []
     };
+  }
+
+  componentDidMount() {
+    this._isMounted = true
+    fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/live/754',{
+      "method": "GET",
+      "headers": {
+      "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+      "x-rapidapi-key": "b78d8edbacmsh0d14864fbf5ad4ap1427d6jsn0b94b1b8d032"
+      }})
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+        console.log(data.api.fixtures[0].league.name)
+        if (this._isMounted) {
+          this.setState({
+            matchData: data.api,
+          })
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   render() {
@@ -41,7 +74,7 @@ class Livescore extends React.Component {
         <View>
         </View>
         <View></View>
-      </View> 
+      </View>
     );
   }
 }
