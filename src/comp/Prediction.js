@@ -6,6 +6,23 @@ import Header from './Header';
 import DataContainerStyles from '../styles'
 import CreateBox from './CreateBox'
 
+const data = { username: 'example' };
+
+// fetch('https://api-football-v1.p.rapidapi.com/v2/predictions/157462', {
+// 	method: "GET",
+// 	headers: {
+// 		"x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+// 		"x-rapidapi-key": "b78d8edbacmsh0d14864fbf5ad4ap1427d6jsn0b94b1b8d032"
+//   },
+// })
+// .then(response => response.json())
+// .then(data => {
+//   console.log('Success:', data);
+// })
+// .catch((error) => {
+//   console.error('Error:', error);
+// });
+
 const Prediction = (props) => {
   return (
     <View style={styles.container}>
