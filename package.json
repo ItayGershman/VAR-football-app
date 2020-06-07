@@ -29,6 +29,8 @@
     "react-native-picker": "^4.3.7",
     "react-native-safe-area-context": "0.7.3",
     "react-native-screens": "~2.2.0",
+    "react-native-svg": "^12.1.0",
+    "react-native-svg-uri": "^1.2.3",
     "react-native-vector-icons": "^6.6.0",
     "react-native-web": "^0.11.7"
   },
