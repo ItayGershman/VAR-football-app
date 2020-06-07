@@ -51,7 +51,7 @@ const CreateRoom = (props) => {
     }
 
     const copyToClipboard = () => {
-        Clipboard.setString(JSON.stringify({ roomCode }))
+        Clipboard.setString(roomCode)
     }
 
     return (
