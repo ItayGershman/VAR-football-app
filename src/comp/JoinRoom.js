@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import Header from './Header';
 import DataContainerStyles from '../styles'
 import Form from 'react-native-form'
+import { Dropdown } from 'react-native-material-dropdown';
+
 
 let score = [{
     value: 0,
@@ -31,6 +33,37 @@ const JoinRoom = (props) => {
                 <Text style={styles.text}>Join Room</Text>
                 <View style={styles.formContainer}>
                     <Form forwardRef="form">
+                        <View>
+                        <Text style={styles.matchText}>Will need to display the room match</Text>
+                        </View>
+                        <Text style={styles.joinText}>Your Result</Text>
+                        <View style={styles.score}>
+                            <Dropdown
+                                style={styles.scoreHome}
+                                label='Home'
+                                data={score}
+                                containerStyle={{ width: 64 }}
+                                textColor={'rgb(255, 197, 66)'}
+                                baseColor={'rgb(255, 197, 66)'}
+                                dropdownPosition={-5.2}
+                                pickerStyle={{ backgroundColor: '#2A3C44' }}
+                                shadeOpacity={0.20}
+                            />
+                            <Dropdown
+                                style={styles.scoreAway}
+                                label='Away'
+                                data={score}
+                                containerStyle={{ width: 64 }}
+                                textColor={'rgb(255, 197, 66)'}
+                                baseColor={'rgb(255, 197, 66)'}
+                                dropdownPosition={-5.2}
+                                pickerStyle={{ backgroundColor: '#2A3C44' }}
+                                shadeOpacity={0.20}
+                            />
+                        </View>
+                        <TouchableOpacity style={styles.submit} title="SUBMIT" >
+                            <Text style={styles.buttonText} >SUBMIT</Text>
+                        </TouchableOpacity>
                     </Form>
                 </View>
             </View>
@@ -54,13 +87,23 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginLeft: 105
     },
-    createText: {
+    joinText: {
         fontSize: 16,
         color: 'white',
         fontFamily: 'sans-serif-thin',
         marginTop: 25,
         marginRight: 140,
-        position: 'relative'
+        position: 'relative',
+    },
+    matchText: {
+        fontSize: 16,
+        color: 'white',
+        fontFamily: 'sans-serif-thin',
+        marginTop: 25,
+        marginRight: 75,
+        position: 'relative',
+        justifyContent:'center',
+        textAlign:'center'
     },
     formContainer: {
         position: 'relative',
