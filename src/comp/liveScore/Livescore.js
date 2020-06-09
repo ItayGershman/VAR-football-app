@@ -8,13 +8,13 @@ import { connect } from 'react-redux';
 import getLiveGames from '../actions/liveScoreActions'
 // import SvgUri from 'react-native-svg';
 
-const Livescore = ({navigation,matchLeague,getLiveGames,matchHome,matchAway,leagueFlag}) =>{
+const Livescore = ({navigation,matchLeague,getLiveGames,matchHome,matchAway,leagueFlag,minute,goalsAwayTeam,goalsHomeTeam}) =>{
   console.log('LiveScore')
   useEffect(() => {
     getLiveGames('germen')
   }, []);
   console.log('after useEffect')
-
+  
     return (
       <View style={styles.container}>
         <Header navigation={navigation} />
@@ -29,12 +29,17 @@ const Livescore = ({navigation,matchLeague,getLiveGames,matchHome,matchAway,leag
                 height="20"
                 source={{ uri: this.state.leagueFlag }} /> */}
             </View>
+            <View style={styles.minuteContainer}>
+              <Text style={styles.minute}>{minute}</Text>
+            </View>
             <View style={styles.matchRow}>
               <Image
                 style={styles.homeLogo}
                 source={{ uri: matchHome.logo }}
               />
-              <Text style={styles.leagueName}>{matchHome.team_name} vs {matchAway.team_name}</Text>
+              <Text style={styles.leagueName}>{matchHome.team_name}</Text>
+              <Text style={styles.score}>{goalsHomeTeam}-{goalsAwayTeam}</Text>
+               <Text style={styles.leagueName}>{matchAway.team_name}</Text>
               <Image
                 style={styles.awayLogo}
                 source={{ uri: matchAway.logo }}
@@ -108,7 +113,24 @@ const styles = StyleSheet.create({
   },
   leagueAndFlag:{
     flexDirection:'row-reverse'
-  }
+  },
+  minute:{
+    color:"#FF8A34",
+    fontSize:9,
+    textAlign:'center',
+  },
+  minuteContainer:{
+    justifyContent:'center',
+    position:'relative',
+  },
+  score: {
+    fontFamily: 'sans-serif-thin',
+    color: 'rgb(255, 197, 66)',
+    // color: 'white',
+    position: 'relative',
+    marginRight: 20,
+    marginTop: 10
+  },
 });
 
 const mapStateToProps = ({ liveScore }) => {
@@ -116,7 +138,10 @@ const mapStateToProps = ({ liveScore }) => {
     matchLeague: liveScore.matchLeague,
     matchHome: liveScore.matchHome,
     matchAway: liveScore.matchAway,
-    leagueFlag: liveScore.leagueFlag
+    leagueFlag: liveScore.leagueFlag,
+    minute:liveScore.minute,
+    goalsHomeTeam:liveScore.goalsHomeTeam,
+    goalsAwayTeam:liveScore.goalsAwayTeam
   };
 };
 
