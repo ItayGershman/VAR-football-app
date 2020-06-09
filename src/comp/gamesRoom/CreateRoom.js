@@ -2,11 +2,28 @@ import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Clipboard } from 'react-native';
 import PropTypes from 'prop-types';
-import Header from './Header';
-import DataContainerStyles from '../styles'
+import Header from '../Header';
+import DataContainerStyles from '../../styles'
 import Form from 'react-native-form'
 import { Dropdown } from 'react-native-material-dropdown';
+import { Button } from 'react-native-paper';
+import Modal from 'react-native-modal';
 
+let league = [{
+    value: 'Spain',
+}, {
+    value: 'England',
+}, {
+    value: 'Italy',
+}];
+
+let games = [{
+    value: 'Real Madrid VS Barcelona',
+}, {
+    value: 'Sevillia VS Valencia',
+}, {
+    value: 'Espanyol VS Bilbao',
+}];
 
 let score = [{
     value: 0,
@@ -24,19 +41,52 @@ let score = [{
     value: 6,
 }];
 
-const JoinRoom = (props) => {
+const CreateRoom = (props) => {
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [copiedText, setCopiedText] = useState('')
+    var randomString = require('random-string');
+    var roomCode = randomString();
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    }
+
+    const copyToClipboard = () => {
+        Clipboard.setString(roomCode)
+    }
 
     return (
         <View style={styles.container}>
             <Header navigation={props.navigation} />
             <View style={DataContainerStyles.dataContainer}>
-                <Text style={styles.text}>Join Room</Text>
+                <Text style={styles.text}>Create Room</Text>
                 <View style={styles.formContainer}>
                     <Form forwardRef="form">
                         <View>
-                        <Text style={styles.matchText}>Will need to display the room match</Text>
+                            <View>
+                                <TextInput type="TextInput" name="myTextInput" />
+                            </View>
                         </View>
-                        <Text style={styles.joinText}>Your Result</Text>
+                        <Dropdown
+                            label='Please Choose Leauge'
+                            data={league}
+                            containerStyle={{ width: 235 }}
+                            textColor={'rgb(255, 197, 66)'}
+                            baseColor={'rgb(255, 197, 66)'}
+                            dropdownPosition={-4.3}
+                            pickerStyle={{ backgroundColor: '#2A3C44' }}
+                            shadeOpacity={0.20}
+                        />
+                        <Dropdown
+                            label='Choose a game from today'
+                            data={games}
+                            containerStyle={{ width: 235 }}
+                            textColor={'rgb(255, 197, 66)'}
+                            baseColor={'rgb(255, 197, 66)'}
+                            dropdownPosition={-4.8}
+                            pickerStyle={{ backgroundColor: '#2A3C44' }}
+                            shadeOpacity={0.20}
+                        />
+                        <Text style={styles.createText}>Your Result</Text>
                         <View style={styles.score}>
                             <Dropdown
                                 style={styles.scoreHome}
@@ -61,9 +111,22 @@ const JoinRoom = (props) => {
                                 shadeOpacity={0.20}
                             />
                         </View>
-                        <TouchableOpacity style={styles.submit} title="SUBMIT" >
+                        <TouchableOpacity style={styles.submit} title="SUBMIT" onPress={toggleModal}>
                             <Text style={styles.buttonText} >SUBMIT</Text>
                         </TouchableOpacity>
+                        <Modal isVisible={isModalVisible} style={styles.modal}>
+                            <View style={styles.msgContainer}>
+                                <Text style={styles.titleRoom}>The Room has been created!</Text>
+                                <Text style={styles.titleCode}>Room Code:</Text>
+                                <Text style={styles.roomCode}>{roomCode}</Text>
+                                <TouchableOpacity onPress={() => copyToClipboard()}>
+                                    <Text style={styles.copyCode}>Click here to copy to Clipboard</Text>
+                                </TouchableOpacity>
+                                <Button style={styles.goBackButton} title="Hide modal" onPress={() => props.navigation.goBack()} >
+                                    <Text style={styles.goBackButton}>Good Luck!</Text>
+                                </Button>
+                            </View>
+                        </Modal>
                     </Form>
                 </View>
             </View>
@@ -71,7 +134,7 @@ const JoinRoom = (props) => {
     );
 }
 
-JoinRoom.propTypes = {
+CreateRoom.propTypes = {
     navigation: PropTypes.object
 };
 const styles = StyleSheet.create({
@@ -87,23 +150,13 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginLeft: 105
     },
-    joinText: {
+    createText: {
         fontSize: 16,
         color: 'white',
         fontFamily: 'sans-serif-thin',
         marginTop: 25,
         marginRight: 140,
-        position: 'relative',
-    },
-    matchText: {
-        fontSize: 16,
-        color: 'white',
-        fontFamily: 'sans-serif-thin',
-        marginTop: 25,
-        marginRight: 75,
-        position: 'relative',
-        justifyContent:'center',
-        textAlign:'center'
+        position: 'relative'
     },
     formContainer: {
         position: 'relative',
@@ -213,8 +266,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
         elevation: 24,
-
     }
 });
 
-export default JoinRoom;
+export default CreateRoom;
