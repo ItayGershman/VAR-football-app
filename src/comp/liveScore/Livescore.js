@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import Header from '../Header';
@@ -8,45 +8,49 @@ import { connect } from 'react-redux';
 import getLiveGames from '../actions/liveScoreActions'
 // import SvgUri from 'react-native-svg';
 
-const Livescore = ({navigation,matchLeague,getLiveGames,matchHome,matchAway,leagueFlag}) =>{
+const Livescore = ({ navigation, matchLeague, getLiveGames, matchHome, matchAway, leagueFlag }) => {
   console.log('LiveScore')
   useEffect(() => {
     getLiveGames('germen')
   }, []);
   console.log('after useEffect')
 
-    return (
-      <View style={styles.container}>
-        <Header navigation={navigation} />
-        <View style={DataContainerStyles.dataContainer}>
-          <Text style={styles.text}> Livescore</Text>
-          <View style={styles.leagueBox}>
-            <View style={styles.leagueAndFlag}>
-              <Text style={styles.leagueName}>{matchLeague}</Text>
-              {/* <SvgUri
+  return (
+    <View style={styles.container}>
+      <Header navigation={navigation} />
+      <View style={DataContainerStyles.dataContainer}>
+        <Text style={styles.text}> Livescore</Text>
+        <View style={styles.leagueBox}>
+          <View style={styles.leagueAndFlag}>
+            <Text style={styles.leagueName}>{matchLeague}</Text>
+            {/* <SvgUri
                 style={styles.flag}
                 width="20"
                 height="20"
                 source={{ uri: this.state.leagueFlag }} /> */}
-            </View>
-            <View style={styles.matchRow}>
-              <Image
-                style={styles.homeLogo}
-                source={{ uri: matchHome.logo }}
-              />
-              <Text style={styles.leagueName}>{matchHome.team_name} vs {matchAway.team_name}</Text>
-              <Image
-                style={styles.awayLogo}
-                source={{ uri: matchAway.logo }}
-              />
-            </View>
+          </View>
+          <View style={styles.matchRow}>
+            <Image
+              style={styles.homeLogo}
+              source={{ uri: matchHome.logo }}
+            />
+            <Text style={styles.leagueName}>{matchHome.team_name} vs {matchAway.team_name}</Text>
+            <Image
+              style={styles.awayLogo}
+              source={{ uri: matchAway.logo }}
+            />
           </View>
         </View>
       </View>
-    );
+    </View>
+  );
 }
 Livescore.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
+  matchLeague: PropTypes.array,
+  matchHome: PropTypes.array,
+  matchAway: PropTypes.array,
+  leagueFlag: PropTypes.array
 };
 const styles = StyleSheet.create({
   container: {
@@ -106,8 +110,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
     justifyContent: 'center'
   },
-  leagueAndFlag:{
-    flexDirection:'row-reverse'
+  leagueAndFlag: {
+    flexDirection: 'row-reverse'
   }
 });
 

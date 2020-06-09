@@ -7,8 +7,7 @@ import DataContainerStyles from '../../styles'
 import CreateBox from '../gamesRoom/CreateBox'
 import styles from './predictionStyle'
 import { connect } from 'react-redux';
-import getLiveGames from '../actions/liveScoreActions'
-import Livescore from '../liveScore/Livescore';
+import getOdds from '../actions/predictionActions'
 
 const data = { username: 'example' };
 
@@ -27,15 +26,12 @@ const data = { username: 'example' };
 //   console.error('Error:', error);
 // });
 
-const Prediction = ({ getLiveGames, navigation, matchLeague }) => {
-  console.log('prediction')
+const Prediction = ({ navigation,odds,getOdds }) => {
+  console.log('before getOdds')
   useEffect(() => {
-    getLiveGames('germen')
+    getOdds('')
   }, []);
-  console.log('after germen')
-  // if (matchLeague.length != 0) {
-  //   console.log(`matchLeague[0]:${matchLeague[0]}`)
-  // }
+  console.log(JSON.stringify(odds))
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
@@ -50,25 +46,14 @@ const Prediction = ({ getLiveGames, navigation, matchLeague }) => {
           </View>
           <View style={styles.match}>
             <Text style={styles.predictionText}>Real Madrid</Text>
-            <Text style={styles.matchRatio}>    1.79    1.5    2.00</Text>
+            <Text style={styles.matchRatio}>    {odds.homeODDS}    {odds.drawODDS}    {odds.awayODDS}</Text>
             <Text style={styles.predictionText}>FC Barcleona</Text>
           </View>
         </View>
         <View style={styles.boxCreate}>
-          {
-            matchLeague.length == 0 ?
-              <Text style={styles.league}>
-                Another league...
-              </Text>
-              :
-              <Text style={styles.league}>
-                from Redux -> {matchLeague[0]}
-              </Text>
-          }
           <Text style={styles.league}>
-
             Another league...
-        </Text>
+              </Text>
         </View>
       </View>
     </View>
@@ -78,11 +63,10 @@ Prediction.propTypes = {
   navigation: PropTypes.object
 };
 
-const mapStateToProps = ({ liveScore }) => {
+const mapStateToProps = ({ prediction }) => {
   return {
-    matchLeague: liveScore.matchLeague,
+    odds: prediction.odds
   };
 };
 
-export default connect(mapStateToProps, { getLiveGames })(Prediction);
-// export default Prediction;
+export default connect(mapStateToProps, { getOdds })(Prediction);
