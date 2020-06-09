@@ -2,8 +2,8 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import Header from './Header';
-import DataContainerStyles from '../styles'
+import Header from '../Header';
+import DataContainerStyles from '../../styles'
 import CreateBox from './CreateBox'
 import JoinBox from './JoinBox';
 
