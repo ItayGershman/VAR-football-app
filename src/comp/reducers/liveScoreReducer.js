@@ -4,7 +4,10 @@ const initialState = {
     matchLeague: [],
     matchHome: [],
     matchAway: [],
-    leagueFlag: []
+    leagueFlag: [],
+    minute:[],
+    goalsAwayTeam:[],
+    goalsHomeTeam:[],
 };
 
 export default (state = initialState, action) => {
@@ -15,13 +18,18 @@ export default (state = initialState, action) => {
             const newMatchHome = action.matchHome
             const newMatchAway = action.matchAway
             const newLeagueFlag = [action.leagueFlag]
-
+            const newMinute = action.minute
+            const newGoalsHomeTeam = action.goalsHomeTeam
+            const newGoalsAwayTeam = action.goalsAwayTeam
             return {
                 ...state,
                 matchLeague:newMatchLeague,
                 matchHome:newMatchHome,
                 matchAway:newMatchAway,
-                leagueFlag:newLeagueFlag
+                leagueFlag:newLeagueFlag,
+                minute:newMinute,
+                goalsAwayTeam:newGoalsAwayTeam,
+                goalsHomeTeam:newGoalsHomeTeam
             }
             //filter tracks without image to display
             //   const newTracks = action.tracks.filter((track) => track.artwork_url !== null);

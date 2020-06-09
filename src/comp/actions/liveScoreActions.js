@@ -31,7 +31,11 @@ const getLiveGames = (query) => async (dispatch) => {
         matchLeague: data.api.fixtures[0].league.name,
         leagueFlag: data.api.fixtures[0].league.flag,
         matchHome: data.api.fixtures[0].homeTeam,
-        matchAway: data.api.fixtures[0].awayTeam
+        matchAway: data.api.fixtures[0].awayTeam,
+        minute: data.api.fixtures[0].elapsed,
+        goalsAwayTeam: data.api.fixtures[0].goalsAwayTeam,
+        goalsHomeTeam: data.api.fixtures[0].goalsHomeTeam,
+
       });
     })
     .catch((error) => {
