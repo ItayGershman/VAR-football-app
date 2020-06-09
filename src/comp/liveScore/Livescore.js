@@ -1,90 +1,28 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useEffect} from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import PropTypes from 'prop-types';
-import Header from './Header';
-import DataContainerStyles from '../styles'
+import Header from '../Header';
+import DataContainerStyles from '../../styles'
+import { connect } from 'react-redux';
+import getLiveGames from '../actions/liveScoreActions'
 // import SvgUri from 'react-native-svg';
 
+const Livescore = ({navigation,matchLeague,getLiveGames,matchHome,matchAway,leagueFlag}) =>{
+  console.log('LiveScore')
+  useEffect(() => {
+    getLiveGames('germen')
+  }, []);
+  console.log('after useEffect')
 
-// const data = fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/live/754', { //live games of the german league
-//   // fetch('https://api-football-v1.p.rapidapi.com/v2/leagues', { // all the leagues
-//   // fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/league/754/2020-06-07', { //all the games by date in the german league
-//   // fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/league/754/30', { //all the games in the 30 round of the german league - NOT WORKING
-//   method: "GET",
-//   headers: {
-//     "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-//     "x-rapidapi-key": "b78d8edbacmsh0d14864fbf5ad4ap1427d6jsn0b94b1b8d032"
-//   }
-// })
-//   .then(response => response.json())
-//   .then(data => {
-//     console.log('Success:', data);
-//     console.log(data.api.fixtures[0].league.name)
-//     this.setState({
-//       matchData: data,
-//     })
-//   })
-//   .catch((error) => {
-//     console.error('Error:', error);
-//   });
-
-class Livescore extends React.Component {
-  _isMounted = false
-  constructor() {
-    super()
-    this.state = {
-      matchData: [],
-      matchHome: [],
-      matchAway: [],
-      leagueFlag: [],
-      // homeLogo: [],
-      // awayLogo:[],
-    };
-  }
-
-  componentDidMount() {
-    this._isMounted = true
-    // fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/live/754', {
-    fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/live', {
-      "method": "GET",
-      "headers": {
-        "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-        "x-rapidapi-key": "b78d8edbacmsh0d14864fbf5ad4ap1427d6jsn0b94b1b8d032"
-      }
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Success:', data);
-        console.log(data.api.fixtures[0].league.name)
-        console.log(data.api.fixtures[0].homeTeam.logo)
-        if (this._isMounted) {
-          this.setState({
-            matchLeague: data.api.fixtures[0].league.name,
-            leagueFlag: data.api.fixtures[0].league.flag,
-            matchHome: data.api.fixtures[0].homeTeam,
-            matchAway: data.api.fixtures[0].awayTeam
-          })
-        }
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false
-  }
-
-  render() {
     return (
       <View style={styles.container}>
-        <Header navigation={this.props.navigation} />
+        <Header navigation={navigation} />
         <View style={DataContainerStyles.dataContainer}>
           <Text style={styles.text}> Livescore</Text>
           <View style={styles.leagueBox}>
             <View style={styles.leagueAndFlag}>
-              <Text style={styles.leagueName}>{this.state.matchLeague}</Text>
+              <Text style={styles.leagueName}>{matchLeague}</Text>
               {/* <SvgUri
                 style={styles.flag}
                 width="20"
@@ -94,19 +32,18 @@ class Livescore extends React.Component {
             <View style={styles.matchRow}>
               <Image
                 style={styles.homeLogo}
-                source={{ uri: this.state.matchHome.logo }}
+                source={{ uri: matchHome.logo }}
               />
-              <Text style={styles.leagueName}>{this.state.matchHome.team_name} vs {this.state.matchAway.team_name}</Text>
+              <Text style={styles.leagueName}>{matchHome.team_name} vs {matchAway.team_name}</Text>
               <Image
                 style={styles.awayLogo}
-                source={{ uri: this.state.matchAway.logo }}
+                source={{ uri: matchAway.logo }}
               />
             </View>
           </View>
         </View>
       </View>
     );
-  }
 }
 Livescore.propTypes = {
   navigation: PropTypes.object
@@ -173,4 +110,14 @@ const styles = StyleSheet.create({
     flexDirection:'row-reverse'
   }
 });
-export default Livescore;
+
+const mapStateToProps = ({ liveScore }) => {
+  return {
+    matchLeague: liveScore.matchLeague,
+    matchHome: liveScore.matchHome,
+    matchAway: liveScore.matchAway,
+    leagueFlag: liveScore.leagueFlag
+  };
+};
+
+export default connect(mapStateToProps, { getLiveGames })(Livescore);

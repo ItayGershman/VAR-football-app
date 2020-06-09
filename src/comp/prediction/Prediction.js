@@ -27,15 +27,15 @@ const data = { username: 'example' };
 //   console.error('Error:', error);
 // });
 
-const Prediction = ({ getLiveGames, navigation, matchData }) => {
+const Prediction = ({ getLiveGames, navigation, matchLeague }) => {
   console.log('prediction')
   useEffect(() => {
     getLiveGames('germen')
   }, []);
   console.log('after germen')
-  if (matchData.length != 0) {
-    console.log(`matchData[0]:${matchData[0]}`)
-  }
+  // if (matchLeague.length != 0) {
+  //   console.log(`matchLeague[0]:${matchLeague[0]}`)
+  // }
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
@@ -56,13 +56,13 @@ const Prediction = ({ getLiveGames, navigation, matchData }) => {
         </View>
         <View style={styles.boxCreate}>
           {
-            matchData.length == 0 ?
+            matchLeague.length == 0 ?
               <Text style={styles.league}>
                 Another league...
               </Text>
               :
               <Text style={styles.league}>
-                from Redux -> {matchData[0]}
+                from Redux -> {matchLeague[0]}
               </Text>
           }
           <Text style={styles.league}>
@@ -80,7 +80,7 @@ Prediction.propTypes = {
 
 const mapStateToProps = ({ liveScore }) => {
   return {
-    matchData: liveScore.matchData,
+    matchLeague: liveScore.matchLeague,
   };
 };
 
