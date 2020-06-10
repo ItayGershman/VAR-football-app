@@ -54,7 +54,7 @@ const Prediction = ({ getLiveGames, navigation, matchLeague }) => {
             <Text style={styles.predictionText}>FC Barcleona</Text>
           </View>
         </View>
-        <View style={styles.boxCreate}>
+        {/* <View style={styles.boxCreate}>
           {
             matchLeague.length == 0 ?
               <Text style={styles.league}>
@@ -69,7 +69,7 @@ const Prediction = ({ getLiveGames, navigation, matchLeague }) => {
 
             Another league...
         </Text>
-        </View>
+        </View> */}
       </View>
     </View>
   );
