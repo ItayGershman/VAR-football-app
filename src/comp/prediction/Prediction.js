@@ -9,7 +9,28 @@ import styles from './predictionStyle'
 import { connect } from 'react-redux';
 import getOdds from '../actions/predictionActions'
 
+import Form from 'react-native-form'
+import { Dropdown } from 'react-native-material-dropdown';
+
 const data = { username: 'example' };
+
+
+let league = [{
+  value: 'Spain',
+}, {
+  value: 'England',
+}, {
+  value: 'Italy',
+}];
+
+let games = [{
+  value: 'Real Madrid VS Barcelona',
+}, {
+  value: 'Sevillia VS Valencia',
+}, {
+  value: 'Espanyol VS Bilbao',
+}];
+
 
 // fetch('https://api-football-v1.p.rapidapi.com/v2/predictions/157462', {
 // 	method: "GET",
@@ -26,7 +47,7 @@ const data = { username: 'example' };
 //   console.error('Error:', error);
 // });
 
-const Prediction = ({ navigation,odds,getOdds }) => {
+const Prediction = ({ navigation, odds, getOdds, match, advice }) => {
   console.log('before getOdds')
   useEffect(() => {
     getOdds('')
@@ -37,24 +58,53 @@ const Prediction = ({ navigation,odds,getOdds }) => {
       <Header navigation={navigation} />
       <View style={DataContainerStyles.dataContainer}>
         <Text style={styles.text}> Prediction</Text>
+
+        <Form forwardRef="form">
+          <Dropdown
+            label='Please Choose Leauge'
+            data={league}
+            containerStyle={{ width: 235 }}
+            textColor={'rgb(255, 197, 66)'}
+            baseColor={'rgb(255, 197, 66)'}
+            dropdownPosition={-4.3}
+            pickerStyle={{ backgroundColor: '#2A3C44' }}
+            shadeOpacity={0.20}
+          />
+          <Dropdown
+            label='Choose a game from today'
+            data={games}
+            containerStyle={{ width: 235 }}
+            textColor={'rgb(255, 197, 66)'}
+            baseColor={'rgb(255, 197, 66)'}
+            dropdownPosition={-4.8}
+            pickerStyle={{ backgroundColor: '#2A3C44' }}
+            shadeOpacity={0.20}
+          />
+
+        </Form>
         <View style={styles.boxCreate}>
+
           <Text style={styles.league}>La Liga</Text>
+
           <View style={styles.ratio}>
             <Text style={styles.ratioText}>1</Text>
             <Text style={styles.ratioText}>X</Text>
             <Text style={styles.ratioText}>2</Text>
           </View>
           <View style={styles.match}>
-            <Text style={styles.predictionText}>Real Madrid</Text>
+            {/* <Text style={styles.predictionText}>Real Madrid</Text> */}
+            <Text style={styles.predictionText}>{match.home}</Text>
             <Text style={styles.matchRatio}>    {odds.homeODDS}    {odds.drawODDS}    {odds.awayODDS}</Text>
-            <Text style={styles.predictionText}>FC Barcleona</Text>
+            {/* <Text style={styles.predictionText}>FC Barcleona</Text> */}
+            <Text style={styles.predictionText}>{match.away}</Text>
           </View>
+          <Text>Our advice:{advice}</Text>
         </View>
-        <View style={styles.boxCreate}>
+        {/* <View style={styles.boxCreate}>
           <Text style={styles.league}>
             Another league...
               </Text>
-        </View>
+        </View> */}
       </View>
     </View>
   );
@@ -65,7 +115,9 @@ Prediction.propTypes = {
 
 const mapStateToProps = ({ prediction }) => {
   return {
-    odds: prediction.odds
+    odds: prediction.odds,
+    match: prediction.match,
+    advice: prediction.advice
   };
 };
 

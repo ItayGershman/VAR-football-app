@@ -27,9 +27,27 @@ const getOdds = (query) => async (dispatch) => {
         drawODDS: 3.70,
         awayODDS: 2.60
     }
+    const matchTeams = {
+        home: 'Paris Saint Germain',
+        away: 'Strasbourg'
+    }
+    const advice = 'Winner : Paris Saint Germain'
+    const predictedScore = {
+        home: 4,
+        away: 2
+    }
+    const winningPercent = {
+        home: '50%',
+        draw: '50%',
+        away: '0%'
+    }
     dispatch({
         type: ODDS,
-        odds: oddsObj
+        odds: oddsObj,
+        match: matchTeams,
+        advice: advice,
+        predictedScore: predictedScore,
+        winningPercent: winningPercent
     });
     // })
     // .catch((error) => {
