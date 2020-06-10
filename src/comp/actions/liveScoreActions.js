@@ -13,7 +13,10 @@ const getLiveGames = (query) => async (dispatch) => {
   //     dispatch({ type: LIVE_GAMES, /*tracks: data, query: queryTitle*/ });
   //   })
 
-  fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/live', {
+  // fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/live', { //All live games
+  // fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/rounds/633/current', { //All league games by date
+
+  fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/league/633/Regular_Season_-_30', { //All league games by round
     "method": "GET",
     "headers": {
       "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
@@ -25,13 +28,22 @@ const getLiveGames = (query) => async (dispatch) => {
       console.log('Success:', data);
       console.log(data.api.fixtures[0].league.name)
       console.log(data.api.fixtures[0].homeTeam.logo)
-      
+      const matches = []
+      for(let i = 0; i < data.api.fixtures.length; ++i){
+        let match = {}
+        match.matchLeague = data.api.fixtures[i].league.name
+        match.leagueFlag = data.api.fixtures[i].league.flag
+        match.matchHome = data.api.fixtures[i].homeTeam
+        match.matchAway = data.api.fixtures[i].awayTeam
+        match.minute = data.api.fixtures[i].elapsed
+        match.goalsAwayTeam = data.api.fixtures[i].goalsAwayTeam
+        match.goalsHomeTeam = data.api.fixtures[i].goalsHomeTeam
+        matches.push(match)
+      }
+      console.log(`matches:${JSON.stringify(matches)}`)
       dispatch({
         type: LIVE_GAMES,
-        matchLeague: data.api.fixtures[0].league.name,
-        leagueFlag: data.api.fixtures[0].league.flag,
-        matchHome: data.api.fixtures[0].homeTeam,
-        matchAway: data.api.fixtures[0].awayTeam
+        matches:matches
       });
     })
     .catch((error) => {

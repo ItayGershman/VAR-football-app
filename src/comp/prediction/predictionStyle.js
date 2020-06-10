@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     },
     boxCreate: {
       marginTop: '6%',
-      marginLeft: '7%',
-      width: '85%',
+      marginLeft: '5%',
+      width: '90%',
       height: '40%',
       backgroundColor: '#2A3C44',
       borderRadius: 20,

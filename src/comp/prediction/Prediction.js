@@ -98,11 +98,6 @@ const Prediction = ({ navigation, odds, getOdds, match, advice }) => {
           </View>
           <Text>Our advice:{advice}</Text>
         </View>
-        {/* <View style={styles.boxCreate}>
-          <Text style={styles.league}>
-            Another league...
-              </Text>
-        </View> */}
       </View>
     </View>
   );
