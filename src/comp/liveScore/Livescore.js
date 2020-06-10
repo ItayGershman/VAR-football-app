@@ -16,6 +16,7 @@ function GameView({ matches }) {
         <Text style={styles.minute}>{matches.minute}</Text>
       </View>
       <View style={styles.matchRow}>
+        
         <Image
           style={styles.homeLogo}
           source={{ uri: matches.matchHome.logo }}
@@ -89,13 +90,15 @@ const styles = StyleSheet.create({
     // color: 'rgb(255, 197, 66)',
     color: 'white',
     position: 'relative',
-    marginRight: 20,
-    marginTop: 10
+    // marginRight: 20,
+    marginTop: 5,
+    width:'40%',
+    textOverflow: 'ellipsis'
   },
   leagueBox: {
     marginTop: '6%',
-    marginLeft: '5%',
-    width: '90%',
+    // marginLeft: '5%',
+    width: '100%',
     height: '100%',
     backgroundColor: '#2A3C44',
     borderRadius: 20,
@@ -107,6 +110,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.58,
     shadowRadius: 16.00,
     elevation: 24,
+    justifyContent:'space-between'
   },
   flag: {
     position: 'relative',
@@ -125,10 +129,11 @@ const styles = StyleSheet.create({
     height: 20,
   },
   matchRow: {
-    marginTop: 10,
+    // marginTop: 10,
     flexDirection: 'row-reverse',
-    justifyContent: 'center',
-    alignSelf: 'center'
+    justifyContent: 'space-evenly',
+    position: 'relative',
+    width:'100%'
   },
   leagueAndFlag: {
     flexDirection: 'row-reverse'
@@ -137,6 +142,7 @@ const styles = StyleSheet.create({
     color: "#FF8A34",
     fontSize: 9,
     textAlign: 'center',
+    marginTop:20
   },
   minuteContainer: {
     justifyContent: 'center',
@@ -147,16 +153,20 @@ const styles = StyleSheet.create({
     color: 'rgb(255, 197, 66)',
     // color: 'white',
     position: 'relative',
-    marginRight: 20,
-    marginTop: 10,
+    // marginRight: 20,
+    marginTop: 5,
     textAlign:'center',
     justifyContent:'center'
   },
   flatListMatch:{
-    justifyContent:'center',
+    // justifyContent:'center',
     textAlign:'center',
     alignSelf:'center',
-    alignItems:'center'
+    alignItems:'center',
+    justifyContent:'space-between',
+    width:'100%',
+    paddingRight:10,
+    paddingLeft:10
   }
 });
 
