@@ -83,9 +83,7 @@ const Prediction = ({ navigation, odds, getOdds, match, advice }) => {
 
         </Form>
         <View style={styles.boxCreate}>
-
           <Text style={styles.league}>La Liga</Text>
-
           <View style={styles.ratio}>
             <Text style={styles.ratioText}>1</Text>
             <Text style={styles.ratioText}>X</Text>
