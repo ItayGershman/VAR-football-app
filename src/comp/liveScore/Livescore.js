@@ -39,7 +39,7 @@ const Livescore = ({ navigation, getLiveGames, matches }) => {
     getLiveGames('germen')
   }, []);
   console.log('after useEffect')
-  console.log(`matchesLIVE:${JSON.stringify(matches)}`)
+
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
@@ -47,6 +47,7 @@ const Livescore = ({ navigation, getLiveGames, matches }) => {
         <Text style={styles.text}> Livescore</Text>
         <View style={styles.leagueBox}>
           <View style={styles.leagueAndFlag}>
+
             <Text style={styles.leagueName}>{matches[0].matchLeague}</Text>
             {/* <SvgUri
                   style={styles.flag}
@@ -70,7 +71,11 @@ const Livescore = ({ navigation, getLiveGames, matches }) => {
   );
 }
 Livescore.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
+  matchLeague: PropTypes.array,
+  matchHome: PropTypes.array,
+  matchAway: PropTypes.array,
+  leagueFlag: PropTypes.array
 };
 const styles = StyleSheet.create({
   container: {
