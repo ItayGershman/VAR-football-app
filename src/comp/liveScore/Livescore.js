@@ -21,9 +21,9 @@ function GameView({ matches }) {
           style={styles.homeLogo}
           source={{ uri: matches.matchHome.logo }}
         />
-        <Text style={styles.leagueName}>{matches.matchHome.team_name}</Text>
+        <Text style={styles.teamName}>{matches.matchHome.team_name}</Text>
         <Text style={styles.score}>{matches.goalsHomeTeam}-{matches.goalsAwayTeam}</Text>
-        <Text style={styles.leagueName}>{matches.matchAway.team_name}</Text>
+        <Text style={styles.teamName}>{matches.matchAway.team_name}</Text>
         <Image
           style={styles.awayLogo}
           source={{ uri: matches.matchAway.logo }}
@@ -96,14 +96,28 @@ const styles = StyleSheet.create({
     color: 'white',
     position: 'relative',
     // marginRight: 20,
+    width:'40%',
+    // textAlign:'center',
+    fontSize:12,
+    // fontWeight:'bold',
+    marginTop: 10,
+    marginRight:15
+  },
+  teamName: {
+    fontFamily: 'sans-serif-thin',
+    // color: 'rgb(255, 197, 66)',
+    color: 'white',
+    position: 'relative',
+    // marginRight: 20,
     marginTop: 5,
     width:'40%',
-    textOverflow: 'ellipsis'
+    textAlign:'center',
+    fontSize:10
   },
   leagueBox: {
     marginTop: '6%',
-    // marginLeft: '5%',
-    width: '100%',
+    marginLeft: '5%',
+    width: '90%',
     height: '100%',
     backgroundColor: '#2A3C44',
     borderRadius: 20,
