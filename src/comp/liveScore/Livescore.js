@@ -1,12 +1,13 @@
 import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Text, Image, FlatList } from 'react-native';
+import { StyleSheet, View, Text, FlatList, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import Header from '../Header';
 import DataContainerStyles from '../../styles'
 import { connect } from 'react-redux';
 import getLiveGames from '../actions/liveScoreActions'
 // import SvgUri from 'react-native-svg';
+import Image from 'react-native-remote-svg'
 
 function GameView({ matches }) {
   console.log(`inside comp${JSON.stringify(matches)}`)
@@ -16,7 +17,7 @@ function GameView({ matches }) {
         <Text style={styles.minute}>{matches.minute}</Text>
       </View>
       <View style={styles.matchRow}>
-        
+
         <Image
           style={styles.homeLogo}
           source={{ uri: matches.matchHome.logo }}
@@ -45,27 +46,28 @@ const Livescore = ({ navigation, getLiveGames, matches }) => {
       <Header navigation={navigation} />
       <View style={DataContainerStyles.dataContainer}>
         <Text style={styles.text}> Livescore</Text>
-        <View style={styles.leagueBox}>
-          <View style={styles.leagueAndFlag}>
+        <ScrollView>
+          <View style={styles.leagueBox}>
+            <View style={styles.leagueAndFlag}>
 
-            <Text style={styles.leagueName}>{matches[0].matchLeague}</Text>
-            {/* <SvgUri
-                  style={styles.flag}
-                  width="20"
-                  height="20"
-                  source={{ uri: this.state.leagueFlag }} /> */}
-          </View>
-          <FlatList
-            keyExtractor={(item, index) => index.toString()}
-            data={matches}
-            numColumns={1}
-            renderItem={({ item }) => (
-              <GameView
-                matches={item}
+              <Text style={styles.leagueName}>{matches[0].matchLeague}</Text>
+              <Image
+                source={{ uri: matches[0].leagueFlag }}
+                style={styles.flag}
               />
-            )}
-          />
-        </View>
+            </View>
+            <FlatList
+              keyExtractor={(item, index) => index.toString()}
+              data={matches}
+              numColumns={1}
+              renderItem={({ item }) => (
+                <GameView
+                  matches={item}
+                />
+              )}
+            />
+          </View>
+        </ScrollView>
       </View>
     </View>
   );
@@ -96,12 +98,12 @@ const styles = StyleSheet.create({
     color: 'white',
     position: 'relative',
     // marginRight: 20,
-    width:'40%',
+    width: '20%',
     // textAlign:'center',
-    fontSize:12,
+    fontSize: 12,
     // fontWeight:'bold',
     marginTop: 10,
-    marginRight:15
+    marginRight: 15
   },
   teamName: {
     fontFamily: 'sans-serif-thin',
@@ -110,9 +112,9 @@ const styles = StyleSheet.create({
     position: 'relative',
     // marginRight: 20,
     marginTop: 5,
-    width:'40%',
-    textAlign:'center',
-    fontSize:10
+    width: '40%',
+    textAlign: 'center',
+    fontSize: 10
   },
   leagueBox: {
     marginTop: '6%',
@@ -129,12 +131,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.58,
     shadowRadius: 16.00,
     elevation: 24,
-    justifyContent:'space-between'
+    justifyContent: 'space-between'
   },
   flag: {
     position: 'relative',
-    width: 100,
-    height: 100,
+    width: 25,
+    height: 20,
+    marginRight: 5,
+    marginTop: 5
     // backgroundColor: 'red',
   },
   homeLogo: {
@@ -152,7 +156,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
     justifyContent: 'space-evenly',
     position: 'relative',
-    width:'100%'
+    width: '100%'
   },
   leagueAndFlag: {
     flexDirection: 'row-reverse'
@@ -161,7 +165,7 @@ const styles = StyleSheet.create({
     color: "#FF8A34",
     fontSize: 9,
     textAlign: 'center',
-    marginTop:20
+    marginTop: 20
   },
   minuteContainer: {
     justifyContent: 'center',
@@ -174,18 +178,18 @@ const styles = StyleSheet.create({
     position: 'relative',
     // marginRight: 20,
     marginTop: 5,
-    textAlign:'center',
-    justifyContent:'center'
+    textAlign: 'center',
+    justifyContent: 'center'
   },
-  flatListMatch:{
+  flatListMatch: {
     // justifyContent:'center',
-    textAlign:'center',
-    alignSelf:'center',
-    alignItems:'center',
-    justifyContent:'space-between',
-    width:'100%',
-    paddingRight:10,
-    paddingLeft:10
+    textAlign: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingRight: 10,
+    paddingLeft: 10
   }
 });
 
