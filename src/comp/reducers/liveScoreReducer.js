@@ -15,7 +15,8 @@ const initialState = {
         matchAway :'',
         minute : 0,
         goalsAwayTeam :0,
-        goalsHomeTeam :0
+        goalsHomeTeam :0,
+        gameTime:''
     }],//objects
     leagues:[]
 };

@@ -16,7 +16,7 @@ const getLiveGames = (query) => async (dispatch) => {
   // fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/live', { //All live games
   // fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/rounds/633/current', { //All league games by date
 
-  fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/league/633/Regular_Season_-_30', { //All league games by round
+  fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/league/754/Regular_Season_-_28?timezone=Asia/Jerusalem', { //All league games by round
     "method": "GET",
     "headers": {
       "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
@@ -38,6 +38,7 @@ const getLiveGames = (query) => async (dispatch) => {
         match.minute = data.api.fixtures[i].elapsed
         match.goalsAwayTeam = data.api.fixtures[i].goalsAwayTeam
         match.goalsHomeTeam = data.api.fixtures[i].goalsHomeTeam
+        match.gameTime= data.api.fixtures[i].event_date.substring(11,16)
         matches.push(match)
       }
       console.log(`matches:${JSON.stringify(matches)}`)

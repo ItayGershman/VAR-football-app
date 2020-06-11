@@ -14,10 +14,11 @@ function GameView({ matches }) {
   return (
     <View style={styles.flatListMatch}>
       <View style={styles.minuteContainer}>
-        <Text style={styles.minute}>{matches.minute}</Text>
+        {matches.minute == 90 ? <Text style={styles.minute}>Ended</Text> :
+          matches.minute == 0 ? <Text style={styles.minute}>{matches.gameTime}</Text> :
+            <Text style={styles.minute}>{matches.minute}</Text>}
       </View>
       <View style={styles.matchRow}>
-
         <Image
           style={styles.homeLogo}
           source={{ uri: matches.matchHome.logo }}
@@ -40,7 +41,6 @@ const Livescore = ({ navigation, getLiveGames, matches }) => {
     getLiveGames('germen')
   }, []);
   console.log('after useEffect')
-
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
@@ -49,7 +49,6 @@ const Livescore = ({ navigation, getLiveGames, matches }) => {
         <ScrollView>
           <View style={styles.leagueBox}>
             <View style={styles.leagueAndFlag}>
-
               <Text style={styles.leagueName}>{matches[0].matchLeague}</Text>
               <Image
                 source={{ uri: matches[0].leagueFlag }}
@@ -98,9 +97,9 @@ const styles = StyleSheet.create({
     color: 'white',
     position: 'relative',
     // marginRight: 20,
-    width: '20%',
+    width: '25%',
     // textAlign:'center',
-    fontSize: 12,
+    fontSize: 16,
     // fontWeight:'bold',
     marginTop: 10,
     marginRight: 15
@@ -138,7 +137,7 @@ const styles = StyleSheet.create({
     width: 25,
     height: 20,
     marginRight: 5,
-    marginTop: 5
+    marginTop: 7
     // backgroundColor: 'red',
   },
   homeLogo: {
