@@ -28,8 +28,8 @@ const getLiveGames = (query) => async (dispatch) => {
       console.log('Success:', data);
       console.log(data.api.fixtures[0].league.name)
       console.log(data.api.fixtures[0].homeTeam.logo)
-      const matches = []
-      for(let i = 0; i < data.api.fixtures.length; ++i){
+      const leagues = []
+      for (let i = 0; i < data.api.fixtures.length; ++i) {
         let match = {}
         match.matchLeague = data.api.fixtures[i].league.name
         match.leagueFlag = data.api.fixtures[i].league.flag
@@ -39,12 +39,26 @@ const getLiveGames = (query) => async (dispatch) => {
         match.goalsAwayTeam = data.api.fixtures[i].goalsAwayTeam
         match.goalsHomeTeam = data.api.fixtures[i].goalsHomeTeam
         match.gameTime= data.api.fixtures[i].event_date.substring(11,16)
-        matches.push(match)
+        match.id = data.api.fixtures[i].fixture_id
+
+        const gamesByLeague = {
+          league: data.api.fixtures[i].league.name,
+          games: [match]
+        }
+        //Search if a specific league is inside leagues array - if yes push game into this league
+        let obj = leagues.find((obj, i) => {
+          if (obj.league === data.api.fixtures[i].league.name) {
+            leagues[i].games.push(match)
+            return true; // Stop searching
+          }
+        });
+        //Push another league (with game) into leagues array
+        if (obj === undefined) leagues.push(gamesByLeague)
       }
-      console.log(`matches:${JSON.stringify(matches)}`)
+
       dispatch({
         type: LIVE_GAMES,
-        matches:matches
+        leagues: leagues
       });
     })
     .catch((error) => {

@@ -1,39 +1,13 @@
 import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Text, FlatList, ScrollView } from 'react-native';
+import { View, Text, FlatList, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import Header from '../Header';
 import DataContainerStyles from '../../styles'
 import { connect } from 'react-redux';
 import getLiveGames from '../actions/liveScoreActions'
-// import SvgUri from 'react-native-svg';
-import Image from 'react-native-remote-svg'
-
-function GameView({ matches }) {
-  console.log(`inside comp${JSON.stringify(matches)}`)
-  return (
-    <View style={styles.flatListMatch}>
-      <View style={styles.minuteContainer}>
-        {matches.minute == 90 ? <Text style={styles.minute}>Ended</Text> :
-          matches.minute == 0 ? <Text style={styles.minute}>{matches.gameTime}</Text> :
-            <Text style={styles.minute}>{matches.minute}</Text>}
-      </View>
-      <View style={styles.matchRow}>
-        <Image
-          style={styles.homeLogo}
-          source={{ uri: matches.matchHome.logo }}
-        />
-        <Text style={styles.teamName}>{matches.matchHome.team_name}</Text>
-        <Text style={styles.score}>{matches.goalsHomeTeam}-{matches.goalsAwayTeam}</Text>
-        <Text style={styles.teamName}>{matches.matchAway.team_name}</Text>
-        <Image
-          style={styles.awayLogo}
-          source={{ uri: matches.matchAway.logo }}
-        />
-      </View>
-    </View>
-  );
-}
+import { GameView } from './GameView'
+import liveStyles from './liveStyles'
 
 const Livescore = ({ navigation, getLiveGames, matches }) => {
   console.log('LiveScore')
@@ -42,159 +16,52 @@ const Livescore = ({ navigation, getLiveGames, matches }) => {
   }, []);
   console.log('after useEffect')
   return (
-    <View style={styles.container}>
+    <View style={liveStyles.container}>
       <Header navigation={navigation} />
       <View style={DataContainerStyles.dataContainer}>
-        <Text style={styles.text}> Livescore</Text>
+        <Text style={liveStyles.text}> Livescore</Text>
         <ScrollView>
-          <View style={styles.leagueBox}>
-            <View style={styles.leagueAndFlag}>
-              <Text style={styles.leagueName}>{matches[0].matchLeague}</Text>
-              <Image
-                source={{ uri: matches[0].leagueFlag }}
-                style={styles.flag}
-              />
-            </View>
-            <FlatList
-              keyExtractor={(item, index) => index.toString()}
-              data={matches}
-              numColumns={1}
-              renderItem={({ item }) => (
-                <GameView
-                  matches={item}
-                />
-              )}
-            />
-          </View>
+          {
+            leagues.map((league, key) => {
+              return (
+                <View key={key} style={liveStyles.leagueBox}>
+                  <View style={liveStyles.leagueAndFlag}>
+                    <Text style={liveStyles.leagueName}>{league.league}</Text>
+                    <Image
+                      source={{ uri: league.games[0].leagueFlag }}
+                      style={liveStyles.flag}
+                    />
+                  </View>
+                  <FlatList
+                    data={league.games}
+                    numColumns={1}
+                    renderItem={({ item }) => (
+                      <GameView
+                        game={item}
+                        key={item.id}
+                      />
+                    )}
+                    keyExtractor={item => item.id}
+                  />
+                </View>
+              )
+            })
+          }
         </ScrollView>
       </View>
     </View>
   );
 }
+
 Livescore.propTypes = {
   navigation: PropTypes.object,
-  matchLeague: PropTypes.array,
-  matchHome: PropTypes.array,
-  matchAway: PropTypes.array,
-  leagueFlag: PropTypes.array
+  leagues: PropTypes.array,
+  getLiveGames: PropTypes.func
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#22343C'
-  },
-  text: {
-    justifyContent: 'center',
-    color: 'white',
-    textAlign: 'center',
-    fontSize: 30,
-    marginRight: -160,
-    marginTop: 10
-  },
-  leagueName: {
-    fontFamily: 'sans-serif-thin',
-    // color: 'rgb(255, 197, 66)',
-    color: 'white',
-    position: 'relative',
-    // marginRight: 20,
-    width: '25%',
-    // textAlign:'center',
-    fontSize: 16,
-    // fontWeight:'bold',
-    marginTop: 10,
-    marginRight: 15
-  },
-  teamName: {
-    fontFamily: 'sans-serif-thin',
-    // color: 'rgb(255, 197, 66)',
-    color: 'white',
-    position: 'relative',
-    // marginRight: 20,
-    marginTop: 5,
-    width: '40%',
-    textAlign: 'center',
-    fontSize: 10
-  },
-  leagueBox: {
-    marginTop: '6%',
-    marginLeft: '5%',
-    width: '90%',
-    height: '100%',
-    backgroundColor: '#2A3C44',
-    borderRadius: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.00,
-    elevation: 24,
-    justifyContent: 'space-between'
-  },
-  flag: {
-    position: 'relative',
-    width: 25,
-    height: 20,
-    marginRight: 5,
-    marginTop: 7
-    // backgroundColor: 'red',
-  },
-  homeLogo: {
-    position: 'relative',
-    width: 20,
-    height: 20,
-  },
-  awayLogo: {
-    position: 'relative',
-    width: 20,
-    height: 20,
-  },
-  matchRow: {
-    // marginTop: 10,
-    flexDirection: 'row-reverse',
-    justifyContent: 'space-evenly',
-    position: 'relative',
-    width: '100%'
-  },
-  leagueAndFlag: {
-    flexDirection: 'row-reverse'
-  },
-  minute: {
-    color: "#FF8A34",
-    fontSize: 9,
-    textAlign: 'center',
-    marginTop: 20
-  },
-  minuteContainer: {
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  score: {
-    fontFamily: 'sans-serif-thin',
-    color: 'rgb(255, 197, 66)',
-    // color: 'white',
-    position: 'relative',
-    // marginRight: 20,
-    marginTop: 5,
-    textAlign: 'center',
-    justifyContent: 'center'
-  },
-  flatListMatch: {
-    // justifyContent:'center',
-    textAlign: 'center',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingRight: 10,
-    paddingLeft: 10
-  }
-});
 
 const mapStateToProps = ({ liveScore }) => {
   return {
-    matches: liveScore.matches
+    leagues: liveScore.leagues
   };
 };
 
