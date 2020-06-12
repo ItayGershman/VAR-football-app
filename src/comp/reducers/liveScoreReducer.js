@@ -8,16 +8,17 @@ const initialState = {
     // minute:[],
     // goalsAwayTeam:[],
     // goalsHomeTeam:[],
-    matches:[{
-        matchLeague :'',
-        leagueFlag :'',
-        matchHome : '',
-        matchAway :'',
-        minute : 0,
-        goalsAwayTeam :0,
-        goalsHomeTeam :0
-    }],//objects
-    leagues:[]
+    // matches:[{
+    //     matchLeague :'',
+    //     leagueFlag :'',
+    //     matchHome : '',
+    //     matchAway :'',
+    //     minute : 0,
+    //     goalsAwayTeam :0,
+    //     goalsHomeTeam :0
+    // }],//objects
+    leagues:[],
+    
 };
 
 export default (state = initialState, action) => {
@@ -26,7 +27,8 @@ export default (state = initialState, action) => {
             console.log('LIVE_GAMES')
             return {
                 ...state,
-                matches:action.matches
+                // matches:action.matches,
+                leagues:action.leagues
             }
             //filter tracks without image to display
             //   const newTracks = action.tracks.filter((track) => track.artwork_url !== null);

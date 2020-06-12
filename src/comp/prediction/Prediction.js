@@ -1,20 +1,18 @@
 import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import {View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import Header from '../Header';
 import DataContainerStyles from '../../styles'
-import CreateBox from '../gamesRoom/CreateBox'
 import styles from './predictionStyle'
 import { connect } from 'react-redux';
 import getOdds from '../actions/predictionActions'
-
 import Form from 'react-native-form'
 import { Dropdown } from 'react-native-material-dropdown';
 
 const data = { username: 'example' };
 
-
+//from API
 let league = [{
   value: 'Spain',
 }, {
@@ -48,17 +46,14 @@ let games = [{
 // });
 
 const Prediction = ({ navigation, odds, getOdds, match, advice }) => {
-  console.log('before getOdds')
   useEffect(() => {
     getOdds('')
   }, []);
-  console.log(JSON.stringify(odds))
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
       <View style={DataContainerStyles.dataContainer}>
         <Text style={styles.text}> Prediction</Text>
-
         <Form forwardRef="form">
           <Dropdown
             label='Please Choose Leauge'
@@ -80,7 +75,6 @@ const Prediction = ({ navigation, odds, getOdds, match, advice }) => {
             pickerStyle={{ backgroundColor: '#2A3C44' }}
             shadeOpacity={0.20}
           />
-
         </Form>
         <View style={styles.boxCreate}>
           <Text style={styles.league}>La Liga</Text>
@@ -90,10 +84,8 @@ const Prediction = ({ navigation, odds, getOdds, match, advice }) => {
             <Text style={styles.ratioText}>2</Text>
           </View>
           <View style={styles.match}>
-            {/* <Text style={styles.predictionText}>Real Madrid</Text> */}
             <Text style={styles.predictionText}>{match.home}</Text>
             <Text style={styles.matchRatio}>    {odds.homeODDS}    {odds.drawODDS}    {odds.awayODDS}</Text>
-            {/* <Text style={styles.predictionText}>FC Barcleona</Text> */}
             <Text style={styles.predictionText}>{match.away}</Text>
           </View>
           <Text>Our advice:{advice}</Text>
@@ -103,7 +95,11 @@ const Prediction = ({ navigation, odds, getOdds, match, advice }) => {
   );
 }
 Prediction.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
+  getOdds: PropTypes.func, 
+  odds: PropTypes.object, 
+  match:PropTypes.object, 
+  advice:PropTypes.string
 };
 
 const mapStateToProps = ({ prediction }) => {

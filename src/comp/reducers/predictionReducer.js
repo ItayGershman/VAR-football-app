@@ -20,7 +20,8 @@ const initialState = {
         home: string,
         draw: string,
         away: string
-    }
+    },
+    leagues:[]
 };
 
 export default (state = initialState, action) => {
