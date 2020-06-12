@@ -6,10 +6,11 @@ import Header from '../Header';
 import DataContainerStyles from '../../styles'
 import { connect } from 'react-redux';
 import getLiveGames from '../actions/liveScoreActions'
-import { GameView } from './GameView'
+import GameView from './GameView'
 import liveStyles from './liveStyles'
+import Image from 'react-native-remote-svg'
 
-const Livescore = ({ navigation, getLiveGames, matches }) => {
+const Livescore = ({ navigation, getLiveGames, leagues }) => {
   console.log('LiveScore')
   useEffect(() => {
     getLiveGames('germen')

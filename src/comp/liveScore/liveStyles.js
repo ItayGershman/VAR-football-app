@@ -8,7 +8,7 @@ const liveStyles = StyleSheet.create({
     text: {
         justifyContent: 'center',
         color: 'white',
-        // textAlign: 'center',
+        textAlign: 'center',
         fontSize: 30,
         marginRight: -160,
         marginTop: 10
@@ -19,7 +19,7 @@ const liveStyles = StyleSheet.create({
         color: 'white',
         position: 'relative',
         // marginRight: 20,
-        width: '20%',
+        width: '22%',
         // textAlign:'center',
         fontSize: 12,
         // fontWeight:'bold',
