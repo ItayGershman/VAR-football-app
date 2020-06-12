@@ -9,13 +9,12 @@ import getLiveGames from '../actions/liveScoreActions'
 import { GameView } from './GameView'
 import liveStyles from './liveStyles'
 
-const Livescore = ({ navigation, getLiveGames, leagues }) => {
+const Livescore = ({ navigation, getLiveGames, matches }) => {
   console.log('LiveScore')
   useEffect(() => {
     getLiveGames('germen')
   }, []);
   console.log('after useEffect')
-
   return (
     <View style={liveStyles.container}>
       <Header navigation={navigation} />
@@ -59,7 +58,6 @@ Livescore.propTypes = {
   leagues: PropTypes.array,
   getLiveGames: PropTypes.func
 };
-
 
 const mapStateToProps = ({ liveScore }) => {
   return {

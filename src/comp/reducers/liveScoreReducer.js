@@ -18,7 +18,6 @@ const initialState = {
     //     goalsHomeTeam :0
     // }],//objects
     leagues:[],
-    
 };
 
 export default (state = initialState, action) => {
