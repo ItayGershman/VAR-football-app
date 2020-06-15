@@ -11,7 +11,8 @@ const liveStyles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 30,
         marginRight: -160,
-        marginTop: 10
+        marginTop: 10,
+        marginBottom:'5%'
     },
     leagueName: {
         fontFamily: 'sans-serif-thin',
@@ -19,7 +20,7 @@ const liveStyles = StyleSheet.create({
         color: 'white',
         position: 'relative',
         // marginRight: 20,
-        width: '22%',
+        // width: '25%',
         // textAlign:'center',
         fontSize: 12,
         // fontWeight:'bold',
@@ -37,10 +38,10 @@ const liveStyles = StyleSheet.create({
         fontSize: 10
     },
     leagueBox: {
-        marginTop: '6%',
+        // marginBottom: '6%',
         marginLeft: '5%',
         width: '90%',
-        height: '100%',
+        // height: '100%',
         backgroundColor: '#2A3C44',
         borderRadius: 20,
         shadowColor: "#000",
@@ -79,7 +80,8 @@ const liveStyles = StyleSheet.create({
         width: '100%'
     },
     leagueAndFlag: {
-        flexDirection: 'row-reverse'
+        flexDirection: 'row-reverse',
+        marginBottom:'3%'
     },
     minute: {
         color: "#FF8A34",
