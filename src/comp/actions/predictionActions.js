@@ -1,3 +1,7 @@
+// leagues list is static with the 6 leagues_id
+
+
+
 import { ODDS } from './actionsType';
 
 const getOdds = (query) => async (dispatch) => {
@@ -13,6 +17,10 @@ const getOdds = (query) => async (dispatch) => {
         score: {},
     }
     
+    let leaguesID = [775]
+
+
+
     fetch(`https://api-football-v1.p.rapidapi.com/v2/odds/league/754/2020-06-15?timezone=Asia/Jerusalem`, {
         "method": "GET",
         "headers": {
