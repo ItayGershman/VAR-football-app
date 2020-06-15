@@ -16,11 +16,11 @@ const initialState = {
         goalsHome: number,
         goalsAway: number
     },
-    winningPercent: {
-        home: string,
-        draw: string,
-        away: string
-    },
+    // winningPercent: {
+    //     home: string,
+    //     draw: string,
+    //     away: string
+    // },
     leagues:[]
 };
 

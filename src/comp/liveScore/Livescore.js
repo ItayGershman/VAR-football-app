@@ -21,7 +21,7 @@ const Livescore = ({ navigation, getLiveGames, leagues }) => {
       <Header navigation={navigation} />
       <View style={DataContainerStyles.dataContainer}>
         <Text style={liveStyles.text}> Livescore</Text>
-        <ScrollView>
+        {/* <ScrollView> */}
           {
             leagues.map((league, key) => {
               return (
@@ -48,7 +48,7 @@ const Livescore = ({ navigation, getLiveGames, leagues }) => {
               )
             })
           }
-        </ScrollView>
+        {/* </ScrollView> */}
       </View>
     </View>
   );

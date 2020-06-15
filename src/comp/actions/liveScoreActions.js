@@ -1,5 +1,6 @@
 //Exmaple!!
 
+
 import { LEAGUES, LIVE_GAMES, LIVE_GAMES_BY_DATE } from './actionsType';
 
 const getLiveGames = (query) => async (dispatch) => {
@@ -12,12 +13,14 @@ const getLiveGames = (query) => async (dispatch) => {
   //   .then(data => {
   //     dispatch({ type: LIVE_GAMES, /*tracks: data, query: queryTitle*/ });
   //   })
-
+//?timezone=Europe/London
   // fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/live', { //All live games
   // fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/rounds/633/current', { //All league games by date
 
-  fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/league/754/Regular_Season_-_28?timezone=Asia/Jerusalem', { //All league games by round
-    "method": "GET",
+  // fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/league/754/Regular_Season_-_28?timezone=Asia/Jerusalem', { //All league games by round
+  fetch('https://api-football-v1.p.rapidapi.com/v2/fixtures/league/775/2020-06-15?timezone=Asia/Jerusalem', { //All league games by round
+
+  "method": "GET",
     "headers": {
       "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
       "x-rapidapi-key": "b78d8edbacmsh0d14864fbf5ad4ap1427d6jsn0b94b1b8d032"
