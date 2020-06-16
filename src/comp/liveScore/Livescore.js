@@ -13,7 +13,7 @@ import Image from 'react-native-remote-svg'
 const Livescore = ({ navigation, getLiveGames, leagues }) => {
   console.log('LiveScore')
   useEffect(() => {
-    getLiveGames('germen')
+    getLiveGames('LIVE_GAMES')
   }, []);
   console.log('after useEffect')
   return (
@@ -21,10 +21,10 @@ const Livescore = ({ navigation, getLiveGames, leagues }) => {
       <Header navigation={navigation} />
       <View style={DataContainerStyles.dataContainer}>
         <Text style={liveStyles.text}> Livescore</Text>
-        {/* <ScrollView> */}
-          {
-            leagues.map((league, key) => {
-              return (
+        <ScrollView>
+        {
+          leagues.map((league, key) => {
+            return (
                 <View key={key} style={liveStyles.leagueBox}>
                   <View style={liveStyles.leagueAndFlag}>
                     <Text style={liveStyles.leagueName}>{league.league}</Text>
@@ -45,10 +45,10 @@ const Livescore = ({ navigation, getLiveGames, leagues }) => {
                     keyExtractor={item => item.id}
                   />
                 </View>
-              )
-            })
-          }
-        {/* </ScrollView> */}
+            )
+          })
+        }
+        </ScrollView>
       </View>
     </View>
   );

@@ -5,7 +5,6 @@ import Image from 'react-native-remote-svg'
 import liveStyles from './liveStyles'
 
 export default function GameView({ game }) {
-    console.log(`inside comp${JSON.stringify(game)}`)
     return (
         <View style={liveStyles.flatListMatch}>
             <View style={liveStyles.minuteContainer}>
@@ -19,7 +18,12 @@ export default function GameView({ game }) {
                     source={{ uri: game.matchHome.logo }}
                 />
                 <Text style={liveStyles.teamName}>{game.matchHome.team_name}</Text>
-                <Text style={liveStyles.score}>{game.goalsHomeTeam}-{game.goalsAwayTeam}</Text>
+                <Text style={liveStyles.score}>{game.goalsHomeTeam}
+                    {
+                        game.minute == 0 ? 'VS' : '-'
+                    }
+                    {game.goalsAwayTeam}
+                </Text>
                 <Text style={liveStyles.teamName}>{game.matchAway.team_name}</Text>
                 <Image
                     style={liveStyles.awayLogo}
