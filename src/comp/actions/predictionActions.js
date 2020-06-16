@@ -1,5 +1,7 @@
 import { ODDS, PREDICTION_LIVE_GAMES } from './actionsType';
 import { API_KEY, API_HOST } from 'react-native-dotenv'
+import getCurrentDate from '../../constants'
+
 export const getOdds = (fixture_id) => async (dispatch) => {
     console.log(fixture_id)
 
@@ -107,7 +109,7 @@ export const getMatchId = (query) => async (dispatch) => {
 
 export const getLiveGames = (league) => async (dispatch) => {
     //league = 'English'/'Spain' etc.
-    const date = getCurrentDate();
+    let date = getCurrentDate();
     let leagueId = '0'
     switch (league) {
         case 'Spain': leagueId = '775'; break;
@@ -138,13 +140,4 @@ export const getLiveGames = (league) => async (dispatch) => {
              */
         })
         .catch(e => alert(e))
-}
-
-const getCurrentDate = () => {
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    const year = today.getFullYear();
-    today = year + '-' + day + '-' + month
-    return today
 }
