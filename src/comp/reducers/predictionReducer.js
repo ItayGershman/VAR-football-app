@@ -1,4 +1,4 @@
-import { LIVE_GAMES, ODDS } from '../actions/actionsType'
+import { ODDS, PREDICTION_LIVE_GAMES } from '../actions/actionsType'
 import { number, string } from 'prop-types';
 
 const initialState = {
@@ -16,12 +16,8 @@ const initialState = {
         goalsHome: number,
         goalsAway: number
     },
-    // winningPercent: {
-    //     home: string,
-    //     draw: string,
-    //     away: string
-    // },
-    leagues:[]
+    matchId: '',
+    leagues: []
 };
 
 export default (state = initialState, action) => {
@@ -34,6 +30,13 @@ export default (state = initialState, action) => {
                 odds: action.odds,
                 match: action.match,
                 advice: action.advice.split("Winner :").pop()
+            }
+        }
+        case PREDICTION_LIVE_GAMES: {
+            console.log("LOVE_GAMES")
+            return {
+                ...state,
+                leagues: action.leagues
             }
         }
         default:

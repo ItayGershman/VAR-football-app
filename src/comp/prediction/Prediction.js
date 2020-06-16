@@ -1,51 +1,22 @@
 import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
-import {View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import Header from '../Header';
 import DataContainerStyles from '../../styles'
 import styles from './predictionStyle'
 import { connect } from 'react-redux';
-import getOdds from '../actions/predictionActions'
+import { getOdds, getMatchId } from '../actions/predictionActions'
 import Form from 'react-native-form'
 import { Dropdown } from 'react-native-material-dropdown';
-
-const data = { username: 'example' };
+import getLiveGames from '../actions/predictionActions'
 
 //from API
-let league = [{
-  value: 'Spain',
-}, {
-  value: 'England',
-}, {
-  value: 'Italy',
-}];
+let league = [{ value: 'Spain', }, { value: 'Primera Division', }, { value: 'Italy', }];
 
-let games = [{
-  value: 'Real Madrid VS Barcelona',
-}, {
-  value: 'Sevillia VS Valencia',
-}, {
-  value: 'Espanyol VS Bilbao',
-}];
+let games = [{ value: 'Real Madrid VS Barcelona', }, { value: 'Sevillia VS Valencia', }, { value: 'Espanyol VS Bilbao', }];
 
-
-// fetch('https://api-football-v1.p.rapidapi.com/v2/predictions/157462', {
-// 	method: "GET",
-// 	headers: {
-// 		"x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-// 		"x-rapidapi-key": "b78d8edbacmsh0d14864fbf5ad4ap1427d6jsn0b94b1b8d032"
-//   },
-// })
-// .then(response => response.json())
-// .then(data => {
-//   console.log('Success:', data);
-// })
-// .catch((error) => {
-//   console.error('Error:', error);
-// });
-
-const Prediction = ({ navigation, odds, getOdds, match, advice }) => {
+const Prediction = ({ navigation, odds, getOdds, getMatchId, match, advice, getLiveGames }) => {
   useEffect(() => {
     getOdds('')
   }, []);
@@ -64,6 +35,11 @@ const Prediction = ({ navigation, odds, getOdds, match, advice }) => {
             dropdownPosition={-4.3}
             pickerStyle={{ backgroundColor: '#2A3C44' }}
             shadeOpacity={0.20}
+            onChangeText={(value) => {
+              //get live games by league for prediction!
+              // getLiveGames(value) - value is league
+
+            }}
           />
           <Dropdown
             label='Choose a game from today'
@@ -74,6 +50,10 @@ const Prediction = ({ navigation, odds, getOdds, match, advice }) => {
             dropdownPosition={-4.8}
             pickerStyle={{ backgroundColor: '#2A3C44' }}
             shadeOpacity={0.20}
+            onChangeText={(value) => {
+              //get fixture_id from match picked
+              // getMatchId(value)
+            }}
           />
         </Form>
         <View style={styles.boxCreate}>
@@ -96,18 +76,20 @@ const Prediction = ({ navigation, odds, getOdds, match, advice }) => {
 }
 Prediction.propTypes = {
   navigation: PropTypes.object,
-  getOdds: PropTypes.func, 
-  odds: PropTypes.object, 
-  match:PropTypes.object, 
-  advice:PropTypes.string
+  getOdds: PropTypes.func,
+  getMatchId: PropTypes.func,
+  odds: PropTypes.object,
+  match: PropTypes.object,
+  advice: PropTypes.string,
 };
 
 const mapStateToProps = ({ prediction }) => {
   return {
     odds: prediction.odds,
     match: prediction.match,
-    advice: prediction.advice
+    advice: prediction.advice,
+    matchId: prediction.matchId,
   };
 };
 
-export default connect(mapStateToProps, { getOdds })(Prediction);
+export default connect(mapStateToProps, { getLiveGames, getOdds, getMatchId })(Prediction);

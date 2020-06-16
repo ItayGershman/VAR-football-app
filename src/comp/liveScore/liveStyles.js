@@ -39,6 +39,7 @@ const liveStyles = StyleSheet.create({
     },
     leagueBox: {
         // marginBottom: '6%',
+        marginBottom:'5%',
         marginLeft: '5%',
         width: '90%',
         // height: '100%',

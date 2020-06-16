@@ -1,12 +1,8 @@
-// leagues list is static with the 6 leagues_id
+import { ODDS, PREDICTION_LIVE_GAMES } from './actionsType';
+import { API_KEY, API_HOST } from 'react-native-dotenv'
+export const getOdds = (fixture_id) => async (dispatch) => {
+    console.log(fixture_id)
 
-
-
-import { ODDS } from './actionsType';
-
-const getOdds = (query) => async (dispatch) => {
-    console.log(query)
-    //query -> i get league and match
     let odds = {
         odds: {},
         fixture_id: ''
@@ -16,16 +12,12 @@ const getOdds = (query) => async (dispatch) => {
         advice: '',
         score: {},
     }
-    
-    let leaguesID = [775]
-
-
-
-    fetch(`https://api-football-v1.p.rapidapi.com/v2/odds/league/754/2020-06-15?timezone=Asia/Jerusalem`, {
+    // fetch(`https://api-football-v1.p.rapidapi.com/v2/odds/league/754/2020-06-15?timezone=Asia/Jerusalem`, {
+    fetch(`https://api-football-v1.p.rapidapi.com/v2/odds/fixture/${fixture_id}`, {
         "method": "GET",
         "headers": {
-            "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-            "x-rapidapi-key": "b78d8edbacmsh0d14864fbf5ad4ap1427d6jsn0b94b1b8d032"
+            "x-rapidapi-host": API_HOST,
+            "x-rapidapi-key": API_KEY
         }
     })
         .then((response) => response.json())
@@ -36,13 +28,13 @@ const getOdds = (query) => async (dispatch) => {
                 url: https://api-football-v1.p.rapidapi.com/v2/odds/league/{league_id}/label/{label_id} - by label_id
                 get odds
             */
-           // right now it doesnt get the right match...
+            // right now it doesnt get the right match...
             const oddsObj = {
                 homeODDS: data.api.odds[0].bookmakers[0].bets[0].values[0].odd,
                 drawODDS: data.api.odds[0].bookmakers[0].bets[0].values[1].odd,
                 awayODDS: data.api.odds[0].bookmakers[0].bets[0].values[2].odd
             }
-            const fixture_id = data.api.odds[0].fixture.fixture_id
+            const fixture_id = fixture_id
 
             // const oddsObj = {
             //     homeODDS: 2.20,
@@ -54,7 +46,7 @@ const getOdds = (query) => async (dispatch) => {
             odds.odds = oddsObj
             odds.fixture_id = fixture_id
             // fetch(`https://api-football-v1.p.rapidapi.com/v2/predictions/${odds.fixture_id}`, {
-                fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/id/209189`, {
+            fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/id/209189`, {
                 "method": "GET",
                 "headers": {
                     "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
@@ -98,9 +90,7 @@ const getOdds = (query) => async (dispatch) => {
         .catch((error) => {
             console.error(`error:${error}`)
         })
-
-
-
+        
     dispatch({
         type: ODDS,
         odds: odds.odds,
@@ -110,5 +100,51 @@ const getOdds = (query) => async (dispatch) => {
     });
 }
 
+export const getMatchId = (query) => async (dispatch) => {
+    console.log(query)
 
-export default getOdds
+}
+
+export const getLiveGames = (league) => async (dispatch) => {
+    //league = 'English'/'Spain' etc.
+    const date = getCurrentDate();
+    let leagueId = '0'
+    switch (league) {
+        case 'Spain': leagueId = '775'; break;
+        case 'Primera Division': leagueId = '524'; break;
+        case 'Italy': leagueId = '891'; break;
+        case 'Israel': leagueId = '637'; break;
+        case 'French': leagueId = '525'; break;
+        case 'Germen': leagueId = '754'; break;
+        default: break;
+    }
+    //get all matches from specific league in specific date with israel timezone
+    fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/league/${leagueId}/${date}?timezone=Asia/Jerusalem`, {
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+            "x-rapidapi-key": "b78d8edbacmsh0d14864fbf5ad4ap1427d6jsn0b94b1b8d032"
+        }
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('Success:', data);
+
+            /**
+             * dispatch(()=>{
+             * type: PREDICTION_LIVE_GAMES,
+             * data...
+             * })
+             */
+        })
+        .catch(e => alert(e))
+}
+
+const getCurrentDate = () => {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const year = today.getFullYear();
+    today = year + '-' + day + '-' + month
+    return today
+}
