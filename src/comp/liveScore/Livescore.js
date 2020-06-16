@@ -9,6 +9,8 @@ import getLiveGames from '../actions/liveScoreActions'
 import GameView from './GameView'
 import liveStyles from './liveStyles'
 import Image from 'react-native-remote-svg'
+import getCurrentDate from '../../constants'
+
 
 const Livescore = ({ navigation, getLiveGames, leagues }) => {
   console.log('LiveScore')
@@ -21,6 +23,7 @@ const Livescore = ({ navigation, getLiveGames, leagues }) => {
       <Header navigation={navigation} />
       <View style={DataContainerStyles.dataContainer}>
         <Text style={liveStyles.text}> Livescore</Text>
+        {/* <Text>{getCurrentDate()}</Text> */}
         <ScrollView>
         {
           leagues.map((league, key) => {

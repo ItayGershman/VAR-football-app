@@ -1,5 +1,7 @@
 import { LIVE_GAMES } from './actionsType';
 import { API_KEY, API_HOST } from 'react-native-dotenv'
+import getCurrentDate from '../../constants'
+
 const getLiveGames = (query) => async (dispatch) => {
   console.log(query)
   // getGamesByLeague(dispatch, 775)//spain
@@ -10,7 +12,7 @@ const getLiveGames = (query) => async (dispatch) => {
   // getGamesByLeague(dispatch, 525)//French
   // getGamesByLeague(dispatch, [754,754])//Germen
   let leagues = [775, 524, 754, 891, 637, 525]
-  for(let i = 0; i < 6; ++ i ){
+  for (let i = 0; i < 6; ++i) {
     getGamesByLeague(dispatch, leagues[i])
   }
   // for (league in leagues) {
@@ -22,8 +24,8 @@ export default getLiveGames
 
 
 const getGamesByLeague = (dispatch, leaguedID) => {
-  console.log(`leaguesId:${leaguedID}`)
-  fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/league/${leaguedID}/2020-06-16?timezone=Asia/Jerusalem`, { //All league games by round
+  const date = getCurrentDate();
+  fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/league/${leaguedID}/${date}?timezone=Asia/Jerusalem`, { //All league games by round
     "method": "GET",
     "headers": {
       "x-rapidapi-host": API_HOST,
@@ -43,6 +45,7 @@ const getGamesByLeague = (dispatch, leaguedID) => {
       console.error(error)
     })
 }
+
 const organizeMatchByLeague = (data) => {
   let leagues = []
   for (let i = 0; i < data.api.fixtures.length; ++i) {
@@ -74,3 +77,4 @@ const organizeMatchByLeague = (data) => {
   }
   return leagues
 }
+

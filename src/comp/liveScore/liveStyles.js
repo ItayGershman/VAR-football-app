@@ -74,7 +74,7 @@ const liveStyles = StyleSheet.create({
         height: 20,
     },
     matchRow: {
-        // marginTop: 10,
+        marginBottom:'1.5%',
         flexDirection: 'row-reverse',
         justifyContent: 'space-evenly',
         position: 'relative',
