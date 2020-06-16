@@ -6,19 +6,20 @@ import Header from '../Header';
 import DataContainerStyles from '../../styles'
 import styles from './predictionStyle'
 import { connect } from 'react-redux';
-import { getOdds, getMatchId } from '../actions/predictionActions'
+import { getOdds, getMatchId, getLiveGames, getLeagues } from '../actions/predictionActions'
 import Form from 'react-native-form'
 import { Dropdown } from 'react-native-material-dropdown';
-import getLiveGames from '../actions/predictionActions'
 
 //from API
-let league = [{ value: 'Spain', }, { value: 'Primera Division', }, { value: 'Italy', }];
+// let league = [{ value: 'Spain' }, { value: 'England' }, { value: 'Italy' },{ value: 'Germen' }];
+// let games = [{ value: 'Real Madrid VS Barcelona', }, { value: 'Sevillia VS Valencia', }, { value: 'Espanyol VS Bilbao', }];
 
-let games = [{ value: 'Real Madrid VS Barcelona', }, { value: 'Sevillia VS Valencia', }, { value: 'Espanyol VS Bilbao', }];
-
-const Prediction = ({ navigation, odds, getOdds, getMatchId, match, advice, getLiveGames }) => {
+const Prediction = ({ navigation, odds, leagues, games, getOdds, getMatchId, getLeagues, match, advice, getLiveGames }) => {
   useEffect(() => {
-    getOdds('')
+    // getOdds('')
+    // getLiveGames('Germen')
+    getLeagues()
+
   }, []);
   return (
     <View style={styles.container}>
@@ -27,8 +28,9 @@ const Prediction = ({ navigation, odds, getOdds, getMatchId, match, advice, getL
         <Text style={styles.text}> Prediction</Text>
         <Form forwardRef="form">
           <Dropdown
-            label='Please Choose Leauge'
-            data={league}
+            label='Please Choose League'
+            // defaultValue='Germen'
+            data={leagues.league}//should be leagues.league
             containerStyle={{ width: 235 }}
             textColor={'rgb(255, 197, 66)'}
             baseColor={'rgb(255, 197, 66)'}
@@ -37,13 +39,13 @@ const Prediction = ({ navigation, odds, getOdds, getMatchId, match, advice, getL
             shadeOpacity={0.20}
             onChangeText={(value) => {
               //get live games by league for prediction!
-              // getLiveGames(value) - value is league
-
+              getLiveGames(value)
             }}
           />
+
           <Dropdown
             label='Choose a game from today'
-            data={games}
+            data={games}//[matches] -> [{value:'real-barca'},{}]
             containerStyle={{ width: 235 }}
             textColor={'rgb(255, 197, 66)'}
             baseColor={'rgb(255, 197, 66)'}
@@ -51,8 +53,7 @@ const Prediction = ({ navigation, odds, getOdds, getMatchId, match, advice, getL
             pickerStyle={{ backgroundColor: '#2A3C44' }}
             shadeOpacity={0.20}
             onChangeText={(value) => {
-              //get fixture_id from match picked
-              // getMatchId(value)
+              // alert(value)
             }}
           />
         </Form>
@@ -81,6 +82,7 @@ Prediction.propTypes = {
   odds: PropTypes.object,
   match: PropTypes.object,
   advice: PropTypes.string,
+  getLeagues: PropTypes.func
 };
 
 const mapStateToProps = ({ prediction }) => {
@@ -89,7 +91,9 @@ const mapStateToProps = ({ prediction }) => {
     match: prediction.match,
     advice: prediction.advice,
     matchId: prediction.matchId,
+    leagues: prediction.leagues,
+    games: prediction.games
   };
 };
 
-export default connect(mapStateToProps, { getLiveGames, getOdds, getMatchId })(Prediction);
+export default connect(mapStateToProps, { getLiveGames, getOdds, getMatchId, getLeagues })(Prediction);

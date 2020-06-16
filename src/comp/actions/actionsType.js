@@ -4,3 +4,4 @@ export const LEAGUES = 'LEAGUES'
 
 export const ODDS = 'ODDS'
 export const PREDICTION_LIVE_GAMES = 'PREDICTION_LIVE_GAMES'
+export const PREDICTION_LEAGUES = 'PREDICTION_LEAGUES'

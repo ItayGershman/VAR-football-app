@@ -17,7 +17,8 @@ const initialState = {
         goalsAway: number
     },
     matchId: '',
-    leagues: []
+    leagues: [],//[{league:'league name',games:{}},{}]
+    games: []
 };
 
 export default (state = initialState, action) => {
@@ -29,11 +30,21 @@ export default (state = initialState, action) => {
                 ...state,
                 odds: action.odds,
                 match: action.match,
-                advice: action.advice.split("Winner :").pop()
+                advice: action.advice
             }
         }
         case PREDICTION_LIVE_GAMES: {
-            console.log("LOVE_GAMES")
+            console.log("PREDICTION_LIVE_GAMES")
+            
+            return {
+                ...state,
+                // leagues: action.leagues,
+                // games: action.games
+            }
+        }
+        case PREDICTION_LEAGUES: {
+            console.log(PREDICTION_LEAGUES)
+            console.log(action.leagues)//array of string of leagues country names
             return {
                 ...state,
                 leagues: action.leagues

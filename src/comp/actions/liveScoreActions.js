@@ -22,7 +22,6 @@ const getLiveGames = (query) => async (dispatch) => {
 
 export default getLiveGames
 
-
 const getGamesByLeague = (dispatch, leaguedID) => {
   const date = getCurrentDate();
   fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/league/${leaguedID}/${date}?timezone=Asia/Jerusalem`, { //All league games by round
