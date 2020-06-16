@@ -92,7 +92,7 @@ export const getOdds = (fixture_id) => async (dispatch) => {
         .catch((error) => {
             console.error(`error:${error}`)
         })
-        
+
     dispatch({
         type: ODDS,
         odds: odds.odds,
@@ -108,36 +108,132 @@ export const getMatchId = (query) => async (dispatch) => {
 }
 
 export const getLiveGames = (league) => async (dispatch) => {
-    //league = 'English'/'Spain' etc.
-    let date = getCurrentDate();
-    let leagueId = '0'
-    switch (league) {
-        case 'Spain': leagueId = '775'; break;
-        case 'Primera Division': leagueId = '524'; break;
-        case 'Italy': leagueId = '891'; break;
-        case 'Israel': leagueId = '637'; break;
-        case 'French': leagueId = '525'; break;
-        case 'Germen': leagueId = '754'; break;
-        default: break;
-    }
+    dispatch({
+        type: PREDICTION_LIVE_GAMES,
+    })
+    // let leagueId = ''
+    // switch (league) {
+    //     case 'Spain': leagueId = '775'; break;
+    //     case 'England': leagueId = '524'; break;
+    //     case 'Italy': leagueId = '891'; break;
+    //     case 'Israel': leagueId = '637'; break;
+    //     case 'French': leagueId = '525'; break;
+    //     case 'Germen': leagueId = '754'; break;
+    //     default: break;
+
+    // }
+    // getGamesByLeague(dispatch, leagueId);
     //get all matches from specific league in specific date with israel timezone
-    fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/league/${leagueId}/${date}?timezone=Asia/Jerusalem`, {
+
+}
+
+
+export const getLeagues = () => async (dispatch) => {
+    const date = getCurrentDate()
+    fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/date/${date}?timezone=Asia/Jerusalem`, {
         "method": "GET",
         "headers": {
-            "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-            "x-rapidapi-key": "b78d8edbacmsh0d14864fbf5ad4ap1427d6jsn0b94b1b8d032"
+            "x-rapidapi-host": API_HOST,
+            "x-rapidapi-key": API_KEY
+        }
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('SuccessDate:', data);
+            let leaguesId = [775, 524, 891, 637, 525, 754]
+            let leagues = []
+            for (let i = 0; i < data.api.fixtures.length; ++i) {
+                if (leaguesId.includes(data.api.fixtures[i].league_id)) {
+                    console.log(`league no.${JSON.stringify(data.api.fixtures[i].league_id)}`)
+                    if (leagues.indexOf(JSON.stringify(data.api.fixtures[i].league_id)) === -1) {
+                        let leagueName = ''
+                        switch (JSON.stringify(data.api.fixtures[i].league_id)) {
+                            case 775: leagueName = 'Spain'; break;
+                            case 524: leagueName = 'England'; break;
+                            case 891: leagueName = 'Italy'; break;
+                            case 637: leagueName = 'Israel'; break;
+                            case 525: leagueName = 'French'; break;
+                            case 754: leagueName = 'Germen'; break;
+                            default:
+                                break;
+                        }
+                        leagues.push(leagueName)
+                    }
+                }
+            }
+            console.log(leagues);//contains only leagues from the leagues array
+            dispatch({
+                type: PREDICTION_LEAGUES,
+                leagues: leagues
+            })
+        })
+}
+
+const getGamesByLeague = (dispatch, leaguedID) => {
+    const date = getCurrentDate();
+    fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/league/${leaguedID}/${date}?timezone=Asia/Jerusalem`, { //All league games by round
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": API_HOST,
+            "x-rapidapi-key": API_KEY
         }
     })
         .then((response) => response.json())
         .then((data) => {
             console.log('Success:', data);
+            let leagues = organizeMatchByLeague(data)
+            const games = []
 
-            /**
-             * dispatch(()=>{
-             * type: PREDICTION_LIVE_GAMES,
-             * data...
-             * })
-             */
+            for (let i = 0; i < leagues[0].games.length; ++i) {
+                let home = leagues[0].games[i].matchHome.team_name
+                let away = leagues[0].games[i].matchAway.team_name
+                let match = {
+                    value: `${home}-${away}`
+                }
+
+                games.push(match)
+            }
+            dispatch({
+                type: PREDICTION_LIVE_GAMES,
+                leagues: leagues,
+                games: games
+            });
         })
-        .catch(e => alert(e))
+        .catch((error) => {
+            console.error(error)
+        })
+}
+
+
+const organizeMatchByLeague = (data) => {
+    let leagues = []
+    for (let i = 0; i < data.api.fixtures.length; ++i) {
+        let match = {}
+        const fixture = data.api.fixtures[i]
+        match.matchLeague = fixture.league.country
+        match.leagueFlag = fixture.league.flag
+        match.matchHome = fixture.homeTeam
+        match.matchAway = fixture.awayTeam
+        match.minute = fixture.elapsed
+        match.goalsAwayTeam = fixture.goalsAwayTeam
+        match.goalsHomeTeam = fixture.goalsHomeTeam
+        match.gameTime = fixture.event_date.substring(11, 16)
+        match.id = fixture.fixture_id
+
+        const gamesByLeague = {
+            league: fixture.league.name,
+            games: [match]
+        }
+
+        //Search if a specific league is inside leagues array - if yes push game into this league
+        let obj = leagues.find((obj, i) => {
+            if (obj.league === data.api.fixtures[i].league.name) {
+                leagues[i].games.push(match)
+                return true; // Stop searching
+            }
+        });
+        //Push another league (with game) into leagues array
+        if (obj === undefined) leagues.push(gamesByLeague)
+    }
+    return leagues
 }
