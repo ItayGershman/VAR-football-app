@@ -14,7 +14,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 // let league = [{ value: 'Spain' }, { value: 'England' }, { value: 'Italy' },{ value: 'Germen' }];
 // let games = [{ value: 'Real Madrid VS Barcelona', }, { value: 'Sevillia VS Valencia', }, { value: 'Espanyol VS Bilbao', }];
 
-const Prediction = ({ navigation, odds, leagues, games, getOdds, getMatchId, getLeagues, match, advice, getLiveGames }) => {
+const Prediction = ({ navigation, odds, leagues, selectedGames, gamedData, getOdds, getMatchId, getLeagues, match, advice, getLiveGames }) => {
   useEffect(() => {
     // getOdds('')
     // getLiveGames('Germen')
@@ -29,8 +29,7 @@ const Prediction = ({ navigation, odds, leagues, games, getOdds, getMatchId, get
         <Form forwardRef="form">
           <Dropdown
             label='Please Choose League'
-            // defaultValue='Germen'
-            data={leagues.league}//should be leagues.league
+            data={leagues}
             containerStyle={{ width: 235 }}
             textColor={'rgb(255, 197, 66)'}
             baseColor={'rgb(255, 197, 66)'}
@@ -45,7 +44,7 @@ const Prediction = ({ navigation, odds, leagues, games, getOdds, getMatchId, get
 
           <Dropdown
             label='Choose a game from today'
-            data={games}//[matches] -> [{value:'real-barca'},{}]
+            data={selectedGames}
             containerStyle={{ width: 235 }}
             textColor={'rgb(255, 197, 66)'}
             baseColor={'rgb(255, 197, 66)'}
@@ -53,7 +52,7 @@ const Prediction = ({ navigation, odds, leagues, games, getOdds, getMatchId, get
             pickerStyle={{ backgroundColor: '#2A3C44' }}
             shadeOpacity={0.20}
             onChangeText={(value) => {
-              // alert(value)
+              // getOdds(value,gamesData)
             }}
           />
         </Form>
@@ -92,7 +91,8 @@ const mapStateToProps = ({ prediction }) => {
     advice: prediction.advice,
     matchId: prediction.matchId,
     leagues: prediction.leagues,
-    games: prediction.games
+    selectedGames: prediction.selectedGames,
+    gamedData: prediction.gamesDate
   };
 };
 

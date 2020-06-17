@@ -1,4 +1,4 @@
-import { ODDS, PREDICTION_LIVE_GAMES } from '../actions/actionsType'
+import { ODDS, PREDICTION_LIVE_GAMES, PREDICTION_LEAGUES } from '../actions/actionsType'
 import { number, string } from 'prop-types';
 
 const initialState = {
@@ -17,8 +17,9 @@ const initialState = {
         goalsAway: number
     },
     matchId: '',
-    leagues: [],//[{league:'league name',games:{}},{}]
-    games: []
+    leagues: [],
+    gamesData: [],
+    selectedGames: []
 };
 
 export default (state = initialState, action) => {
@@ -35,19 +36,28 @@ export default (state = initialState, action) => {
         }
         case PREDICTION_LIVE_GAMES: {
             console.log("PREDICTION_LIVE_GAMES")
-            
+            //filter games by action.league
+            const result = state.gamesData.filter((game) => game.leagueID == action.league)
+            let matches = []
+            for (let i = 0; i < result.length; ++i) {
+                let match = {
+                    value: `${result[i].home} vs ${result[i].away}`
+                }
+                matches.push(match)
+            }
             return {
                 ...state,
-                // leagues: action.leagues,
-                // games: action.games
+                selectedGames: matches
             }
         }
         case PREDICTION_LEAGUES: {
             console.log(PREDICTION_LEAGUES)
             console.log(action.leagues)//array of string of leagues country names
+            //filter by league
             return {
                 ...state,
-                leagues: action.leagues
+                leagues: action.leagues,
+                gamesData: action.gamesData,
             }
         }
         default:
