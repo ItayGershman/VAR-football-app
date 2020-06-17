@@ -1,8 +1,19 @@
-import { ODDS, PREDICTION_LIVE_GAMES } from './actionsType';
+import { ODDS, PREDICTION_LIVE_GAMES, PREDICTION_LEAGUES } from './actionsType';
 import { API_KEY, API_HOST } from 'react-native-dotenv'
 import getCurrentDate from '../../constants'
 
-export const getOdds = (fixture_id) => async (dispatch) => {
+export const getOdds = (match, gamesData) => async (dispatch) => {
+    //find from match the fixture_id
+    let fixture_id = ''
+    for (let i = 0; i < gamesData.length; ++i) {
+        if (match.includes(gamesData[i].home)) {//Search for home team
+            if (match.includes(gamesData[i].away)) {//Search for away tem
+                console.log(gamesData.fixtureID)//this is the fixtureID we need to fetch!
+                fixture_id = gamesData.fixtureID
+                break
+            }
+        }
+    }
     console.log(fixture_id)
 
     let odds = {
@@ -104,27 +115,23 @@ export const getOdds = (fixture_id) => async (dispatch) => {
 
 export const getMatchId = (query) => async (dispatch) => {
     console.log(query)
-
 }
 
 export const getLiveGames = (league) => async (dispatch) => {
+    let leagueId = ''
+    switch (league) {
+        case 'Spain': leagueId = 775; break;
+        case 'England': leagueId = 524; break;
+        case 'Italy': leagueId = 891; break;
+        case 'Israel': leagueId = 637; break;
+        case 'French': leagueId = 525; break;
+        case 'Germen': leagueId = 754; break;
+        default: break;
+    }
     dispatch({
         type: PREDICTION_LIVE_GAMES,
+        league: leagueId
     })
-    // let leagueId = ''
-    // switch (league) {
-    //     case 'Spain': leagueId = '775'; break;
-    //     case 'England': leagueId = '524'; break;
-    //     case 'Italy': leagueId = '891'; break;
-    //     case 'Israel': leagueId = '637'; break;
-    //     case 'French': leagueId = '525'; break;
-    //     case 'Germen': leagueId = '754'; break;
-    //     default: break;
-
-    // }
-    // getGamesByLeague(dispatch, leagueId);
-    //get all matches from specific league in specific date with israel timezone
-
 }
 
 
@@ -142,29 +149,51 @@ export const getLeagues = () => async (dispatch) => {
             console.log('SuccessDate:', data);
             let leaguesId = [775, 524, 891, 637, 525, 754]
             let leagues = []
+            let gamesData = []
             for (let i = 0; i < data.api.fixtures.length; ++i) {
                 if (leaguesId.includes(data.api.fixtures[i].league_id)) {
                     console.log(`league no.${JSON.stringify(data.api.fixtures[i].league_id)}`)
-                    if (leagues.indexOf(JSON.stringify(data.api.fixtures[i].league_id)) === -1) {
-                        let leagueName = ''
-                        switch (JSON.stringify(data.api.fixtures[i].league_id)) {
-                            case 775: leagueName = 'Spain'; break;
-                            case 524: leagueName = 'England'; break;
-                            case 891: leagueName = 'Italy'; break;
-                            case 637: leagueName = 'Israel'; break;
-                            case 525: leagueName = 'French'; break;
-                            case 754: leagueName = 'Germen'; break;
-                            default:
-                                break;
-                        }
-                        leagues.push(leagueName)
+                    let leagueName = ''
+                    switch (JSON.stringify(data.api.fixtures[i].league_id)) {
+                        case '775': leagueName = 'Spain'; break;
+                        case '524': leagueName = 'England'; break;
+                        case '891': leagueName = 'Italy'; break;
+                        case '637': leagueName = 'Israel'; break;
+                        case '525': leagueName = 'French'; break;
+                        case '754': leagueName = 'Germen'; break;
+                        default:
+                            break;
                     }
+                    leagues.push(leagueName)
+                    //finish get leagues name
+                    let match = {}
+                    match.home = data.api.fixtures[i].awayTeam.team_name
+                    match.away = data.api.fixtures[i].homeTeam.team_name
+                    match.leagueID = data.api.fixtures[i].league_id
+                    match.minute = data.api.fixtures[i].elapsed
+                    match.date = data.api.fixtures[i].event_date.substring(11, 16)
+                    match.goalsAway = data.api.fixtures[i].goalsAwayTeam
+                    match.goalsHome = data.api.fixtures[i].goalsHomeTeam
+                    match.fixtureID = data.api.fixtures[i].fixture_id
+                    gamesData.push(match)
                 }
             }
-            console.log(leagues);//contains only leagues from the leagues array
+
+            let uniqueLeagues = [...new Set(leagues)];
+            console.log(uniqueLeagues);
+            console.log(`leagues:${uniqueLeagues}`);//contains only leagues from the leagues array
+            for (let i = 0; i < uniqueLeagues.length; ++i) {
+                let leagueObj = {
+                    value: uniqueLeagues[i]
+                }
+                uniqueLeagues[i] = leagueObj
+            }
+            console.log(`leagues:${JSON.stringify(uniqueLeagues)}`);//contains only leagues from the leagues array
+            console.log(`gamesData:${JSON.stringify(gamesData)}`)
             dispatch({
                 type: PREDICTION_LEAGUES,
-                leagues: leagues
+                leagues: uniqueLeagues,
+                gamesData: gamesData
             })
         })
 }
