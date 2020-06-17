@@ -14,9 +14,9 @@ import { Dropdown } from 'react-native-material-dropdown';
 // let league = [{ value: 'Spain' }, { value: 'England' }, { value: 'Italy' },{ value: 'Germen' }];
 // let games = [{ value: 'Real Madrid VS Barcelona', }, { value: 'Sevillia VS Valencia', }, { value: 'Espanyol VS Bilbao', }];
 
-const Prediction = ({ navigation, odds, leagues, selectedGames, gamedData, getOdds, getMatchId, getLeagues, match, advice, getLiveGames }) => {
+const Prediction = ({ navigation, odds, leagues, selectedGames, gamesData, getOdds, getMatchId, getLeagues, match, advice, getLiveGames }) => {
   useEffect(() => {
-    // getOdds('')
+    // getOdds()
     // getLiveGames('Germen')
     getLeagues()
 
@@ -51,8 +51,8 @@ const Prediction = ({ navigation, odds, leagues, selectedGames, gamedData, getOd
             dropdownPosition={-4.8}
             pickerStyle={{ backgroundColor: '#2A3C44' }}
             shadeOpacity={0.20}
-            onChangeText={(value) => {
-              // getOdds(value,gamesData)
+            onChangeText={(value,gamesData) => {
+              getOdds(value,gamesData)
             }}
           />
         </Form>
@@ -92,7 +92,7 @@ const mapStateToProps = ({ prediction }) => {
     matchId: prediction.matchId,
     leagues: prediction.leagues,
     selectedGames: prediction.selectedGames,
-    gamedData: prediction.gamesDate
+    gamesData: prediction.gamesDate
   };
 };
 

@@ -10,7 +10,7 @@ export default function GameView({ game }) {
             <View style={liveStyles.minuteContainer}>
                 {game.minute == 90 ? <Text style={liveStyles.minute}>Ended</Text> :
                     game.minute == 0 ? <Text style={liveStyles.minute}>{game.gameTime}</Text> :
-                        <Text style={liveStyles.minute}>{game.minute}</Text>}
+                        <Text style={liveStyles.minute}>{game.minute}'</Text>}
             </View>
             <View style={liveStyles.matchRow}>
                 <Image

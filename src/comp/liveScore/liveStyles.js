@@ -38,8 +38,10 @@ const liveStyles = StyleSheet.create({
         fontSize: 10
     },
     leagueBox: {
-        // marginBottom: '6%',
-        marginBottom:'5%',
+        // paddingBottom:'5%',
+        // marginBottom:'5%',
+        marginTop:'3%',
+        // marginBottom:'3%',
         marginLeft: '5%',
         width: '90%',
         // height: '100%',
@@ -112,7 +114,7 @@ const liveStyles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '100%',
         paddingRight: 10,
-        paddingLeft: 10
+        paddingLeft: 10,
     }
 });
 

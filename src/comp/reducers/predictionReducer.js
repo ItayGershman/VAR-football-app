@@ -53,6 +53,7 @@ export default (state = initialState, action) => {
         case PREDICTION_LEAGUES: {
             console.log(PREDICTION_LEAGUES)
             console.log(action.leagues)//array of string of leagues country names
+            console.log(`insideReducer:${JSON.stringify(action.gamesData)}`)
             //filter by league
             return {
                 ...state,

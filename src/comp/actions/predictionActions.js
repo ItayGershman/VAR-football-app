@@ -5,10 +5,11 @@ import getCurrentDate from '../../constants'
 export const getOdds = (match, gamesData) => async (dispatch) => {
     //find from match the fixture_id
     let fixture_id = ''
+    alert(JSON.stringify(gamesData))
     for (let i = 0; i < gamesData.length; ++i) {
         if (match.includes(gamesData[i].home)) {//Search for home team
             if (match.includes(gamesData[i].away)) {//Search for away tem
-                console.log(gamesData.fixtureID)//this is the fixtureID we need to fetch!
+                // alert(JSON.stringify(gamesData.fixtureID))//this is the fixtureID we need to fetch!
                 fixture_id = gamesData.fixtureID
                 break
             }
