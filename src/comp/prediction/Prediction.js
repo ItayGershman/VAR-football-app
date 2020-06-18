@@ -9,7 +9,8 @@ import { connect } from 'react-redux';
 import { getOdds, getLiveGames, getLeagues } from '../actions/predictionActions'
 import Form from 'react-native-form'
 import { Dropdown } from 'react-native-material-dropdown';
-
+import PredictionGameView from './PredictionGameView'
+import { ScrollView } from 'react-native-gesture-handler';
 //from API
 // let league = [{ value: 'Spain' }, { value: 'England' }, { value: 'Italy' },{ value: 'Germen' }];
 // let games = [{ value: 'Real Madrid VS Barcelona', }, { value: 'Sevillia VS Valencia', }, { value: 'Espanyol VS Bilbao', }];
@@ -56,39 +57,16 @@ const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leag
             }}
           />
         </Form>
-        {predictedScore ?
-          <View style={styles.boxCreate}>
-            <Text>home {predictedScore.home} - {predictedScore.away} away</Text>
-            <Text>Home: {winningPercent.home}</Text>
-            <Text>Draw: {winningPercent.draw}</Text>
-            <Text>Away: {winningPercent.away}</Text>
-            <Text>Head 2 Head Below!</Text>
-            <View>
-              {
-                h2hGames.games.map(game => {
-                  return (
-                    <Text>{game.home.replace(/"/g, '')} {game.score.replace(/"/g, '')} {game.away.replace(/"/g, '')} </Text>
-                  )
-                })
-              }
-            </View>
-            {/* <Text>Home: {JSON.stringify(h2hGames.games[0].home).replace(/"/g, '')}</Text>
-            <Text>Away: {JSON.stringify(h2hGames.games[0].away).replace(/"/g, '')}</Text>
-            <Text>Score: {JSON.stringify(h2hGames.games[0].score).replace(/"/g, '')}</Text> */}
-            {/* <Text style={styles.league}>La Liga</Text>
-          <View style={styles.ratio}>
-            <Text style={styles.ratioText}>1</Text>
-            <Text style={styles.ratioText}>X</Text>
-            <Text style={styles.ratioText}>2</Text>
-          </View>
-          <View style={styles.match}>
-            <Text style={styles.predictionText}>{match.home}</Text>
-            <Text style={styles.matchRatio}>    {odds.homeODDS}    {odds.drawODDS}    {odds.awayODDS}</Text>
-            <Text style={styles.predictionText}>{match.away}</Text>
-          </View> */}
-            <Text>Our advice:{advice}</Text>
-          </View> :
-          <View></View>
+        {advice.length > 0 &&
+        <ScrollView>
+          <PredictionGameView 
+            predictedScore={predictedScore}
+            winningPercent={winningPercent}
+            h2hGames={h2hGames}
+            advice={advice}
+            match={match}
+          />
+          </ScrollView>
         }
 
       </View>

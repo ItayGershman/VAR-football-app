@@ -20,6 +20,7 @@ export const getOdds = (match, gamesData) => async (dispatch) => {
         winningPercent: {},
         h2hGames: {}
     }
+    let logos = getTeamsLogo(fixture_id)
     fetch(`https://api-football-v1.p.rapidapi.com/v2/predictions/${fixture_id}`, {
         "method": "GET",
         "headers": {
@@ -31,9 +32,12 @@ export const getOdds = (match, gamesData) => async (dispatch) => {
         .then((response) => response.json())
         .then((data) => {
             console.log('Success:', data);
+            
             const matchTeams = {
                 home: data.api.predictions[0].teams.home.team_name,
-                away: data.api.predictions[0].teams.away.team_name
+                homeLogo: logos.homeLogo,
+                away: data.api.predictions[0].teams.away.team_name,
+                awayLogo: logos.awayLogo
             }
             const predictedScore = {
                 home: Math.round(data.api.predictions[0].goals_home * -1),
@@ -75,6 +79,28 @@ export const getOdds = (match, gamesData) => async (dispatch) => {
             console.error(`error:${error}`)
         })
 
+}
+
+const getTeamsLogo = (fixture_id) => {
+    let teamsLogo = {}
+    fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/id/${fixture_id}?timezone=Asia/Jerusalem`, {
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": API_HOST,
+            "x-rapidapi-key": API_KEY
+        }
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('Success:', data);
+            teamsLogo.homeLogo = data.api.fixtures[0].homeTeam.logo,
+            teamsLogo.awayLogo = data.api.fixtures[0].awayTeam.logo
+        })
+        .catch((error) => {
+            console.error(`error:${error}`)
+            return 'No logos for this teams'
+        })
+        return teamsLogo
 }
 
 

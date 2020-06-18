@@ -12,7 +12,7 @@ export default function MainTabNavigator({ navigation }) {
     return (
         <Tab.Navigator
             labeled={false}
-            initialRouteName="Prediction"
+            initialRouteName="Livescore"
             activeColor="#3DD598"
             inactiveColor="#FFFFFF"
             barStyle={styles.barStyle}
