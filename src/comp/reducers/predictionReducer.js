@@ -2,11 +2,6 @@ import { ODDS, PREDICTION_LIVE_GAMES, PREDICTION_LEAGUES } from '../actions/acti
 import { number, string } from 'prop-types';
 
 const initialState = {
-    odds: {
-        homeOdds: number,
-        drawOdds: number,
-        awayOdds: number
-    },
     match: {
         home: string,
         away: string
@@ -16,7 +11,14 @@ const initialState = {
         goalsHome: number,
         goalsAway: number
     },
-    matchId: '',
+    winningPercent: {
+        home: string,
+        draws: string,
+        away: string
+    },
+    h2hGames: {
+        games:[]
+    },
     leagues: [],
     gamesData: [],
     selectedGames: []
@@ -26,12 +28,13 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case ODDS: {
             console.log('ODDS')
-            // const newOdds = action.odds
             return {
                 ...state,
-                odds: action.odds,
                 match: action.match,
-                advice: action.advice
+                advice: action.advice,
+                predictedScore: action.predictedScore,
+                winningPercent: action.winningPercent,
+                h2hGames: action.h2hGames
             }
         }
         case PREDICTION_LIVE_GAMES: {
@@ -51,9 +54,6 @@ export default (state = initialState, action) => {
             }
         }
         case PREDICTION_LEAGUES: {
-            console.log(PREDICTION_LEAGUES)
-            console.log(action.leagues)//array of string of leagues country names
-            //filter by league
             return {
                 ...state,
                 leagues: action.leagues,
