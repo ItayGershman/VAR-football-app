@@ -6,7 +6,7 @@ const initialState = {
         home: string,
         away: string
     },
-    advice: string,
+    advice: '',
     predictedScore: {
         goalsHome: number,
         goalsAway: number

@@ -24,7 +24,7 @@ const Livescore = ({ navigation, getLiveGames, leagues }) => {
       <View style={DataContainerStyles.dataContainer}>
         <Text style={liveStyles.text}> Livescore</Text>
         {/* <Text>{getCurrentDate()}</Text> */}
-        <ScrollView>
+        {/* <ScrollView> */}
         {
           leagues.map((league, key) => {
             return (
@@ -51,7 +51,7 @@ const Livescore = ({ navigation, getLiveGames, leagues }) => {
             )
           })
         }
-        </ScrollView>
+        {/* </ScrollView> */}
       </View>
     </View>
   );

@@ -4,22 +4,11 @@ import getCurrentDate from '../../constants'
 
 const getLiveGames = (query) => async (dispatch) => {
   console.log(query)
-  // getGamesByLeague(dispatch, 775)//spain
-  // getGamesByLeague(dispatch, 524)//England
-  // getGamesByLeague(dispatch, 754)//Germen
-  // getGamesByLeague(dispatch, 891)//Italy
-  // getGamesByLeague(dispatch, 637)//Israel
-  // getGamesByLeague(dispatch, 525)//French
-  // getGamesByLeague(dispatch, [754,754])//Germen
   let leagues = [775, 524, 754, 891, 637, 525]
   for (let i = 0; i < 6; ++i) {
     getGamesByLeague(dispatch, leagues[i])
   }
-  // for (league in leagues) {
-  //   getGamesByLeague(dispatch, league)
-  // }
 }
-
 export default getLiveGames
 
 const getGamesByLeague = (dispatch, leaguedID) => {
