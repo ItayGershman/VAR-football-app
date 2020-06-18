@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
-import { View, Text, FlatList, ScrollView } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import PropTypes from 'prop-types';
 import Header from '../Header';
 import DataContainerStyles from '../../styles'
@@ -9,8 +9,6 @@ import getLiveGames from '../actions/liveScoreActions'
 import GameView from './GameView'
 import liveStyles from './liveStyles'
 import Image from 'react-native-remote-svg'
-import getCurrentDate from '../../constants'
-
 
 const Livescore = ({ navigation, getLiveGames, leagues }) => {
   console.log('LiveScore')

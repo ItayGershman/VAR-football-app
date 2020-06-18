@@ -47,8 +47,6 @@ const styles = StyleSheet.create({
     color: '#DC143C'
   },
   flatListMatch: {
-    // justifyContent:'center',
-    // textAlign: 'center',
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -63,7 +61,6 @@ const styles = StyleSheet.create({
   minute: {
     color: "#FF8A34",
     fontSize: 9,
-    // textAlign: 'center',
     marginTop: 20
   },
   matchRow: {
@@ -85,7 +82,6 @@ const styles = StyleSheet.create({
   },
   teamName: {
     fontFamily: 'sans-serif-thin',
-    // color: 'rgb(255, 197, 66)',
     color: 'white',
     position: 'relative',
     marginTop: 5,
@@ -96,16 +92,11 @@ const styles = StyleSheet.create({
   score: {
     fontFamily: 'sans-serif-thin',
     color: 'rgb(255, 197, 66)',
-    // color: 'white',
     position: 'relative',
-    // marginRight: 20,
     marginTop: 5,
-    // textAlign: 'center',
     justifyContent: 'center'
   },
   lastH2H: {
-    // justifyContent:'center',
-    // textAlign: 'center',
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -128,24 +119,17 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   homeAway:{
-    // // color: 'white',
-    // position: 'relative',
-    // // marginRight: 20,
-    // marginTop: 5,
     textAlign: 'center',
     justifyContent: 'space-around',
     alignItems:'center',
-    // alignItems:'center',
     flex:1,
     flexDirection:'row-reverse',
     width:'100%',
     marginBottom:'2%',
     position:'relative'
-    // marginRight:'15%'
   },
   h2hTitle:{
     fontFamily: 'sans-serif-thin',
-    // color: 'rgb(255, 197, 66)',
     color: 'white',
     position: 'relative',
     marginTop: 5,
@@ -156,25 +140,17 @@ const styles = StyleSheet.create({
   percentNumber:{
     fontFamily: 'sans-serif-thin',
     color: 'rgb(255, 197, 66)',
-    // color: 'white',
     position: 'relative',
-    // marginRight: 20,
     marginTop: 5,
-    // textAlign: 'center',
-    // justifyContent: 'center'
   },
   homeTitle:{
-    // justifyContent:'center',
     color: 'rgb(255, 197, 66)',
     fontFamily: 'sans-serif-thin',
   },
   winningPercent:{
     fontFamily: 'sans-serif-thin',
-    // color: 'rgb(255, 197, 66)',
     color: 'white',
-    // position: 'relative',
     marginTop: 5,
-    // textAlign: 'center',
     fontSize: 12,
     justifyContent:'center',
     alignItems:'center',
@@ -190,7 +166,6 @@ const styles = StyleSheet.create({
   },
   ourAdvice:{
     fontFamily: 'sans-serif-thin',
-    // color: 'rgb(255, 197, 66)',
     color: 'white',
     position: 'relative',
     marginTop: 5,
@@ -201,14 +176,30 @@ const styles = StyleSheet.create({
   adviceText:{
     fontFamily: 'sans-serif-thin',
     color: 'rgb(255, 197, 66)',
-    // color: 'white',
     position: 'relative',
     marginTop: 5,
     width: '80%',
     textAlign: 'center',
     fontSize: 12
-  }
-
+  },
+  percentTitle:{
+    fontFamily: 'sans-serif-thin',
+    fontSize: 8,
+    color:'white'
+  },
+  homeDrawAway:{
+    textAlign: 'center',
+    alignItems:'center',
+    flex:1,
+    flexDirection:'row-reverse',
+    width:'100%',
+    marginBottom:'2%',
+    position:'relative',
+    width:'100%',
+    marginTop:'1%',
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-evenly',
+  },
 });
 
 export default styles

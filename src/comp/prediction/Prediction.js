@@ -11,14 +11,10 @@ import Form from 'react-native-form'
 import { Dropdown } from 'react-native-material-dropdown';
 import PredictionGameView from './PredictionGameView'
 import { ScrollView } from 'react-native-gesture-handler';
-//from API
-// let league = [{ value: 'Spain' }, { value: 'England' }, { value: 'Italy' },{ value: 'Germen' }];
-// let games = [{ value: 'Real Madrid VS Barcelona', }, { value: 'Sevillia VS Valencia', }, { value: 'Espanyol VS Bilbao', }];
 
 const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leagues, selectedGames, gamesData, getOdds, getLeagues, match, advice, getLiveGames }) => {
   useEffect(() => {
-    // getOdds('')
-    // getLiveGames('Germen')
+
     getLeagues()
 
   }, []);
@@ -38,7 +34,6 @@ const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leag
             pickerStyle={{ backgroundColor: '#2A3C44' }}
             shadeOpacity={0.20}
             onChangeText={(value) => {
-              //get live games by league for prediction!
               getLiveGames(value)
             }}
           />
@@ -52,20 +47,19 @@ const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leag
             pickerStyle={{ backgroundColor: '#2A3C44' }}
             shadeOpacity={0.20}
             onChangeText={(value) => {
-              // alert(JSON.stringify(gamesData))
               getOdds(value, gamesData)
             }}
           />
         </Form>
         {advice.length > 0 &&
-        <ScrollView>
-          <PredictionGameView 
-            predictedScore={predictedScore}
-            winningPercent={winningPercent}
-            h2hGames={h2hGames}
-            advice={advice}
-            match={match}
-          />
+          <ScrollView>
+            <PredictionGameView
+              predictedScore={predictedScore}
+              winningPercent={winningPercent}
+              h2hGames={h2hGames}
+              advice={advice}
+              match={match}
+            />
           </ScrollView>
         }
 
@@ -84,7 +78,6 @@ Prediction.propTypes = {
 
 const mapStateToProps = ({ prediction }) => {
   return {
-    // odds: prediction.odds,
     match: prediction.match,
     advice: prediction.advice,
     matchId: prediction.matchId,
