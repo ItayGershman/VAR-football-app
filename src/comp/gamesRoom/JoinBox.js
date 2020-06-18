@@ -9,8 +9,16 @@ const JoinBox = ({ navigation }) => {
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     }
-    const moveAndHide = ({ navigation }) => {
-        navigation.navigate('JoinRoom')
+    const moveAndHide = ({ navigation,roomCode,nickname }) => {
+        let nickname = ''
+        let roomCode = ''
+
+        //get nickname & room code
+        //enter this values into room state -> [{id:roomID,userData:{user:nickname,result:3-1}},{id:...}]
+        //enterRoom(roomID,nickname)
+        navigation.navigate('JoinRoom', {
+            roomCode: roomCode
+        });
         setModalVisible(false)
     }
     return (
@@ -27,13 +35,22 @@ const JoinBox = ({ navigation }) => {
                 <Text style={styles.infoText}>Enter the PIN you got from your{"\n"}friend and join!</Text>
                 <Modal isVisible={isModalVisible} style={styles.modal}>
                     <View style={styles.msgContainer}>
+                        <Text style={styles.titleRoom}>What's your Nickname:</Text>
+                        <Input
+                            style={styles.inputText}
+                            placeholder=''
+                            inputStyle={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontFamily: 'sans-serif-thin' }}
+                            value={}
+                            onChangeText={(value)=>nickname = value}
+                        />
                         <Text style={styles.titleRoom}>Enter the room code:</Text>
                         <Input
                             style={styles.inputText}
                             placeholder=''
-                            inputStyle={{color:'white', justifyContent:'center',textAlign:'center',fontFamily:'sans-serif-thin'}}
+                            inputStyle={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontFamily: 'sans-serif-thin' }}
+                            onChangeText={(value)=> roomCode = value}
                         />
-                        <TouchableOpacity style={styles.enterButton} title="LETS PLAY!" onPress={() => moveAndHide({ navigation })}>
+                        <TouchableOpacity style={styles.enterButton} title="LETS PLAY!" onPress={() => moveAndHide({ navigation,roomCode,nickname })}>
                             <Text style={styles.enterButtonText}>LET'S PLAY!</Text>
                         </TouchableOpacity>
                     </View>
@@ -129,8 +146,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
         elevation: 24,
-        height:30,
-        borderRadius:4
+        height: 30,
+        borderRadius: 4
     },
     msgContainer: {
         flex: 1,
@@ -163,10 +180,10 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
         elevation: 24,
-        height:30,
-        borderRadius:4,
-        alignItems:'center',
-        marginTop:11
+        height: 30,
+        borderRadius: 4,
+        alignItems: 'center',
+        marginTop: 11
     }
 });
 
