@@ -9,7 +9,7 @@ const JoinBox = ({ navigation }) => {
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     }
-    const moveAndHide = ({ navigation,roomCode,nickname }) => {
+    const moveAndHide = ({ navigation }) => {
         let nickname = ''
         let roomCode = ''
 
@@ -40,15 +40,15 @@ const JoinBox = ({ navigation }) => {
                             style={styles.inputText}
                             placeholder=''
                             inputStyle={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontFamily: 'sans-serif-thin' }}
-                            value={}
-                            onChangeText={(value)=>nickname = value}
+                            // value={}
+                            // onChangeText={(value)=>nickname = value}
                         />
                         <Text style={styles.titleRoom}>Enter the room code:</Text>
                         <Input
                             style={styles.inputText}
                             placeholder=''
                             inputStyle={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontFamily: 'sans-serif-thin' }}
-                            onChangeText={(value)=> roomCode = value}
+                            // onChangeText={(value)=> roomCode = value}
                         />
                         <TouchableOpacity style={styles.enterButton} title="LETS PLAY!" onPress={() => moveAndHide({ navigation,roomCode,nickname })}>
                             <Text style={styles.enterButtonText}>LET'S PLAY!</Text>

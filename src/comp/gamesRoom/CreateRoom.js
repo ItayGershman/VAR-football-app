@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Clipboard } from 'react-native';
 import PropTypes from 'prop-types';
 import Header from '../Header';
@@ -8,6 +8,7 @@ import Form from 'react-native-form'
 import { Dropdown } from 'react-native-material-dropdown';
 import { Button } from 'react-native-paper';
 import Modal from 'react-native-modal';
+const randomString = require('random-string');
 
 let league = [{
     value: 'Spain',
@@ -24,28 +25,36 @@ let games = [{
 }, {
     value: 'Espanyol VS Bilbao',
 }];
-
-let score = [{
-    value: 0,
-}, {
-    value: 1,
-}, {
-    value: 2,
-}, {
-    value: 3,
-}, {
-    value: 4,
-}, {
-    value: 5,
-}, {
-    value: 6,
-}];
+let score = []
+for (let i = 0; i < 10; ++i) {
+    let num = {
+        value: i
+    }
+    score.push(num)
+}
+// let score = [{
+//     value: 0,
+// }, {
+//     value: 1,
+// }, {
+//     value: 2,
+// }, {
+//     value: 3,
+// }, {
+//     value: 4,
+// }, {
+//     value: 5,
+// }, {
+//     value: 6,
+// }];
 
 const CreateRoom = (props) => {
+    useEffect(() => {
+        // getLeagues()
+      }, []);
     const [isModalVisible, setModalVisible] = useState(false);
-    const [copiedText, setCopiedText] = useState('')
-    var randomString = require('random-string');
-    var roomCode = randomString();
+    
+    const roomCode = randomString();
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     }
@@ -67,7 +76,7 @@ const CreateRoom = (props) => {
                             </View>
                         </View>
                         <Dropdown
-                            label='Please Choose Leauge'
+                            label='Please Choose League'
                             data={league}
                             containerStyle={{ width: 235 }}
                             textColor={'rgb(255, 197, 66)'}
@@ -75,6 +84,9 @@ const CreateRoom = (props) => {
                             dropdownPosition={-4.3}
                             pickerStyle={{ backgroundColor: '#2A3C44' }}
                             shadeOpacity={0.20}
+                            onChangeText={(value) => {
+                                // getLiveGames(value)
+                              }}
                         />
                         <Dropdown
                             label='Choose a game from today'
@@ -85,8 +97,11 @@ const CreateRoom = (props) => {
                             dropdownPosition={-4.8}
                             pickerStyle={{ backgroundColor: '#2A3C44' }}
                             shadeOpacity={0.20}
+                            onChangeText={(value) => {
+                                // setGame(value)//i want to save value which is a specific game
+                              }}
                         />
-                        <Text style={styles.createText}>Your Result</Text>
+                        {/* <Text style={styles.createText}>Your Result</Text>
                         <View style={styles.score}>
                             <Dropdown
                                 style={styles.scoreHome}
@@ -110,7 +125,7 @@ const CreateRoom = (props) => {
                                 pickerStyle={{ backgroundColor: '#2A3C44' }}
                                 shadeOpacity={0.20}
                             />
-                        </View>
+                        </View> */}
                         <TouchableOpacity style={styles.submit} title="SUBMIT" onPress={toggleModal}>
                             <Text style={styles.buttonText} >SUBMIT</Text>
                         </TouchableOpacity>
@@ -122,7 +137,7 @@ const CreateRoom = (props) => {
                                 <TouchableOpacity onPress={() => copyToClipboard()}>
                                     <Text style={styles.copyCode}>Click here to copy to Clipboard</Text>
                                 </TouchableOpacity>
-                                <Button style={styles.goBackButton} title="Hide modal" onPress={() => props.navigation.goBack()} >
+                                <Button style={styles.goBackButton} title="Hide modal" onPress={() => props.navigation.goBack()/**navigation to Join Room (with roomCode) */} >
                                     <Text style={styles.goBackButton}>Good Luck!</Text>
                                 </Button>
                             </View>
