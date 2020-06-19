@@ -11,7 +11,7 @@ import Form from 'react-native-form'
 import { Dropdown } from 'react-native-material-dropdown';
 import PredictionGameView from './PredictionGameView'
 import { ScrollView } from 'react-native-gesture-handler';
-
+import Loader from '../../comp/Loader'
 const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leagues, selectedGames, gamesData, getOdds, getLeagues, match, advice, getLiveGames }) => {
   useEffect(() => {
 
@@ -51,7 +51,7 @@ const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leag
             }}
           />
         </Form>
-        {advice.length > 0 &&
+        {advice.length > 0 ?
           <ScrollView>
             <PredictionGameView
               predictedScore={predictedScore}
@@ -61,6 +61,8 @@ const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leag
               match={match}
             />
           </ScrollView>
+          :
+          <Loader />
         }
 
       </View>
