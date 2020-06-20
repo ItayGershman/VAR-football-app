@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
-import React, { useState,useEffect } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Clipboard } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Clipboard } from 'react-native';
+import styles from './CreateRoomStyle'
 import PropTypes from 'prop-types';
 import Header from '../Header';
 import DataContainerStyles from '../../styles'
@@ -8,52 +9,17 @@ import Form from 'react-native-form'
 import { Dropdown } from 'react-native-material-dropdown';
 import { Button } from 'react-native-paper';
 import Modal from 'react-native-modal';
+import { connect } from 'react-redux';
+import { setGame } from '../actions/roomsActions'
+import { getLeagues, getLiveGames } from '../actions/predictionActions'
 const randomString = require('random-string');
 
-let league = [{
-    value: 'Spain',
-}, {
-    value: 'England',
-}, {
-    value: 'Italy',
-}];
-
-let games = [{
-    value: 'Real Madrid VS Barcelona',
-}, {
-    value: 'Sevillia VS Valencia',
-}, {
-    value: 'Espanyol VS Bilbao',
-}];
-let score = []
-for (let i = 0; i < 10; ++i) {
-    let num = {
-        value: i
-    }
-    score.push(num)
-}
-// let score = [{
-//     value: 0,
-// }, {
-//     value: 1,
-// }, {
-//     value: 2,
-// }, {
-//     value: 3,
-// }, {
-//     value: 4,
-// }, {
-//     value: 5,
-// }, {
-//     value: 6,
-// }];
-
-const CreateRoom = (props) => {
+const CreateRoom = ({ navigation, getLiveGames, getLeagues, leagues, selectedGames, setGame }) => {
     useEffect(() => {
-        // getLeagues()
-      }, []);
+        getLeagues()
+    }, []);
     const [isModalVisible, setModalVisible] = useState(false);
-    
+
     const roomCode = randomString();
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
@@ -77,55 +43,30 @@ const CreateRoom = (props) => {
                         </View>
                         <Dropdown
                             label='Please Choose League'
-                            data={league}
+                            data={leagues}
                             containerStyle={{ width: 235 }}
                             textColor={'rgb(255, 197, 66)'}
                             baseColor={'rgb(255, 197, 66)'}
                             dropdownPosition={-4.3}
                             pickerStyle={{ backgroundColor: '#2A3C44' }}
                             shadeOpacity={0.20}
-                            onChangeText={(value) => {
-                                // getLiveGames(value)
-                              }}
+                            onChangeText={(league) => {
+                                getLiveGames(league)
+                            }}
                         />
                         <Dropdown
                             label='Choose a game from today'
-                            data={games}
+                            data={selectedGames}
                             containerStyle={{ width: 235 }}
                             textColor={'rgb(255, 197, 66)'}
                             baseColor={'rgb(255, 197, 66)'}
                             dropdownPosition={-4.8}
                             pickerStyle={{ backgroundColor: '#2A3C44' }}
                             shadeOpacity={0.20}
-                            onChangeText={(value) => {
-                                // setGame(value)//i want to save value which is a specific game
-                              }}
+                            onChangeText={(match) => {
+                                setGame(roomCode,match)
+                            }}
                         />
-                        {/* <Text style={styles.createText}>Your Result</Text>
-                        <View style={styles.score}>
-                            <Dropdown
-                                style={styles.scoreHome}
-                                label='Home'
-                                data={score}
-                                containerStyle={{ width: 64 }}
-                                textColor={'rgb(255, 197, 66)'}
-                                baseColor={'rgb(255, 197, 66)'}
-                                dropdownPosition={-5.2}
-                                pickerStyle={{ backgroundColor: '#2A3C44' }}
-                                shadeOpacity={0.20}
-                            />
-                            <Dropdown
-                                style={styles.scoreAway}
-                                label='Away'
-                                data={score}
-                                containerStyle={{ width: 64 }}
-                                textColor={'rgb(255, 197, 66)'}
-                                baseColor={'rgb(255, 197, 66)'}
-                                dropdownPosition={-5.2}
-                                pickerStyle={{ backgroundColor: '#2A3C44' }}
-                                shadeOpacity={0.20}
-                            />
-                        </View> */}
                         <TouchableOpacity style={styles.submit} title="SUBMIT" onPress={toggleModal}>
                             <Text style={styles.buttonText} >SUBMIT</Text>
                         </TouchableOpacity>
@@ -137,7 +78,7 @@ const CreateRoom = (props) => {
                                 <TouchableOpacity onPress={() => copyToClipboard()}>
                                     <Text style={styles.copyCode}>Click here to copy to Clipboard</Text>
                                 </TouchableOpacity>
-                                <Button style={styles.goBackButton} title="Hide modal" onPress={() => props.navigation.goBack()/**navigation to Join Room (with roomCode) */} >
+                                <Button style={styles.goBackButton} title="Hide modal" onPress={() => navigation.navigate('JoinRoom', { roomCode: roomCode })/**navigation to Join Room (with roomCode) */} >
                                     <Text style={styles.goBackButton}>Good Luck!</Text>
                                 </Button>
                             </View>
@@ -150,138 +91,17 @@ const CreateRoom = (props) => {
 }
 
 CreateRoom.propTypes = {
-    navigation: PropTypes.object
+    navigation: PropTypes.object,
+    leagues: PropTypes.object,
+    selectedGames: PropTypes.object,
+    setGame: PropTypes.func
 };
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#22343C',
-    },
-    text: {
-        justifyContent: 'center',
-        color: 'white',
-        textAlign: 'center',
-        fontSize: 30,
-        marginTop: 10,
-        marginLeft: 105
-    },
-    createText: {
-        fontSize: 16,
-        color: 'white',
-        fontFamily: 'sans-serif-thin',
-        marginTop: 25,
-        marginRight: 140,
-        position: 'relative'
-    },
-    formContainer: {
-        position: 'relative',
-        marginLeft: 80,
-        marginTop: 15,
-        textAlign: 'center',
-        justifyContent: 'center',
-        color: 'white',
-        fontSize: 20
-    },
-    pickerContainer: {
-        alignItems: 'center',
-        alignSelf: 'center',
-        fontSize: 20,
-        color: 'white'
-    },
-    league: {
-        fontFamily: 'sans-serif-thin',
-        fontSize: 15,
-        color: '#FFFFFF',
-        marginRight: 50
-    },
-    score: {
-        flexDirection: 'row-reverse',
-        justifyContent: 'space-between',
-        marginRight: 35,
-        alignItems: 'center',
-        marginLeft: 90
-    },
-    submit: {
-        position: 'relative',
-        borderColor: '#3ED598',
-        backgroundColor: '#286053',
-        width: 120,
-        height: 50,
-        borderRadius: 7,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 65,
-        marginLeft: 40,
-        shadowColor: 'rgb(255, 197, 66)',
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-        shadowOpacity: 0.58,
-        shadowRadius: 16.00,
-        elevation: 24,
-    },
-    buttonText: {
-        fontFamily: 'sans-serif-thin',
-        fontSize: 20,
-        color: 'white'
-    },
-    modal: {
-        flex: 1,
-        color: 'white',
-        justifyContent: 'space-around'
-    },
-    msgContainer: {
-        flex: 1,
-        fontFamily: 'sans-serif-thin',
-        color: 'white',
-        textAlign: 'center',
-        justifyContent: 'center',
-    },
-    titleRoom: {
-        fontFamily: 'sans-serif-thin',
-        color: 'white',
-        textAlign: 'center',
-        justifyContent: 'center',
-        fontSize: 30,
-    },
-    titleCode: {
-        fontFamily: 'sans-serif-thin',
-        color: 'white',
-        textAlign: 'center',
-        justifyContent: 'center',
-        fontSize: 25
-    },
-    roomCode: {
-        fontFamily: 'sans-serif-thin',
-        color: 'white',
-        textAlign: 'center',
-        justifyContent: 'center',
-        fontSize: 20
-    },
-    copyCode: {
-        fontFamily: 'sans-serif-thin',
-        color: 'white',
-        textAlign: 'center',
-        justifyContent: 'center',
-    },
-    goBackButton: {
-        marginTop: 50,
-        marginLeft: 100,
-        fontFamily: 'sans-serif-thin',
-        color: 'white',
-        textAlign: 'center',
-        backgroundColor: '#286053',
-        width: 120,
-        shadowColor: 'rgb(255, 197, 66)',
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-        shadowOpacity: 0.58,
-        shadowRadius: 16.00,
-        elevation: 24,
-    }
-});
 
-export default CreateRoom;
+const mapStateToProps = ({ prediction, rooms }) => {
+    return {
+        leagues: prediction.leagues,
+        selectedGames: prediction.selectedGames,
+    };
+};
+
+export default connect(mapStateToProps, { getLiveGames, getLeagues, setGame })(CreateRoom);

@@ -20,7 +20,7 @@ const Loader = () => {
             spinValue,
             {
                 toValue: 1,
-                duration: 2000,
+                duration: 1500,
                 easing: Easing.linear
             }
         ).start(() => spin())
@@ -28,27 +28,60 @@ const Loader = () => {
 
     const spin2 = spinValue.interpolate({
         inputRange: [0, 1],
-        outputRange: ['0deg', '360deg']
+        outputRange: ['0deg', '720deg']
     })
     const movingMargin = spinValue.interpolate({
         inputRange: [0, 0.5, 1],
-        outputRange: [0, 300, 0]
+        outputRange: [0, 250, 0]
+    })
+    const opacity = spinValue.interpolate({
+        inputRange: [0, 0.5, 1],
+        outputRange: [0.5, 1, 0.5]
+    })
+    const shadowWidth = spinValue.interpolate({
+        inputRange: [0, 0.5, 1],
+        outputRange: [30, 40, 30]
+    })
+    const shadowHeight = spinValue.interpolate({
+        inputRange: [0, 0.5, 1],
+        outputRange: [30, 35, 30]
+    })
+    const borderRadius = spinValue.interpolate({
+        inputRange: [0, 0.5, 1],
+        outputRange: [30, 60, 30]
     })
     return (
         <View style={{
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
+            marginTop: 50
         }}>
             <Animated.Image
                 style={{
                     marginBottom: movingMargin,
                     width: 72,
                     height: 72,
+                    borderRadius: 50,
                     transform: [{ rotate: spin2 }]
                 }}
-                source={{ uri: 'https://image.flaticon.com/icons/svg/33/33736.svg' }}
+                source={{ uri: 'https://www.freeiconspng.com/uploads/soccer-ball-png-2.png' }}
             />
+            <Animated.View
+                style={{
+                    opacity,
+                    position: 'absolute',
+                    bottom: 80,
+                    marginTop: 30,
+                    height: shadowHeight,
+                    borderRadius: 30,
+                    borderWidth: 2,
+                    transform: [
+                        { scaleX: 2 }
+                    ],
+                    width: shadowWidth,
+                    backgroundColor: 'black'
+                }} />
         </View>
     )
 }

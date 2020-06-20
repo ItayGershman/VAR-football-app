@@ -1,42 +1,6 @@
-import 'react-native-gesture-handler';
-import React,{useEffect} from 'react';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
-import PropTypes from 'prop-types';
-import Header from '../Header';
-import DataContainerStyles from '../../styles'
+import { StyleSheet } from 'react-native';
 
-const Room = (props) => { //props is roomCode
-    useEffect(()=>{
-        //get users and their results from state
-        //get match -> for the "match row" teams name logo gameTime score minute
-    },[])
-    return (
-        <View style={styles.container}>
-            <Header navigation={props.navigation} />
-            <View style={DataContainerStyles.dataContainer}>
-                <Text style={styles.text}>Your Room</Text>
-                <View>
-                    <Text style={styles.matchText}>Will need to display the room match</Text>
-                </View>
-                <View>
-                    <Text style={styles.joinText}>The Table</Text>
-                    <FlatList
-                        data={}
-                        numColumns={1}
-                        renderItem={({ item }) => (
-                            <View></View>
-                        )}
-                        keyExtractor={item => item.id}
-                    />
-                </View>
-            </View>
-        </View>
-    );
-}
 
-JoinRoom.propTypes = {
-    navigation: PropTypes.object
-};
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -50,23 +14,13 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginLeft: 105
     },
-    joinText: {
+    createText: {
         fontSize: 16,
         color: 'white',
         fontFamily: 'sans-serif-thin',
         marginTop: 25,
         marginRight: 140,
-        position: 'relative',
-    },
-    matchText: {
-        fontSize: 16,
-        color: 'white',
-        fontFamily: 'sans-serif-thin',
-        marginTop: 25,
-        marginRight: 75,
-        position: 'relative',
-        justifyContent: 'center',
-        textAlign: 'center'
+        position: 'relative'
     },
     formContainer: {
         position: 'relative',
@@ -176,8 +130,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
         elevation: 24,
-
     }
 });
 
-export default JoinRoom;
+export default styles

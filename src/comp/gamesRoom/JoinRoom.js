@@ -1,46 +1,65 @@
 import 'react-native-gesture-handler';
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Clipboard } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import Header from '../Header';
 import DataContainerStyles from '../../styles'
 import Form from 'react-native-form'
 import { Dropdown } from 'react-native-material-dropdown';
+import { getGame, setUserResult } from '../actions/roomsActions'
+import { connect } from 'react-redux';
 
+let score = []
+for (let i = 0; i < 10; ++i) {
+    let num = {
+        value: i
+    }
+    score.push(num)
+}
 
-let score = [{
-    value: 0,
-}, {
-    value: 1,
-}, {
-    value: 2,
-}, {
-    value: 3,
-}, {
-    value: 4,
-}, {
-    value: 5,
-}, {
-    value: 6,
-}];
-
-const JoinRoom = (props) => {//props is roomCode,
-    useEffect(()=>{
+const JoinRoom = ({ navigation, getGame, match, roomCode }) => {//props is roomCode,
+    useEffect(() => {
         //action -> call an action with roomCode and match from state will be displayed
-    },[])
-
+        getGame(roomCode)
+    }, [])
+    let userScore = {
+        nickname: '',
+        home: 0,
+        away: 0,
+        setResult: false
+    }
     return (
         <View style={styles.container}>
-            <Header navigation={props.navigation} />
+            <Header navigation={navigation} />
             <View style={DataContainerStyles.dataContainer}>
                 <Text style={styles.text}>Join Room</Text>
                 <View style={styles.formContainer}>
                     <Form forwardRef="form">
                         <View>
-                        <Text style={styles.matchText}>Will need to display the room match</Text>
+                            <Text style={styles.matchText}>{match} - Will need to display the room match</Text>
                         </View>
                         <Text style={styles.joinText}>Your Result</Text>
+
                         <View style={styles.score}>
+                            <Dropdown
+                                style={styles.scoreHome}//?
+                                label='Enter nickname'
+                                data={score}
+                                containerStyle={{ width: 64 }}
+                                textColor={'rgb(255, 197, 66)'}
+                                baseColor={'rgb(255, 197, 66)'}
+                                dropdownPosition={-5.2}
+                                pickerStyle={{ backgroundColor: '#2A3C44' }}
+                                shadeOpacity={0.20}
+                                onChangeText={(name) => {
+                                    userScore.nickname(name)
+                                    //login with nickname - if not exist display rest of dropdown
+                                }}
+                            />
+/*after set nickname check if the user entered Result
+* if yes display list component
+* if not display rest of Dropdown of result
+*/
                             <Dropdown
                                 style={styles.scoreHome}
                                 label='Home'
@@ -51,6 +70,9 @@ const JoinRoom = (props) => {//props is roomCode,
                                 dropdownPosition={-5.2}
                                 pickerStyle={{ backgroundColor: '#2A3C44' }}
                                 shadeOpacity={0.20}
+                                onChangeText={(homeResult) => {
+                                    userScore.home(homeResult)
+                                }}
                             />
                             <Dropdown
                                 style={styles.scoreAway}
@@ -62,9 +84,12 @@ const JoinRoom = (props) => {//props is roomCode,
                                 dropdownPosition={-5.2}
                                 pickerStyle={{ backgroundColor: '#2A3C44' }}
                                 shadeOpacity={0.20}
+                                onChangeText={(awayResult) => {
+                                    userScore.away(awayResult)
+                                }}
                             />
                         </View>
-                        <TouchableOpacity style={styles.submit} title="SUBMIT" onPress={() => console.log('submit result to nickname obj')}>
+                        <TouchableOpacity style={styles.submit} title="SUBMIT" onPress={() => setUserResult(roomCode, userScore)}>
                             <Text style={styles.buttonText} >SUBMIT</Text>
                         </TouchableOpacity>
                     </Form>
@@ -75,7 +100,10 @@ const JoinRoom = (props) => {//props is roomCode,
 }
 
 JoinRoom.propTypes = {
-    navigation: PropTypes.object
+    navigation: PropTypes.object,
+    match: PropTypes.string,
+    getGame: PropTypes.func,
+    roomCode: PropTypes.string
 };
 const styles = StyleSheet.create({
     container: {
@@ -105,8 +133,8 @@ const styles = StyleSheet.create({
         marginTop: 25,
         marginRight: 75,
         position: 'relative',
-        justifyContent:'center',
-        textAlign:'center'
+        justifyContent: 'center',
+        textAlign: 'center'
     },
     formContainer: {
         position: 'relative',
@@ -216,8 +244,14 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
         elevation: 24,
-
     }
 });
 
-export default JoinRoom;
+
+const mapStateToProps = ({ rooms }) => {
+    return {
+        match: rooms.match
+    };
+};
+
+export default connect(mapStateToProps, { getGame, setUserResult })(JoinRoom);
