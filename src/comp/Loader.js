@@ -32,7 +32,19 @@ const Loader = () => {
     })
     const movingMargin = spinValue.interpolate({
         inputRange: [0, 0.5, 1],
-        outputRange: [0, 300, 0]
+        outputRange: [0, 280, 0]
+    })
+    const opacity = spinValue.interpolate({
+        inputRange: [0, 0.5, 1],
+        outputRange: [0.2, 1, 0.2]
+    })
+    const shadowWidth = spinValue.interpolate({
+        inputRange: [0, 0.5, 1],
+        outputRange: [40, 60, 40]
+    })
+    const shadowHeight = spinValue.interpolate({
+        inputRange: [0, 0.5, 1],
+        outputRange: [20, 30, 20]
     })
     return (
         <View style={{
@@ -40,15 +52,29 @@ const Loader = () => {
             justifyContent: 'center',
             alignItems: 'center',
         }}>
-            <Animated.Image
+            <View>
+                <Animated.Image
+                    source={require('../Assets/ball.gif')}
+                    style={{
+                        // marginBottom: movingMargin,
+                        width: 150,
+                        height: 150,
+                        // backgroundColor: 'white',
+                        // borderRadius: 50,
+                        // transform: [{ rotate: spin2 }]
+                    }}
+                />
+            </View>
+            {/* <Animated.View
                 style={{
-                    marginBottom: movingMargin,
-                    width: 72,
-                    height: 72,
-                    transform: [{ rotate: spin2 }]
-                }}
-                source={{ uri: 'https://image.flaticon.com/icons/svg/33/33736.svg' }}
-            />
+                    opacity,
+                    position: 'absolute',
+                    marginTop: 30,
+                    height: shadowHeight,
+                    width: shadowWidth,
+                    borderRadius: 50,
+                    backgroundColor: 'black'
+                }} /> */}
         </View>
     )
 }
