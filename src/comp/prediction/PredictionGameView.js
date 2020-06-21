@@ -7,7 +7,7 @@ export default function PredictionGameView({ predictedScore, winningPercent, h2h
     return (
         <View>
             <View style={predictionStyle.homeAway}>
-                <Text style={predictionStyle.homeTitle} >HOME</Text>
+                <Text style={predictionStyle.homeTitle}>HOME</Text>
                 <Text style={predictionStyle.homeTitle}>AWAY</Text>
             </View>
             <View style={predictionStyle.flatListMatch}>
