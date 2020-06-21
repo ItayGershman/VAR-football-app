@@ -3,7 +3,6 @@ import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import Image from 'react-native-remote-svg'
 import predictionStyle from './predictionStyle';
-
 export default function PredictionGameView({ predictedScore, winningPercent, h2hGames, advice, match }) {
     return (
         <View>
@@ -17,7 +16,6 @@ export default function PredictionGameView({ predictedScore, winningPercent, h2h
                         style={predictionStyle.homeLogo}
                         source={{ uri: match.homeLogo }}
                     />
-
                     <Text style={predictionStyle.teamName}>{match.home}</Text>
                     <Text style={predictionStyle.score}>{match.goalsHomeTeam}VS</Text>
                     <Text style={predictionStyle.teamName}>{match.away}</Text>
