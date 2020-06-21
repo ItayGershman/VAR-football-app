@@ -13,59 +13,68 @@ import PredictionGameView from './PredictionGameView'
 import { ScrollView } from 'react-native-gesture-handler';
 import Loader from '../../comp/Loader'
 
-const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leagues, selectedGames, gamesData, getOdds, getLeagues, match, advice, getLiveGames }) => {
+const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leagues, selectedGames, gamesData, getOdds, getLeagues, match, advice, getLiveGames, isLoading }) => {
   useEffect(() => {
-    // getLeagues()
+    getLeagues()
   }, []);
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
       <View style={DataContainerStyles.dataContainer}>
         <Text style={styles.text}> Prediction</Text>
-        <Form forwardRef="form">
-          <Dropdown
-            label='Please Choose League'
-            data={leagues}
-            containerStyle={{ width: 235 }}
-            textColor={'rgb(255, 197, 66)'}
-            baseColor={'rgb(255, 197, 66)'}
-            dropdownPosition={-4.3}
-            pickerStyle={{ backgroundColor: '#2A3C44' }}
-            shadeOpacity={0.20}
-            onChangeText={(value) => {
-              getLiveGames(value)
-            }}
-          />
-          <Dropdown
-            label='Choose a game from today'
-            data={selectedGames}
-            containerStyle={{ width: 235 }}
-            textColor={'rgb(255, 197, 66)'}
-            baseColor={'rgb(255, 197, 66)'}
-            dropdownPosition={-4.8}
-            pickerStyle={{ backgroundColor: '#2A3C44' }}
-            shadeOpacity={0.20}
-            onChangeText={(value) => {
-              getOdds(value, gamesData)
-            }}
-          />
-        </Form>
-        {advice.length > 0 ?
-          <ScrollView>
-            <PredictionGameView
-              predictedScore={predictedScore}
-              winningPercent={winningPercent}
-              h2hGames={h2hGames}
-              advice={advice}
-              match={match}
-            />
-          </ScrollView>
-          :
-          <Loader />
+        {
+          isLoading ?
+            <Loader />
+            :
+            <View>
+              <View>
+                <Form forwardRef="form">
+                  <Dropdown
+                    label='Please Choose League'
+                    data={leagues}
+                    containerStyle={{ width: 235 }}
+                    textColor={'rgb(255, 197, 66)'}
+                    baseColor={'rgb(255, 197, 66)'}
+                    dropdownPosition={-4.3}
+                    pickerStyle={{ backgroundColor: '#2A3C44' }}
+                    shadeOpacity={0.20}
+                    onChangeText={(value) => {
+                      getLiveGames(value)
+                    }}
+                  />
+                  <Dropdown
+                    label='Choose a game from today'
+                    data={selectedGames}
+                    containerStyle={{ width: 235 }}
+                    textColor={'rgb(255, 197, 66)'}
+                    baseColor={'rgb(255, 197, 66)'}
+                    dropdownPosition={-4.8}
+                    pickerStyle={{ backgroundColor: '#2A3C44' }}
+                    shadeOpacity={0.20}
+                    onChangeText={(value) => {
+                      getOdds(value, gamesData)
+                    }}
+                  />
+                </Form>
+              </View>
+              {
+                advice.length > 0 &&
+                <View style={{ height: '63%' }}>
+                  <ScrollView >
+                    <PredictionGameView
+                      predictedScore={predictedScore}
+                      winningPercent={winningPercent}
+                      h2hGames={h2hGames}
+                      advice={advice}
+                      match={match}
+                    />
+                  </ScrollView>
+                </View>
+              }
+            </View>
         }
-
       </View>
-    </View>
+    </View >
   );
 }
 Prediction.propTypes = {
@@ -74,7 +83,8 @@ Prediction.propTypes = {
   odds: PropTypes.object,
   match: PropTypes.object,
   advice: PropTypes.string,
-  getLeagues: PropTypes.func
+  getLeagues: PropTypes.func,
+  isLoading: PropTypes.bool
 };
 
 const mapStateToProps = ({ prediction }) => {
@@ -87,7 +97,8 @@ const mapStateToProps = ({ prediction }) => {
     gamesData: prediction.gamesData,
     predictedScore: prediction.predictedScore,
     winningPercent: prediction.winningPercent,
-    h2hGames: prediction.h2hGames
+    h2hGames: prediction.h2hGames,
+    isLoading: prediction.isLoading
   };
 };
 

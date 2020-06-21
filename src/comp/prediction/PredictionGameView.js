@@ -55,13 +55,13 @@ export default function PredictionGameView({ predictedScore, winningPercent, h2h
                 </View>
             </View>
             <View>
-                <Text style={predictionStyle.ourAdvice}>Our advice</Text>
+                <Text style={predictionStyle.ourAdvice}>Our Advice</Text>
                 <View style={predictionStyle.advice}>
                     <Text style={predictionStyle.adviceText}>{advice}</Text>
                 </View>
             </View>
             <View>
-                <Text style={predictionStyle.ourAdvice}>We Predicte</Text>
+                <Text style={predictionStyle.ourAdvice}>We Predict</Text>
                 <View style={predictionStyle.predictedScore}>
                     <Text style={predictionStyle.teamName}>{match.home}</Text>
                     <Text style={predictionStyle.score}>{predictedScore.home}-{predictedScore.away}</Text>
