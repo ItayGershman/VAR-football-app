@@ -1,8 +1,11 @@
-import { ROOM_DATA } from '../actions/actionsType'
+import { ROOM_DATA, ROOM_GAME, USER_DATA, LOGIN } from '../actions/actionsType'
 
 const initialState = {
     match: '',
-    userData: {}
+    userData: {},
+    roomCode: '',
+    isLoggedIn: false,
+    isSetResult: false
 };
 
 export default (state = initialState, action) => {
@@ -11,6 +14,7 @@ export default (state = initialState, action) => {
             console.log('ROOM_DATA')
             return {
                 ...state,
+                roomCode: action.roomCode
             }
         }
         case ROOM_GAME: {
@@ -25,6 +29,14 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 userData: action.userData
+            }
+        }
+        case LOGIN: {
+            console.log('isLoggedIn')
+            return {
+                ...state,
+                isSetResult: action.isSetResult,
+                isLoggedIn: action.isLoggedIn
             }
         }
         default:

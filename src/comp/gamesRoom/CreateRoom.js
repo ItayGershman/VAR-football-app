@@ -12,15 +12,14 @@ import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 import { setGame } from '../actions/roomsActions'
 import { getLeagues, getLiveGames } from '../actions/predictionActions'
-const randomString = require('random-string');
+// const randomString = require('random-string');
 
-const CreateRoom = ({ navigation, getLiveGames, getLeagues, leagues, selectedGames, setGame }) => {
+const CreateRoom = ({ navigation, getLiveGames, getLeagues, leagues, selectedGames, setGame, roomCode }) => {
     useEffect(() => {
         getLeagues()
     }, []);
     const [isModalVisible, setModalVisible] = useState(false);
 
-    const roomCode = randomString();
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     }
@@ -31,7 +30,7 @@ const CreateRoom = ({ navigation, getLiveGames, getLeagues, leagues, selectedGam
 
     return (
         <View style={styles.container}>
-            <Header navigation={props.navigation} />
+            <Header navigation={navigation} />
             <View style={DataContainerStyles.dataContainer}>
                 <Text style={styles.text}>Create Room</Text>
                 <View style={styles.formContainer}>
@@ -64,7 +63,7 @@ const CreateRoom = ({ navigation, getLiveGames, getLeagues, leagues, selectedGam
                             pickerStyle={{ backgroundColor: '#2A3C44' }}
                             shadeOpacity={0.20}
                             onChangeText={(match) => {
-                                setGame(roomCode,match)
+                                setGame(match)
                             }}
                         />
                         <TouchableOpacity style={styles.submit} title="SUBMIT" onPress={toggleModal}>
@@ -78,7 +77,13 @@ const CreateRoom = ({ navigation, getLiveGames, getLeagues, leagues, selectedGam
                                 <TouchableOpacity onPress={() => copyToClipboard()}>
                                     <Text style={styles.copyCode}>Click here to copy to Clipboard</Text>
                                 </TouchableOpacity>
-                                <Button style={styles.goBackButton} title="Hide modal" onPress={() => navigation.navigate('JoinRoom', { roomCode: roomCode })/**navigation to Join Room (with roomCode) */} >
+                                <Button
+                                    style={styles.goBackButton}
+                                    title="Hide modal"
+                                    onPress={() => {
+                                        toggleModal()
+                                        navigation.navigate('JoinRoom', { roomCode: roomCode })
+                                    }}>
                                     <Text style={styles.goBackButton}>Good Luck!</Text>
                                 </Button>
                             </View>
@@ -101,6 +106,7 @@ const mapStateToProps = ({ prediction, rooms }) => {
     return {
         leagues: prediction.leagues,
         selectedGames: prediction.selectedGames,
+        roomCode: rooms.roomCode
     };
 };
 
