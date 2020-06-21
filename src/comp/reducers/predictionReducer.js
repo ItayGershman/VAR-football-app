@@ -1,5 +1,5 @@
-import { ODDS, PREDICTION_LIVE_GAMES, PREDICTION_LEAGUES } from '../actions/actionsType'
-import { number, string } from 'prop-types';
+import { ODDS, PREDICTION_LIVE_GAMES, PREDICTION_LEAGUES, LOADING } from '../actions/actionsType'
+import { number, string, bool } from 'prop-types';
 
 const initialState = {
     match: {
@@ -17,15 +17,23 @@ const initialState = {
         away: string
     },
     h2hGames: {
-        games:[]
+        games: []
     },
     leagues: [],
     gamesData: [],
-    selectedGames: []
+    selectedGames: [],
+    isLoading: bool
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case LOADING: {
+
+            return {
+                ...state,
+                isLoading: true
+            }
+        }
         case ODDS: {
             console.log('ODDS')
             return {
@@ -34,7 +42,8 @@ export default (state = initialState, action) => {
                 advice: action.advice,
                 predictedScore: action.predictedScore,
                 winningPercent: action.winningPercent,
-                h2hGames: action.h2hGames
+                h2hGames: action.h2hGames,
+                isLoading: false
             }
         }
         case PREDICTION_LIVE_GAMES: {
@@ -50,7 +59,8 @@ export default (state = initialState, action) => {
             }
             return {
                 ...state,
-                selectedGames: matches
+                selectedGames: matches,
+                isLoading: false
             }
         }
         case PREDICTION_LEAGUES: {
@@ -58,6 +68,7 @@ export default (state = initialState, action) => {
                 ...state,
                 leagues: action.leagues,
                 gamesData: action.gamesData,
+                isLoading: false
             }
         }
         default:
