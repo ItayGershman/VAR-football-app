@@ -13,18 +13,21 @@
 * }
 */
 
-import { ROOM_DATA, ROOM_GAME, USER_DATA } from './actionsType';
+import { ROOM_DATA, ROOM_GAME, USER_DATA, LOGIN } from './actionsType';
 import getCurrentDate from '../../constants'
 import AsyncStorage from '@react-native-community/async-storage';
 const randomString = require('random-string');
 
-export const setGame = (match) => async (dispatch) => {
-
+export const setGame = (game) => async (dispatch) => {
+    // alert(`game:${game}`)
     const roomCode = randomString()
     try {
 
-        const jsonObj = JSON.stringify(match)
-        await AsyncStorage.setItem(roomCode, jsonObj)
+        let jsonObj = {
+            game: game
+        }
+        alert(JSON.stringify(jsonObj))
+        await AsyncStorage.setItem(roomCode, JSON.stringify(jsonObj))
 
         dispatch({
             type: ROOM_DATA,
@@ -36,16 +39,16 @@ export const setGame = (match) => async (dispatch) => {
 }
 
 export const getGame = (roomCode) => async (dispatch) => {
-    
+
     try {
         // const roomData = await AsyncStorage.getItem(roomCode)
         // alert(`roomData:${roomData}`)
 
         AsyncStorage.getItem(roomCode)
-            .then((match) => {
+            .then((game) => {
                 dispatch({
                     type: ROOM_GAME,
-                    match: match
+                    game: game
                 })
             })
             .catch(e => alert(e))
@@ -72,20 +75,63 @@ export const setUserData = (roomCode, userData) => async (dispatch) => {
 }
 
 export const login = (roomCode, nickname) => async (dispatch) => {
+    // alert(nickname)
+    let newObj = {}
+
     try {
-        let data = await AsyncStorage.getItem(roomCode)
-        console.log(data)
-        //should check if this user already exist, if he/she exists check if there is a result
-        //check if the nickname exist
-        /*
-        dispatch({
-            type:LOGIN,
-            //isSetResult:true,
-            isLoggedIn:true
-        })
-        */
+
+        AsyncStorage.getItem(roomCode)
+            .then(data => {
+                alert(JSON.parse(data).game)
+                newObj.game = JSON.parse(data).game
+                alert(JSON.parse(data).nickname)
+                if (JSON.parse(data).nickname === undefined) {
+                    newObj.nickname = nickname
+                    AsyncStorage.setItem(roomCode, JSON.stringify(newObj))
+                        .then(() => {
+                            dispatch({
+                                type: LOGIN,
+                                isSetResult: false,
+                                isLoggedIn: true
+                            })
+                        })
+                        .catch(e => alert(e))
+                }
+                else {
+                    dispatch({
+                        type: LOGIN,
+                        isSetResult: false,
+                        isLoggedIn: true
+                    })
+                }
+
+            })
+            .catch(e => alert(e))
+
     } catch (error) {
-        console.log(error)
+        alert(`error:${error}`)
     }
 }
 
+    // try {
+    //     let data = await AsyncStorage.getItem(roomCode)
+    //     alert(JSON.parse(data).game)
+    //     newObj.game = JSON.parse(data).game
+    //     newObj.nickname = nickname
+    // }
+    // catch (err) {
+    //     alert(err)
+    // }
+    // try {
+    //     await AsyncStorage.setItem(roomCode, newObj)
+    //     let result = await AsyncStorage.getItem(roomCode)
+    //     alert(`result:${result}`)
+    // }
+    // catch (err) {
+    //     alert(err)
+    // }
+    // dispatch({
+    //     type: LOGIN,
+    //     isSetResult: false,
+    //     isLoggedIn: true
+    // })

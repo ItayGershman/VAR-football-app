@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         color: 'white',
         fontSize: 34,
-        fontFamily: 'sans-serif-thin'
+        // fontFamily: 'sans-serif-thin'
     },
     infoText: {
         position: 'absolute',
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         zIndex: 5,
         fontWeight: 'bold',
-        fontFamily: 'sans-serif-thin'
+        // fontFamily: 'sans-serif-thin'
 
     },
 });

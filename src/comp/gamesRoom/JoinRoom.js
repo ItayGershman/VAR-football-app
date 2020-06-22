@@ -10,6 +10,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import { getGame, setUserData, login } from '../actions/roomsActions'
 import { connect } from 'react-redux';
 import { TextInput } from 'react-native-paper';
+// import { Input } from 'react-native-elements';
 
 let score = []
 for (let i = 0; i < 10; ++i) {
@@ -19,7 +20,7 @@ for (let i = 0; i < 10; ++i) {
     score.push(num)
 }
 
-const JoinRoom = ({ route, navigation, getGame, match, isSetResult, isLoggedIn, login }) => {//props is roomCode,
+const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, login }) => {//props is roomCode,
     const { roomCode } = route.params
     useEffect(() => {
         getGame(roomCode)
@@ -39,7 +40,7 @@ const JoinRoom = ({ route, navigation, getGame, match, isSetResult, isLoggedIn, 
                 <View style={styles.formContainer}>
 
                     <View>
-                        <Text style={styles.matchText}>{match.replace(/"/g, '')}</Text>
+                        <Text style={styles.matchText}>{game.replace(/"/g, '')}</Text>
                     </View>
                     <View>
                         {
@@ -59,11 +60,16 @@ const JoinRoom = ({ route, navigation, getGame, match, isSetResult, isLoggedIn, 
                                 // />
                                 <TextInput
                                     label='Enter nickname'
-                                    mode={'flat'}
-                                    value={textInput}
+                                    // mode={'flat'}
+                                    // value={textInput}
 
                                     returnKeyType="go"
-                                    onSubmitEditing={(value) => login(roomCode, value)}
+                                    // onSubmitEditing={(value) => login(roomCode, value)}
+                                    onSubmitEditing={(event) => {
+                                        // alert('roomCode, event.nativeEvent.text')
+                                        // alert(roomCode)
+                                        login(roomCode, event.nativeEvent.text)
+                                }}
                                 />
                                 :
                                 !isSetResult ?
@@ -119,20 +125,21 @@ const JoinRoom = ({ route, navigation, getGame, match, isSetResult, isLoggedIn, 
 }
 
 JoinRoom.propTypes = {
+    route: PropTypes.object,
     navigation: PropTypes.object,
-    match: PropTypes.string,
+    game: PropTypes.string,
     getGame: PropTypes.func,
     roomCode: PropTypes.string,
     isSetResult: PropTypes.bool,
     isLoggedIn: PropTypes.bool,
-    setUserData:PropTypes.func, 
-    login:PropTypes.func
+    setUserData: PropTypes.func,
+    login: PropTypes.func
 };
 
 
 const mapStateToProps = ({ rooms }) => {
     return {
-        match: rooms.match,
+        game: rooms.game,
         isSetResult: rooms.isSetResult,
         isLoggedIn: rooms.isLoggedIn
     };
