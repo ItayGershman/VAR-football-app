@@ -77,23 +77,17 @@ const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, l
                                 // />
                                 <View style={{ justifyContent: 'center' }}>
                                     <OutlinedTextField
-                                        containerStyle={{ width: 235 }}
+                                        containerStyle={{ width: 235 ,borderBottomColor:'rgb(255, 197, 66)',borderBottomWidth:1 }}
                                         textColor={'rgb(255, 197, 66)'}
                                         baseColor={'rgb(255, 197, 66)'}
                                         tintColor={'rgb(255, 197, 66)'}
-                                        disabledLineType
-                                        lineWidth={0.2}
-                                        activeLineWidth={1}
-                                        // dropdownPosition={-4.2}
-                                        // pickerStyle={{ backgroundColor: '#2A3C44' }}
+                                        lineWidth={0}
+                                        activeLineWidth={0}
                                         shadeOpacity={0.20}
                                         label='Enter nickname'
                                         returnKeyType="go"
                                         textColor='rgb(255, 197, 66)'
-                                        // containerStyle={{ backgroundColor: '#2A3C44' }}
                                         onSubmitEditing={(event) => {
-                                            // alert('roomCode, event.nativeEvent.text')
-                                            // alert(roomCode)
                                             login(roomCode, event.nativeEvent.text)
                                         }}
                                     />
