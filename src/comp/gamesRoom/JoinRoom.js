@@ -11,6 +11,7 @@ import { getGame, setUserData, login } from '../actions/roomsActions'
 import { connect } from 'react-redux';
 import { TextInput } from 'react-native-paper';
 // import { Input } from 'react-native-elements';
+import { OutlinedTextField } from 'react-native-material-textfield'
 
 let score = []
 for (let i = 0; i < 10; ++i) {
@@ -20,7 +21,7 @@ for (let i = 0; i < 10; ++i) {
     score.push(num)
 }
 
-const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, login , setUserData }) => {//props is roomCode,
+const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, login, setUserData }) => {//props is roomCode,
     const { roomCode } = route.params
     useEffect(() => {
         getGame(roomCode)
@@ -58,19 +59,45 @@ const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, l
                                 //         login(roomCode, userScore.nickname)
                                 //     }}
                                 // />
-                                <TextInput
-                                    label='Enter nickname'
-                                    // mode={'flat'}
-                                    // value={textInput}
-
-                                    returnKeyType="go"
-                                    // onSubmitEditing={(value) => login(roomCode, value)}
-                                    onSubmitEditing={(event) => {
-                                        // alert('roomCode, event.nativeEvent.text')
-                                        // alert(roomCode)
-                                        login(roomCode, event.nativeEvent.text)
-                                }}
-                                />
+                                // <TextInput
+                                //     style={{ backgroundColor: '#2A3C44',justifyContent: 'center',color:'rgb(255, 197, 66)' }}
+                                //     label='Enter nickname'
+                                //     // mode={'flat'}
+                                //     // value={textInput}
+                                //     // selectionColor='#00000'
+                                //     underlineColor={this.colors.theme}
+                                //     returnKeyType="go"
+                                //     theme={{colors: {text: 'rgb(255, 197, 66)'}}}
+                                //     // onSubmitEditing={(value) => login(roomCode, value)}
+                                //     onSubmitEditing={(event) => {
+                                //         // alert('roomCode, event.nativeEvent.text')
+                                //         // alert(roomCode)
+                                //         login(roomCode, event.nativeEvent.text)
+                                //     }}
+                                // />
+                                <View style={{ justifyContent: 'center' }}>
+                                    <OutlinedTextField
+                                        containerStyle={{ width: 235 }}
+                                        textColor={'rgb(255, 197, 66)'}
+                                        baseColor={'rgb(255, 197, 66)'}
+                                        tintColor={'rgb(255, 197, 66)'}
+                                        disabledLineType
+                                        lineWidth={0.2}
+                                        activeLineWidth={1}
+                                        // dropdownPosition={-4.2}
+                                        // pickerStyle={{ backgroundColor: '#2A3C44' }}
+                                        shadeOpacity={0.20}
+                                        label='Enter nickname'
+                                        returnKeyType="go"
+                                        textColor='rgb(255, 197, 66)'
+                                        // containerStyle={{ backgroundColor: '#2A3C44' }}
+                                        onSubmitEditing={(event) => {
+                                            // alert('roomCode, event.nativeEvent.text')
+                                            // alert(roomCode)
+                                            login(roomCode, event.nativeEvent.text)
+                                        }}
+                                    />
+                                </View>
                                 :
                                 !isSetResult ?
                                     <View>

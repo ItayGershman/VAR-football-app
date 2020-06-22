@@ -10,7 +10,7 @@ const liveStyles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontSize: 30,
-        marginRight: -160,
+        marginRight: 30,
         marginTop: 10,
         marginBottom: '5%'
     },
@@ -39,7 +39,7 @@ const liveStyles = StyleSheet.create({
     },
     leagueBox: {
         marginBottom: 30,
-        marginTop:10,
+        marginTop: 10,
         marginLeft: '5%',
         width: '90%',
         // height: '100%',
@@ -78,11 +78,11 @@ const liveStyles = StyleSheet.create({
     leagueAndFlag: {
         flexDirection: 'row-reverse',
         // justifyContent: 'space-evenly',
-        alignContent:'center',
-        alignItems:'center',
+        alignContent: 'center',
+        alignItems: 'center',
         position: 'relative',
         // width: '100%',
-        height:48,
+        height: 48,
         marginBottom: '2%',
     },
     minute: {
@@ -111,7 +111,20 @@ const liveStyles = StyleSheet.create({
         width: '100%',
         paddingRight: 10,
         paddingLeft: 10,
-        marginBottom:20
+        marginBottom: 20
+    },
+    headlineAndDate: {
+        flexDirection: 'row-reverse',
+        // justifyContent:'center',
+        textAlign:'center',
+
+    },
+    date: {
+        color: 'rgb(255, 197, 66)',
+        fontFamily: 'sans-serif-thin',
+        justifyContent:'space-around',
+        marginTop:'7%',
+        marginRight:'30%'
     }
 });
 

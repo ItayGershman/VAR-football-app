@@ -36,7 +36,7 @@ const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leag
                     containerStyle={{ width: 235 }}
                     textColor={'rgb(255, 197, 66)'}
                     baseColor={'rgb(255, 197, 66)'}
-                    dropdownPosition={-4.3}
+                    dropdownPosition={-4.2}
                     pickerStyle={{ backgroundColor: '#2A3C44' }}
                     shadeOpacity={0.20}
                     onChangeText={(value) => {
@@ -49,7 +49,7 @@ const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leag
                     containerStyle={{ width: 235 }}
                     textColor={'rgb(255, 197, 66)'}
                     baseColor={'rgb(255, 197, 66)'}
-                    dropdownPosition={-3.3}
+                    dropdownPosition={-2.3}
                     pickerStyle={{ backgroundColor: '#2A3C44' }}
                     shadeOpacity={0.20}
                     onChangeText={(value) => {
