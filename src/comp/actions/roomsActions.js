@@ -61,6 +61,42 @@ export const getGame = (roomCode) => async (dispatch) => {
 }
 
 export const setUserData = (roomCode, userData) => async (dispatch) => {
+    // alert(JSON.stringify(userData))
+    let newObj = {}
+    try {
+        AsyncStorage.getItem(roomCode)
+            .then(data => {
+                data = JSON.parse(data)
+                newObj.game = data.game
+                newObj.nickname = data.nickname
+                userData.nickname = newObj.nickname
+                
+                if (JSON.stringify(data).userData === undefined) {
+                    newObj.userData = userData
+                    AsyncStorage.setItem(roomCode, JSON.stringify(newObj))
+                        .then(() => {
+                            dispatch({
+                                type: USER_DATA,
+                                isSetResult: true,
+                            })
+                        })
+                        .catch(e => alert(e))
+                }
+                else {
+                    dispatch({
+                        type: USER_DATA,
+                        isSetResult: true,
+                    })
+                }
+
+            })
+            .catch(e => alert(e))
+
+    } catch (error) {
+        alert(`error:${error}`)
+    }
+
+
     try {
         // await AsyncStorage.setItem(roomCode, value)
         await AsyncStorage.mergeItem(roomCode, JSON.stringify({ userData: userData }))

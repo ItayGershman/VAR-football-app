@@ -20,13 +20,13 @@ for (let i = 0; i < 10; ++i) {
     score.push(num)
 }
 
-const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, login }) => {//props is roomCode,
+const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, login , setUserData }) => {//props is roomCode,
     const { roomCode } = route.params
     useEffect(() => {
         getGame(roomCode)
     }, [])
     let userScore = {
-        nickname: 'John Doe',
+        nickname: '',
         home: 0,
         away: 0,
         setResult: false
@@ -88,7 +88,7 @@ const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, l
                                                     pickerStyle={{ backgroundColor: '#2A3C44' }}
                                                     shadeOpacity={0.20}
                                                     onChangeText={(homeResult) => {
-                                                        userScore.home(homeResult)
+                                                        userScore.home = homeResult
                                                     }}
                                                 />
                                                 <Dropdown
@@ -102,7 +102,7 @@ const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, l
                                                     pickerStyle={{ backgroundColor: '#2A3C44' }}
                                                     shadeOpacity={0.20}
                                                     onChangeText={(awayResult) => {
-                                                        userScore.away(awayResult)
+                                                        userScore.away = awayResult
                                                     }}
                                                 />
                                             </View>
