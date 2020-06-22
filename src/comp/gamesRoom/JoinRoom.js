@@ -7,9 +7,9 @@ import Header from '../Header';
 import DataContainerStyles from '../../styles'
 import Form from 'react-native-form'
 import { Dropdown } from 'react-native-material-dropdown';
-import { getGame, setUserData } from '../actions/roomsActions'
+import { getGame, setUserData, login } from '../actions/roomsActions'
 import { connect } from 'react-redux';
-import { TextField } from 'react-native-material-textfield';
+import { TextInput } from 'react-native-paper';
 
 let score = []
 for (let i = 0; i < 10; ++i) {
@@ -19,7 +19,7 @@ for (let i = 0; i < 10; ++i) {
     score.push(num)
 }
 
-const JoinRoom = ({ route, navigation, getGame, match, isSetResult, isLoggedIn }) => {//props is roomCode,
+const JoinRoom = ({ route, navigation, getGame, match, isSetResult, isLoggedIn, login }) => {//props is roomCode,
     const { roomCode } = route.params
     useEffect(() => {
         getGame(roomCode)
@@ -30,6 +30,7 @@ const JoinRoom = ({ route, navigation, getGame, match, isSetResult, isLoggedIn }
         away: 0,
         setResult: false
     }
+    let textInput = ''
     return (
         <View style={styles.container}>
             <Header navigation={navigation} />
@@ -46,15 +47,23 @@ const JoinRoom = ({ route, navigation, getGame, match, isSetResult, isLoggedIn }
                             //if he/she is then check if the user entered result
                             //if yes display data, if not display dropdown
                             !isLoggedIn ?
-                                <TextField
-                                    placeholder="Enter nickname"
-                                    returnKeyType="next"
-                                    onSubmitEditing={(value) => alert(value)}
-                                    blurOnSubmit={false}
-                                    onChangeText={(name) => {
-                                        userScore.nickname = name
-                                        login(roomCode, userScore.nickname)
-                                    }}
+                                // <TextField
+                                //     placeholder="Enter nickname"
+                                //     returnKeyType="go"
+                                //     onSubmitEditing={(value) => alert(value)}
+                                //     blurOnSubmit={false}
+                                //     onChangeText={(name) => {
+                                //         userScore.nickname = name
+                                //         login(roomCode, userScore.nickname)
+                                //     }}
+                                // />
+                                <TextInput
+                                    label='Enter nickname'
+                                    mode={'flat'}
+                                    value={textInput}
+
+                                    returnKeyType="go"
+                                    onSubmitEditing={(value) => login(roomCode, value)}
                                 />
                                 :
                                 !isSetResult ?
@@ -115,7 +124,9 @@ JoinRoom.propTypes = {
     getGame: PropTypes.func,
     roomCode: PropTypes.string,
     isSetResult: PropTypes.bool,
-    isLoggedIn: PropTypes.bool
+    isLoggedIn: PropTypes.bool,
+    setUserData:PropTypes.func, 
+    login:PropTypes.func
 };
 
 
@@ -127,4 +138,4 @@ const mapStateToProps = ({ rooms }) => {
     };
 };
 
-export default connect(mapStateToProps, { getGame, setUserData })(JoinRoom);
+export default connect(mapStateToProps, { getGame, setUserData, login })(JoinRoom);

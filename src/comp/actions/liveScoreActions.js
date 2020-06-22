@@ -1,8 +1,9 @@
-import { LIVE_GAMES } from './actionsType';
+import { LIVE_GAMES, LOADING } from './actionsType';
 import { API_KEY, API_HOST } from 'react-native-dotenv'
 import getCurrentDate from '../../constants'
 
 const getLiveGames = (query) => async (dispatch) => {
+  dispatch({ type: LOADING })
   console.log(query)
   let leagues = [775, 524, 754, 891, 637, 525]
   for (let i = 0; i < 6; ++i) {
