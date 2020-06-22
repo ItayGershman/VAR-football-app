@@ -56,11 +56,12 @@ const liveStyles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     flag: {
-        width:'100%',
-        height:'100%',
-        resizeMode: 'contain',
-        // marginRight: 5,
-        marginTop: 5,
+        position: 'relative',
+        width: 25,
+        height: 20,
+        marginRight: 5,
+        marginTop: 5
+        // backgroundColor: 'red',
     },
     teamLogo: {
         position: 'relative',
