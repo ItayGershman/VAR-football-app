@@ -14,7 +14,7 @@ export default function GameView({ game }) {
             </View>
             <View style={liveStyles.matchRow}>
                 <Image
-                    style={liveStyles.homeLogo}
+                    style={liveStyles.teamLogo}
                     source={{ uri: game.matchHome.logo }}
                 />
                 <Text style={liveStyles.teamName}>{game.matchHome.team_name}</Text>
@@ -26,7 +26,7 @@ export default function GameView({ game }) {
                 </Text>
                 <Text style={liveStyles.teamName}>{game.matchAway.team_name}</Text>
                 <Image
-                    style={liveStyles.awayLogo}
+                    style={liveStyles.teamLogo}
                     source={{ uri: game.matchAway.logo }}
                 />
             </View>

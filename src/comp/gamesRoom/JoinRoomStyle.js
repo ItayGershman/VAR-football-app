@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     joinText: {
         fontSize: 16,
         color: 'white',
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         marginTop: 25,
         marginRight: 140,
         position: 'relative',
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     matchText: {
         fontSize: 16,
         color: 'white',
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         marginTop: 25,
         marginRight: 75,
         position: 'relative',
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     league: {
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         fontSize: 15,
         color: '#FFFFFF',
         marginRight: 50
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         elevation: 24,
     },
     buttonText: {
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         fontSize: 20,
         color: 'white'
     },
@@ -91,34 +91,34 @@ const styles = StyleSheet.create({
     },
     msgContainer: {
         flex: 1,
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
     },
     titleRoom: {
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
         fontSize: 30,
     },
     titleCode: {
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
         fontSize: 25
     },
     roomCode: {
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
         fontSize: 20
     },
     copyCode: {
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     goBackButton: {
         marginTop: 50,
         marginLeft: 100,
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         backgroundColor: '#286053',

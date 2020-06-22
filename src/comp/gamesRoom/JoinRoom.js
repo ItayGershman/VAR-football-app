@@ -7,9 +7,10 @@ import Header from '../Header';
 import DataContainerStyles from '../../styles'
 import Form from 'react-native-form'
 import { Dropdown } from 'react-native-material-dropdown';
-import { getGame, setUserData } from '../actions/roomsActions'
+import { getGame, setUserData, login } from '../actions/roomsActions'
 import { connect } from 'react-redux';
-import { TextField } from 'react-native-material-textfield';
+import { TextInput } from 'react-native-paper';
+// import { Input } from 'react-native-elements';
 
 let score = []
 for (let i = 0; i < 10; ++i) {
@@ -19,17 +20,18 @@ for (let i = 0; i < 10; ++i) {
     score.push(num)
 }
 
-const JoinRoom = ({ route, navigation, getGame, match, isSetResult, isLoggedIn }) => {//props is roomCode,
+const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, login , setUserData }) => {//props is roomCode,
     const { roomCode } = route.params
     useEffect(() => {
         getGame(roomCode)
     }, [])
     let userScore = {
-        nickname: 'John Doe',
+        nickname: '',
         home: 0,
         away: 0,
         setResult: false
     }
+    let textInput = ''
     return (
         <View style={styles.container}>
             <Header navigation={navigation} />
@@ -38,7 +40,7 @@ const JoinRoom = ({ route, navigation, getGame, match, isSetResult, isLoggedIn }
                 <View style={styles.formContainer}>
 
                     <View>
-                        <Text style={styles.matchText}>{match.replace(/"/g, '')}</Text>
+                        <Text style={styles.matchText}>{game.replace(/"/g, '')}</Text>
                     </View>
                     <View>
                         {
@@ -46,15 +48,28 @@ const JoinRoom = ({ route, navigation, getGame, match, isSetResult, isLoggedIn }
                             //if he/she is then check if the user entered result
                             //if yes display data, if not display dropdown
                             !isLoggedIn ?
-                                <TextField
-                                    placeholder="Enter nickname"
-                                    returnKeyType="next"
-                                    onSubmitEditing={(value) => alert(value)}
-                                    blurOnSubmit={false}
-                                    onChangeText={(name) => {
-                                        userScore.nickname = name
-                                        login(roomCode, userScore.nickname)
-                                    }}
+                                // <TextField
+                                //     placeholder="Enter nickname"
+                                //     returnKeyType="go"
+                                //     onSubmitEditing={(value) => alert(value)}
+                                //     blurOnSubmit={false}
+                                //     onChangeText={(name) => {
+                                //         userScore.nickname = name
+                                //         login(roomCode, userScore.nickname)
+                                //     }}
+                                // />
+                                <TextInput
+                                    label='Enter nickname'
+                                    // mode={'flat'}
+                                    // value={textInput}
+
+                                    returnKeyType="go"
+                                    // onSubmitEditing={(value) => login(roomCode, value)}
+                                    onSubmitEditing={(event) => {
+                                        // alert('roomCode, event.nativeEvent.text')
+                                        // alert(roomCode)
+                                        login(roomCode, event.nativeEvent.text)
+                                }}
                                 />
                                 :
                                 !isSetResult ?
@@ -73,7 +88,7 @@ const JoinRoom = ({ route, navigation, getGame, match, isSetResult, isLoggedIn }
                                                     pickerStyle={{ backgroundColor: '#2A3C44' }}
                                                     shadeOpacity={0.20}
                                                     onChangeText={(homeResult) => {
-                                                        userScore.home(homeResult)
+                                                        userScore.home = homeResult
                                                     }}
                                                 />
                                                 <Dropdown
@@ -87,7 +102,7 @@ const JoinRoom = ({ route, navigation, getGame, match, isSetResult, isLoggedIn }
                                                     pickerStyle={{ backgroundColor: '#2A3C44' }}
                                                     shadeOpacity={0.20}
                                                     onChangeText={(awayResult) => {
-                                                        userScore.away(awayResult)
+                                                        userScore.away = awayResult
                                                     }}
                                                 />
                                             </View>
@@ -110,21 +125,24 @@ const JoinRoom = ({ route, navigation, getGame, match, isSetResult, isLoggedIn }
 }
 
 JoinRoom.propTypes = {
+    route: PropTypes.object,
     navigation: PropTypes.object,
-    match: PropTypes.string,
+    game: PropTypes.string,
     getGame: PropTypes.func,
     roomCode: PropTypes.string,
     isSetResult: PropTypes.bool,
-    isLoggedIn: PropTypes.bool
+    isLoggedIn: PropTypes.bool,
+    setUserData: PropTypes.func,
+    login: PropTypes.func
 };
 
 
 const mapStateToProps = ({ rooms }) => {
     return {
-        match: rooms.match,
+        game: rooms.game,
         isSetResult: rooms.isSetResult,
         isLoggedIn: rooms.isLoggedIn
     };
 };
 
-export default connect(mapStateToProps, { getGame, setUserData })(JoinRoom);
+export default connect(mapStateToProps, { getGame, setUserData, login })(JoinRoom);

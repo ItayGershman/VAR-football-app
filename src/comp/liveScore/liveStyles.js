@@ -12,10 +12,10 @@ const liveStyles = StyleSheet.create({
         fontSize: 30,
         marginRight: -160,
         marginTop: 10,
-        marginBottom:'5%'
+        marginBottom: '5%'
     },
     leagueName: {
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         // color: 'rgb(255, 197, 66)',
         color: 'white',
         position: 'relative',
@@ -28,7 +28,7 @@ const liveStyles = StyleSheet.create({
         marginRight: 15
     },
     teamName: {
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         // color: 'rgb(255, 197, 66)',
         color: 'white',
         position: 'relative',
@@ -38,8 +38,8 @@ const liveStyles = StyleSheet.create({
         fontSize: 10
     },
     leagueBox: {
-        // marginBottom: '6%',
-        marginBottom:'5%',
+        marginBottom: 30,
+        marginTop:10,
         marginLeft: '5%',
         width: '90%',
         // height: '100%',
@@ -56,25 +56,19 @@ const liveStyles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     flag: {
-        position: 'relative',
-        width: 25,
-        height: 20,
-        marginRight: 5,
-        marginTop: 5
-        // backgroundColor: 'red',
+        width:'100%',
+        height:'100%',
+        resizeMode: 'contain',
+        // marginRight: 5,
+        marginTop: 5,
     },
-    homeLogo: {
-        position: 'relative',
-        width: 20,
-        height: 20,
-    },
-    awayLogo: {
+    teamLogo: {
         position: 'relative',
         width: 20,
         height: 20,
     },
     matchRow: {
-        marginBottom:'1.5%',
+        // marginBottom:'1.5%',
         flexDirection: 'row-reverse',
         justifyContent: 'space-evenly',
         position: 'relative',
@@ -82,7 +76,13 @@ const liveStyles = StyleSheet.create({
     },
     leagueAndFlag: {
         flexDirection: 'row-reverse',
-        marginBottom:'3%'
+        // justifyContent: 'space-evenly',
+        alignContent:'center',
+        alignItems:'center',
+        position: 'relative',
+        // width: '100%',
+        height:48,
+        marginBottom: '2%',
     },
     minute: {
         color: "#FF8A34",
@@ -95,13 +95,10 @@ const liveStyles = StyleSheet.create({
         position: 'relative',
     },
     score: {
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         color: 'rgb(255, 197, 66)',
-        // color: 'white',
         position: 'relative',
-        // marginRight: 20,
         marginTop: 5,
-        // textAlign: 'center',
         justifyContent: 'center'
     },
     flatListMatch: {
@@ -112,7 +109,8 @@ const liveStyles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '100%',
         paddingRight: 10,
-        paddingLeft: 10
+        paddingLeft: 10,
+        marginBottom:20
     }
 });
 

@@ -97,8 +97,8 @@ const CreateRoom = ({ navigation, getLiveGames, getLeagues, leagues, selectedGam
 
 CreateRoom.propTypes = {
     navigation: PropTypes.object,
-    leagues: PropTypes.object,
-    selectedGames: PropTypes.object,
+    leagues: PropTypes.array,
+    selectedGames: PropTypes.array,
     setGame: PropTypes.func
 };
 

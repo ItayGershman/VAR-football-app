@@ -9,47 +9,49 @@ import getLiveGames from '../actions/liveScoreActions'
 import GameView from './GameView'
 import liveStyles from './liveStyles'
 import Image from 'react-native-remote-svg'
+import Loader from '../Loader'
+import { ScrollView } from 'react-native-gesture-handler';
 
-const Livescore = ({ navigation, getLiveGames, leagues }) => {
-  console.log('LiveScore')
+const Livescore = ({ navigation, getLiveGames, leagues, isLoading }) => {
   useEffect(() => {
     getLiveGames('LIVE_GAMES')
   }, []);
-  console.log('after useEffect')
   return (
     <View style={liveStyles.container}>
       <Header navigation={navigation} />
       <View style={DataContainerStyles.dataContainer}>
         <Text style={liveStyles.text}> Livescore</Text>
         {/* <Text>{getCurrentDate()}</Text> */}
-        {/* <ScrollView> */}
-        {
-          leagues.map((league, key) => {
-            return (
-                <View key={key} style={liveStyles.leagueBox}>
-                  <View style={liveStyles.leagueAndFlag}>
-                    <Text style={liveStyles.leagueName}>{league.league}</Text>
-                    <Image
-                      source={{ uri: league.games[0].leagueFlag }}
-                      style={liveStyles.flag}
+        <ScrollView>
+          {
+            isLoading ?
+              <Loader />
+              : leagues.map((league, key) => {
+                return (
+                  <View key={key} style={liveStyles.leagueBox}>
+                    <View style={liveStyles.leagueAndFlag}>
+                      <Text style={liveStyles.leagueName}>{league.league}</Text>
+                      <Image
+                        source={{ uri: league.games[0].leagueFlag }}
+                        style={liveStyles.flag}
+                      />
+                    </View>
+                    <FlatList
+                      data={league.games}
+                      numColumns={1}
+                      renderItem={({ item }) => (
+                        <GameView
+                          game={item}
+                          key={item.id}
+                        />
+                      )}
+                      keyExtractor={item => item.id}
                     />
                   </View>
-                  <FlatList
-                    data={league.games}
-                    numColumns={1}
-                    renderItem={({ item }) => (
-                      <GameView
-                        game={item}
-                        key={item.id}
-                      />
-                    )}
-                    keyExtractor={item => item.id}
-                  />
-                </View>
-            )
-          })
-        }
-        {/* </ScrollView> */}
+                )
+              })
+          }
+        </ScrollView>
       </View>
     </View>
   );
@@ -63,7 +65,8 @@ Livescore.propTypes = {
 
 const mapStateToProps = ({ liveScore }) => {
   return {
-    leagues: liveScore.leagues
+    leagues: liveScore.leagues,
+    isLoading: liveScore.isLoading
   };
 };
 
