@@ -6,13 +6,14 @@ import { getRoomData, cleanState } from '../actions/roomsActions';
 import { connect } from 'react-redux';
 import styles from './RoomStyles'
 import { IconButton, Colors } from 'react-native-paper'
+import DataContainerStyles from '../../styles'
 
 const Room = ({ navigation, getRoomData, roomCode, roomData, roomDataUsers, gameData, cleanState }) => { //props is roomCode
     useEffect(() => {
         getRoomData(roomCode)
     }, [])
     return (
-        <View >
+        <View style={DataContainerStyles.dataContainer}>
             <View style={styles.titleAndArrow}>
                 <Text style={styles.text}>Your Room</Text>
                 <View>
