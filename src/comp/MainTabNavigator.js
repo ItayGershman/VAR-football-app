@@ -12,7 +12,7 @@ export default function MainTabNavigator({ navigation }) {
     return (
         <Tab.Navigator
             labeled={false}
-            initialRouteName="GamesRoom"
+            initialRouteName="Livescore"
             activeColor="#3DD598"
             inactiveColor="#FFFFFF"
             barStyle={styles.barStyle}
@@ -27,7 +27,6 @@ export default function MainTabNavigator({ navigation }) {
                         <MaterialCommunityIcons name="controller-classic-outline" color={color} size={26} />
                     ),
                 }}
-
             />
             <Tab.Screen
                 name="Prediction"

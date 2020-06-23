@@ -18,7 +18,7 @@ const Room = ({ navigation, getRoomData, roomCode, roomData, roomDataUsers }) =>
                 <View>
                     <IconButton
                         icon="chevron-left"
-                        color={Colors.black}
+                        color={Colors.white}
                         onPress={() => navigation.navigate('GamesRoom')}
                         size={30}
                     />
