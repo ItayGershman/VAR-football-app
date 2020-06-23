@@ -1,4 +1,4 @@
-import { ROOM_CODE, ROOM_GAME, USER_DATA, LOGIN, SET_ROOM_DATA, SET_POINTS, GAME_DATA } from '../actions/actionsType'
+import { ROOM_CODE, ROOM_GAME, USER_DATA, LOGIN, SET_ROOM_DATA, SET_POINTS, GAME_DATA, CLEAN_STATE } from '../actions/actionsType'
 
 const initialState = {
     game: '',
@@ -62,6 +62,15 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 gameData: action.gameData
+            }
+        }
+        case CLEAN_STATE: {
+            return {
+                ...state,
+                roomData: [],
+                roomDataUsers: [],
+                isLoggedIn: false,
+                isSetResult: false
             }
         }
         default:
