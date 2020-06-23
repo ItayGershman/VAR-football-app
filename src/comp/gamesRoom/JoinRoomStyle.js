@@ -20,9 +20,9 @@ const styles = StyleSheet.create({
         marginTop: 25,
         // marginRight: 140,
         // position: 'relative',
-        justifyContent:'center',
-        alignItems:'center',
-        textAlign:'center'
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center'
     },
     matchText: {
         fontFamily: 'sans-serif-thin',
@@ -62,20 +62,17 @@ const styles = StyleSheet.create({
     score: {
         flexDirection: 'row-reverse',
         justifyContent: 'space-between',
-        margin:'2%'
-        // marginRight: 35,
-        // alignItems: 'center',
-        // marginLeft: 90
+        width:'40%',
     },
     submit: {
-        position: 'relative',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
         borderColor: '#3ED598',
         backgroundColor: '#286053',
         width: 120,
         height: 50,
         borderRadius: 7,
-        justifyContent: 'center',
-        alignItems: 'center',
         marginTop: 65,
         // marginLeft: 40,
         shadowColor: 'rgb(255, 197, 66)',
@@ -151,14 +148,16 @@ const styles = StyleSheet.create({
     matchTextContainer: {
         justifyContent: 'center'
     },
-    inputResultContainer:{
-        justifyContent:'center'
+    inputResultContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+
     },
     minute: {
         color: "#FF8A34",
         fontSize: 9,
         marginTop: 20,
-        marginBottom:30
+        marginBottom: 30
     },
 });
 
