@@ -149,7 +149,6 @@ export const getLiveGames = (league) => async (dispatch) => {
 export const getLeagues = () => async (dispatch) => {
     const date = getCurrentDate()
     fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/date/${date}?timezone=Asia/Jerusalem`, {
-        // fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/date/2020-06-22?timezone=Asia/Jerusalem`, {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": API_HOST,
