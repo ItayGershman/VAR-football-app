@@ -5,10 +5,13 @@ import PropTypes from 'prop-types';
 import { getRoomData } from '../actions/roomsActions';
 import { connect } from 'react-redux';
 import styles from './RoomStyles'
+import { setPoints } from '../actions/roomsActions'
 
-const Room = ({ navigation, getRoomData, roomCode, roomData, roomDataUsers }) => { //props is roomCode
+const Room = ({ navigation, getRoomData, roomCode, roomData, roomDataUsers, gamesData, setPoints }) => { //props is roomCode
     useEffect(() => {
         getRoomData(roomCode)
+        // if (roomDataUsers.length > 0) setPoints(roomCode, roomData.game, gamesData)
+        setPoints(roomCode, roomData.game, gamesData)// check this
     }, [])
     return (
         <View >
@@ -17,7 +20,7 @@ const Room = ({ navigation, getRoomData, roomCode, roomData, roomDataUsers }) =>
                 roomDataUsers.length > 0 &&
                 <View>
                     <Text>{roomData.game}</Text>
-                    <View style={{ width:'70%',flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <View style={{ width: '70%', flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text>NAME</Text>
                         <Text>HOME</Text>
                         <Text>AWAY</Text>
@@ -26,7 +29,7 @@ const Room = ({ navigation, getRoomData, roomCode, roomData, roomDataUsers }) =>
                         data={roomDataUsers}
                         numColumns={1}
                         renderItem={({ item }) => (
-                            <View style={{ width:'60%',flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={{ width: '60%', flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text>{item.fullName}</Text>
                                 <Text>{item.home}</Text>
                                 <Text>{item.away}</Text>
@@ -45,14 +48,16 @@ Room.propTypes = {
     getRoomData: PropTypes.func,
     roomCode: PropTypes.string,
     roomData: PropTypes.object,
-    roomDataUsers: PropTypes.array
+    roomDataUsers: PropTypes.array,
+    setPoints: PropTypes.func
 };
 
-const mapStateToProps = ({ rooms }) => {
+const mapStateToProps = ({ rooms, prediction }) => {
     return {
         roomData: rooms.roomData,
-        roomDataUsers: rooms.roomDataUsers
+        roomDataUsers: rooms.roomDataUsers,
+        gamesData: prediction.gamesData
     };
 };
 
-export default connect(mapStateToProps, { getRoomData })(Room);
+export default connect(mapStateToProps, { getRoomData, setPoints })(Room);

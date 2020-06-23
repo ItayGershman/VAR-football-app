@@ -2,7 +2,7 @@ import { LIVE_GAMES, LOADING } from '../actions/actionsType'
 import { bool } from 'prop-types';
 const initialState = {
     leagues: [],
-    isLoading: bool
+    isLoading: false
 };
 
 export default (state = initialState, action) => {

@@ -22,7 +22,7 @@ const initialState = {
     leagues: [],
     gamesData: [],
     selectedGames: [],
-    isLoading: bool
+    isLoading: false
 };
 
 export default (state = initialState, action) => {

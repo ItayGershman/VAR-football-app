@@ -88,7 +88,6 @@ const liveStyles = StyleSheet.create({
     minute: {
         color: "#FF8A34",
         fontSize: 9,
-        // textAlign: 'center',
         marginTop: 20
     },
     minuteContainer: {
@@ -116,15 +115,25 @@ const liveStyles = StyleSheet.create({
     headlineAndDate: {
         flexDirection: 'row-reverse',
         // justifyContent:'center',
-        textAlign:'center',
+        textAlign: 'center',
 
     },
     date: {
         color: 'rgb(255, 197, 66)',
         fontFamily: 'sans-serif-thin',
-        justifyContent:'space-around',
-        marginTop:'7%',
-        marginRight:'30%'
+        justifyContent: 'space-around',
+        marginTop: '7%',
+        marginRight: '30%'
+    },
+    homeAway: {
+        flex: 1, 
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        width: '55%', 
+        marginLeft: '25%'
+    },
+    homeAwayText:{
+        color: "#FF8A34",
     }
 });
 

@@ -25,15 +25,15 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: 'white',
         // fontFamily: 'sans-serif-thin',
-        marginTop: 25,
-        marginRight: 75,
+        // marginTop: 25,
+        // marginRight: 75,
         position: 'relative',
         justifyContent: 'center',
         textAlign: 'center'
     },
     formContainer: {
         position: 'relative',
-        marginLeft: 80,
+        // marginLeft: 80,
         marginTop: 15,
         textAlign: 'center',
         justifyContent: 'center',
@@ -139,7 +139,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
         elevation: 24,
-    }
+    },
+    minute: {
+        color: "#FF8A34",
+        fontSize: 9,
+        marginTop: 20,
+        marginBottom:30
+    },
 });
 
 export default styles

@@ -1,4 +1,4 @@
-import { ROOM_CODE, ROOM_GAME, USER_DATA, LOGIN, SET_ROOM_DATA } from '../actions/actionsType'
+import { ROOM_CODE, ROOM_GAME, USER_DATA, LOGIN, SET_ROOM_DATA, SET_POINTS, GAME_DATA } from '../actions/actionsType'
 
 const initialState = {
     game: '',
@@ -7,7 +7,9 @@ const initialState = {
     isLoggedIn: false,
     isSetResult: false,
     roomData: {},
-    roomDataUsers: []
+    roomDataUsers: [],
+    setPoints: false,
+    gameData: {}
 };
 
 export default (state = initialState, action) => {
@@ -47,6 +49,19 @@ export default (state = initialState, action) => {
                 ...state,
                 roomData: action.roomData,
                 roomDataUsers: action.roomData.userData
+            }
+        }
+        case SET_POINTS: {
+            alert(`SET_POINTS - ${action.setPoints}`)
+            return {
+                ...state,
+                setPoints: action.points
+            }
+        }
+        case GAME_DATA: {
+            return {
+                ...state,
+                gameData: action.gameData
             }
         }
         default:

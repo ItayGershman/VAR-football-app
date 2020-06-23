@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   matchRow: {
     marginBottom: '1.5%',
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-evenly',
     position: 'relative',
     width: '100%'
@@ -106,14 +106,14 @@ const styles = StyleSheet.create({
   },
   percent: {
     marginBottom: '1.5%',
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-evenly',
     position: 'relative',
     width: '100%'
   },
   predictedScore: {
     marginBottom: '1.5%',
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-evenly',
     position: 'relative',
     width: '100%'
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems:'center',
     flex:1,
-    flexDirection:'row-reverse',
+    flexDirection:'row',
     width:'100%',
     marginBottom:'2%',
     position:'relative'
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   },
   advice:{
     marginBottom: '1.5%',
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-evenly',
     position: 'relative',
     width: '100%'
@@ -191,13 +191,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignItems:'center',
     flex:1,
-    flexDirection:'row-reverse',
+    flexDirection:'row',
     width:'100%',
     marginBottom:'2%',
     position:'relative',
     width:'100%',
     marginTop:'1%',
-    flexDirection: 'row-reverse',
+    // flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
   dropdown:{
