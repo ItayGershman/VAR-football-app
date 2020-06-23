@@ -139,7 +139,48 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
         elevation: 24,
-
+    },
+    nameHomeAway: {
+        textAlign: 'center',
+        alignItems: 'center',
+        flex: 1,
+        flexDirection: 'row-reverse',
+        width: '100%',
+        marginBottom: '2%',
+        position: 'relative',
+        width: '100%',
+        marginTop: '1%',
+        flexDirection: 'row-reverse',
+        justifyContent: 'space-evenly',
+        marginBottom:'5%'
+    },
+    columnsTitle: {
+        fontFamily: 'sans-serif-thin',
+        fontSize: 12,
+        color: 'rgb(255, 197, 66)',
+    },
+    rowFlatList: {
+        fontFamily: 'sans-serif-thin',
+        fontSize: 10,
+        color: 'white',
+    },
+    rowContent: {
+        textAlign: 'center',
+        alignItems: 'center',
+        flex: 1,
+        flexDirection: 'row-reverse',
+        width: '100%',
+        marginBottom: '2%',
+        position: 'relative',
+        width: '100%',
+        marginTop: '1%',
+        flexDirection: 'row-reverse',
+        justifyContent: 'space-evenly',
+    },
+    titleAndArrow:{
+        flexDirection:'row',
+        marginLeft:'5%',
+        justifyContent:'space-between'
     }
 });
 

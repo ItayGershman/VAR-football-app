@@ -11,29 +11,34 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 30,
         marginTop: 10,
-        marginLeft: 105
+        marginLeft: 125
     },
     joinText: {
         fontSize: 16,
         color: 'white',
         // fontFamily: 'sans-serif-thin',
         marginTop: 25,
-        marginRight: 140,
-        position: 'relative',
+        // marginRight: 140,
+        // position: 'relative',
+        justifyContent:'center',
+        alignItems:'center',
+        textAlign:'center'
     },
     matchText: {
-        fontSize: 16,
+        fontFamily: 'sans-serif-thin',
         color: 'white',
-        // fontFamily: 'sans-serif-thin',
-        marginTop: 25,
-        marginRight: 75,
         position: 'relative',
+        marginTop: 5,
+        width: '100%',
+        textAlign: 'center',
+        fontSize: 14,
         justifyContent: 'center',
-        textAlign: 'center'
+        alignItems: 'center'
     },
     formContainer: {
         position: 'relative',
-        marginLeft: 80,
+        // marginLeft: 80,
+        alignItems: 'center',
         marginTop: 15,
         textAlign: 'center',
         justifyContent: 'center',
@@ -50,14 +55,15 @@ const styles = StyleSheet.create({
         // fontFamily: 'sans-serif-thin',
         fontSize: 15,
         color: '#FFFFFF',
-        marginRight: 50
+        // marginRight: 50
     },
     score: {
         flexDirection: 'row-reverse',
         justifyContent: 'space-between',
-        marginRight: 35,
-        alignItems: 'center',
-        marginLeft: 90
+        margin:'2%'
+        // marginRight: 35,
+        // alignItems: 'center',
+        // marginLeft: 90
     },
     submit: {
         position: 'relative',
@@ -69,7 +75,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 65,
-        marginLeft: 40,
+        // marginLeft: 40,
         shadowColor: 'rgb(255, 197, 66)',
         shadowOffset: {
             width: 0,
@@ -139,6 +145,12 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
         elevation: 24,
+    },
+    matchTextContainer: {
+        justifyContent: 'center'
+    },
+    inputResultContainer:{
+        justifyContent:'center'
     }
 });
 

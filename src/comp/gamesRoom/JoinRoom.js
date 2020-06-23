@@ -38,16 +38,15 @@ const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, l
             <View style={DataContainerStyles.dataContainer}>
                 <Text style={styles.text}>Join Room</Text>
                 <View style={styles.formContainer}>
-
-                    <View>
+                    <View style={styles.matchTextContainer}>
                         <Text style={styles.matchText}>{game}</Text>
                     </View>
                     <View>
                         {
                             !isLoggedIn ?
-                                <View style={{ justifyContent: 'center' }}>
+                                <View style={{ justifyContent: 'center',marginBottom:'20%' }}>
                                     <OutlinedTextField
-                                        containerStyle={{ width: 235 ,borderBottomColor:'rgb(255, 197, 66)',borderBottomWidth:1 }}
+                                        containerStyle={{ width: 235,height:43, borderBottomColor: 'rgb(255, 197, 66)', borderBottomWidth: 1 }}
                                         textColor={'rgb(255, 197, 66)'}
                                         baseColor={'rgb(255, 197, 66)'}
                                         tintColor={'rgb(255, 197, 66)'}
@@ -64,7 +63,7 @@ const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, l
                                 </View>
                                 :
                                 !isSetResult ?
-                                    <View>
+                                    <View style={styles.inputResultContainer}>
                                         <Text style={styles.joinText}>Your Result</Text>
                                         <Form forwardRef="form">
                                             <View style={styles.score}>
