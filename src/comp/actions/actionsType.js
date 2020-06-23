@@ -13,5 +13,7 @@ export const LOGIN = 'LOGIN'
 export const SET_ROOM_DATA = 'SET_ROOM_DATA'
 export const SET_POINTS = 'SET_POINTS'
 export const GAME_DATA = 'GAME_DATA'
+export const CLEAN_STATE = 'CLEAN_STATE'
+
 
 export const LOADING = 'LOADING'
