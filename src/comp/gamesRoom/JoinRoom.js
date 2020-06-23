@@ -36,8 +36,8 @@ const JoinRoom = ({ route, navigation, isSetResult, isLoggedIn, login, setUserDa
             <Header navigation={navigation} />
             {
                 !isLoggedIn ?
-                    <View>
-                        <View style={DataContainerStyles.dataContainer}>
+                    <View style={DataContainerStyles.dataContainer}>
+                        <View >
                             <Text style={styles.text}>Join Room</Text>
                             <View style={styles.formContainer}>
                                 {
@@ -73,46 +73,48 @@ const JoinRoom = ({ route, navigation, isSetResult, isLoggedIn, login, setUserDa
                     </View>
                     :
                     !isSetResult ?
-                        <View style={styles.inputResultContainer}>
-                            <Text style={styles.joinText}>Your Result</Text>
-                            <Form forwardRef="form">
-                                <View style={styles.score}>
-                                    <Dropdown
-                                        style={styles.scoreHome}
-                                        label='Home'
-                                        data={score}
-                                        containerStyle={{ width: 64 }}
-                                        textColor={'rgb(255, 197, 66)'}
-                                        baseColor={'rgb(255, 197, 66)'}
-                                        dropdownPosition={-5.2}
-                                        pickerStyle={{ backgroundColor: '#2A3C44' }}
-                                        shadeOpacity={0.20}
-                                        onChangeText={(homeResult) => {
-                                            userScore.home = homeResult
-                                        }}
-                                    />
-                                    <Dropdown
-                                        style={styles.scoreAway}
-                                        label='Away'
-                                        data={score}
-                                        containerStyle={{ width: 64 }}
-                                        textColor={'rgb(255, 197, 66)'}
-                                        baseColor={'rgb(255, 197, 66)'}
-                                        dropdownPosition={-5.2}
-                                        pickerStyle={{ backgroundColor: '#2A3C44' }}
-                                        shadeOpacity={0.20}
-                                        onChangeText={(awayResult) => {
-                                            userScore.away = awayResult
-                                        }}
-                                    />
-                                </View>
-                                <TouchableOpacity style={styles.submit} title="SUBMIT" onPress={() => setUserData(roomCode, userScore)}>
-                                    <Text style={styles.buttonText} >SUBMIT</Text>
-                                </TouchableOpacity>
-                            </Form>
+                        <View style={DataContainerStyles.dataContainer}>
+                            <View style={styles.inputResultContainer}>
+                                <Text style={styles.joinText}>Your Result</Text>
+                                <Form forwardRef="form">
+                                    <View style={styles.score}>
+                                        <Dropdown
+                                            label='Home'
+                                            data={score}
+                                            containerStyle={{ width: 64 }}
+                                            textColor={'rgb(255, 197, 66)'}
+                                            baseColor={'rgb(255, 197, 66)'}
+                                            dropdownPosition={-5.2}
+                                            pickerStyle={{ backgroundColor: '#2A3C44' }}
+                                            shadeOpacity={0.20}
+                                            onChangeText={(homeResult) => {
+                                                userScore.home = homeResult
+                                            }}
+                                        />
+                                        <Dropdown
+                                            label='Away'
+                                            data={score}
+                                            containerStyle={{ width: 64 }}
+                                            textColor={'rgb(255, 197, 66)'}
+                                            baseColor={'rgb(255, 197, 66)'}
+                                            dropdownPosition={-5.2}
+                                            pickerStyle={{ backgroundColor: '#2A3C44' }}
+                                            shadeOpacity={0.20}
+                                            onChangeText={(awayResult) => {
+                                                userScore.away = awayResult
+                                            }}
+                                        />
+                                    </View>
+                                    <View style={{ marginBottom: '7%', marginLeft: '6%' }}>
+                                        <TouchableOpacity style={styles.submit} title="SUBMIT" onPress={() => setUserData(roomCode, userScore)}>
+                                            <Text style={styles.buttonText} >SUBMIT</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </Form>
+                            </View>
                         </View>
                         :
-                        <Room roomCode={roomCode} navigation={navigation} gameData={gameData} />
+                        <Room roomCode={roomCode} navigation={navigation} />
             }
         </View>
     );
@@ -144,4 +146,3 @@ const mapStateToProps = ({ rooms, prediction }) => {
 };
 
 export default connect(mapStateToProps, { getGame, setUserData, login, gamePreview })(JoinRoom);
-
