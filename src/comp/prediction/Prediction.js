@@ -12,6 +12,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import PredictionGameView from './PredictionGameView'
 import { ScrollView } from 'react-native-gesture-handler';
 import Loader from '../../comp/Loader'
+import predictionStyle from './predictionStyle'
 
 const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leagues, selectedGames, gamesData, getOdds, getLeagues, match, advice, getLiveGames, isLoading }) => {
   useEffect(() => {
@@ -27,7 +28,7 @@ const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leag
             <Loader />
             :
             <View>
-              <View>
+              <View style={predictionStyle.dropdown}>
                 <Form forwardRef="form">
                   <Dropdown
                     label='Please Choose League'
@@ -35,7 +36,7 @@ const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leag
                     containerStyle={{ width: 235 }}
                     textColor={'rgb(255, 197, 66)'}
                     baseColor={'rgb(255, 197, 66)'}
-                    dropdownPosition={-4.3}
+                    dropdownPosition={-4.2}
                     pickerStyle={{ backgroundColor: '#2A3C44' }}
                     shadeOpacity={0.20}
                     onChangeText={(value) => {
@@ -48,7 +49,7 @@ const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leag
                     containerStyle={{ width: 235 }}
                     textColor={'rgb(255, 197, 66)'}
                     baseColor={'rgb(255, 197, 66)'}
-                    dropdownPosition={-4.8}
+                    dropdownPosition={-2.3}
                     pickerStyle={{ backgroundColor: '#2A3C44' }}
                     shadeOpacity={0.20}
                     onChangeText={(value) => {

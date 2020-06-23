@@ -46,7 +46,7 @@ const CreateRoom = ({ navigation, getLiveGames, getLeagues, leagues, selectedGam
                             containerStyle={{ width: 235 }}
                             textColor={'rgb(255, 197, 66)'}
                             baseColor={'rgb(255, 197, 66)'}
-                            dropdownPosition={-4.3}
+                            dropdownPosition={-4.2}
                             pickerStyle={{ backgroundColor: '#2A3C44' }}
                             shadeOpacity={0.20}
                             onChangeText={(league) => {
@@ -59,7 +59,7 @@ const CreateRoom = ({ navigation, getLiveGames, getLeagues, leagues, selectedGam
                             containerStyle={{ width: 235 }}
                             textColor={'rgb(255, 197, 66)'}
                             baseColor={'rgb(255, 197, 66)'}
-                            dropdownPosition={-4.8}
+                            dropdownPosition={-2.3}
                             pickerStyle={{ backgroundColor: '#2A3C44' }}
                             shadeOpacity={0.20}
                             onChangeText={(match) => {
