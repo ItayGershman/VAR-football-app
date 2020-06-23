@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Header from '../Header';
 import DataContainerStyles from '../../styles'
 import Form from 'react-native-form'
+import Room from './Room'
 import { Dropdown } from 'react-native-material-dropdown';
 import { getGame, setUserData, login } from '../actions/roomsActions'
 import { connect } from 'react-redux';
@@ -29,10 +30,8 @@ const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, l
     let userScore = {
         nickname: '',
         home: 0,
-        away: 0,
-        setResult: false
+        away: 0
     }
-    let textInput = ''
     return (
         <View style={styles.container}>
             <Header navigation={navigation} />
@@ -41,40 +40,11 @@ const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, l
                 <View style={styles.formContainer}>
 
                     <View>
-                        <Text style={styles.matchText}>{game.replace(/"/g, '')}</Text>
+                        <Text style={styles.matchText}>{game}</Text>
                     </View>
                     <View>
                         {
-                            //check if user is logged in
-                            //if he/she is then check if the user entered result
-                            //if yes display data, if not display dropdown
                             !isLoggedIn ?
-                                // <TextField
-                                //     placeholder="Enter nickname"
-                                //     returnKeyType="go"
-                                //     onSubmitEditing={(value) => alert(value)}
-                                //     blurOnSubmit={false}
-                                //     onChangeText={(name) => {
-                                //         userScore.nickname = name
-                                //         login(roomCode, userScore.nickname)
-                                //     }}
-                                // />
-                                // <TextInput
-                                //     style={{ backgroundColor: '#2A3C44',justifyContent: 'center',color:'rgb(255, 197, 66)' }}
-                                //     label='Enter nickname'
-                                //     // mode={'flat'}
-                                //     // value={textInput}
-                                //     // selectionColor='#00000'
-                                //     underlineColor={this.colors.theme}
-                                //     returnKeyType="go"
-                                //     theme={{colors: {text: 'rgb(255, 197, 66)'}}}
-                                //     // onSubmitEditing={(value) => login(roomCode, value)}
-                                //     onSubmitEditing={(event) => {
-                                //         // alert('roomCode, event.nativeEvent.text')
-                                //         // alert(roomCode)
-                                //         login(roomCode, event.nativeEvent.text)
-                                //     }}
-                                // />
                                 <View style={{ justifyContent: 'center' }}>
                                     <OutlinedTextField
                                         containerStyle={{ width: 235 ,borderBottomColor:'rgb(255, 197, 66)',borderBottomWidth:1 }}
@@ -84,7 +54,7 @@ const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, l
                                         lineWidth={0}
                                         activeLineWidth={0}
                                         shadeOpacity={0.20}
-                                        label='Enter nickname'
+                                        label='Enter full name'
                                         returnKeyType="go"
                                         textColor='rgb(255, 197, 66)'
                                         onSubmitEditing={(event) => {
@@ -133,10 +103,10 @@ const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, l
                                         </Form>
                                     </View>
                                     :
-                                    //<Room/>
-                                    <View>
-                                        <Text>Display list of friends results and match data</Text>
-                                    </View>
+                                    <Room roomCode={roomCode} navigation={navigation} />
+                            // <View>
+                            //     <Text>Display list of friends results and match data</Text>
+                            // </View>
                         }
                     </View>
                 </View>
