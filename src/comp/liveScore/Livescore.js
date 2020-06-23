@@ -40,6 +40,10 @@ const Livescore = ({ navigation, getLiveGames, leagues, isLoading }) => {
                         style={liveStyles.flag}
                       />
                     </View>
+                    <View style={liveStyles.homeAway}>
+                      <Text style={liveStyles.homeAwayText}>HOME</Text>
+                      <Text style={liveStyles.homeAwayText}>AWAY</Text>
+                    </View>
                     <FlatList
                       data={league.games}
                       numColumns={1}

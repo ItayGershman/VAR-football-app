@@ -30,7 +30,6 @@ export const getOdds = (match, gamesData) => async (dispatch) => {
         .then((response) => response.json())
         .then((data) => {
             const prediction = organizeData(data, logos)
-            setTimeout(() => {
             dispatch({
                 type: ODDS,
                 match: prediction.matchTeams,
@@ -39,7 +38,6 @@ export const getOdds = (match, gamesData) => async (dispatch) => {
                 winningPercent: prediction.winningPercent,
                 h2hGames: prediction.h2hGames,
             });
-            }, 2000);
         })
         .catch((error) => {
             console.error(`error:${error}`)
@@ -151,6 +149,7 @@ export const getLiveGames = (league) => async (dispatch) => {
 export const getLeagues = () => async (dispatch) => {
     const date = getCurrentDate()
     fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/date/${date}?timezone=Asia/Jerusalem`, {
+        // fetch(`https://api-football-v1.p.rapidapi.com/v2/fixtures/date/2020-06-22?timezone=Asia/Jerusalem`, {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": API_HOST,
@@ -187,6 +186,7 @@ export const getLeagues = () => async (dispatch) => {
                     match.date = data.api.fixtures[i].event_date.substring(11, 16)
                     match.goalsAway = data.api.fixtures[i].goalsAwayTeam
                     match.goalsHome = data.api.fixtures[i].goalsHomeTeam
+                    match.fulltime = data.api.fixtures[i].score.fulltime
                     match.fixtureID = data.api.fixtures[i].fixture_id
                     gamesData.push(match)
                 }

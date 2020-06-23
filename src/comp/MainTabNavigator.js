@@ -26,7 +26,6 @@ export default function MainTabNavigator({ navigation }) {
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="controller-classic-outline" color={color} size={26} />
                     ),
-
                 }}
 
             />

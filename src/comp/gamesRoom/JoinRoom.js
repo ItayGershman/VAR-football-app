@@ -8,10 +8,8 @@ import DataContainerStyles from '../../styles'
 import Form from 'react-native-form'
 import Room from './Room'
 import { Dropdown } from 'react-native-material-dropdown';
-import { getGame, setUserData, login } from '../actions/roomsActions'
+import { getGame, setUserData, login, gamePreview } from '../actions/roomsActions'
 import { connect } from 'react-redux';
-import { TextInput } from 'react-native-paper';
-// import { Input } from 'react-native-elements';
 import { OutlinedTextField } from 'react-native-material-textfield'
 
 let score = []
@@ -22,15 +20,16 @@ for (let i = 0; i < 10; ++i) {
     score.push(num)
 }
 
-const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, login, setUserData }) => {//props is roomCode,
+const JoinRoom = ({ route, navigation, isSetResult, isLoggedIn, login, setUserData, gamePreview, gameData, gamesData }) => {//props is roomCode,
     const { roomCode } = route.params
     useEffect(() => {
-        getGame(roomCode)
+        // getGame(roomCode)
+        gamePreview(roomCode, gamesData)
     }, [])
     let userScore = {
-        nickname: '',
         home: 0,
-        away: 0
+        away: 0,
+        points: 0
     }
     return (
         <View style={styles.container}>
@@ -38,9 +37,17 @@ const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, l
             <View style={DataContainerStyles.dataContainer}>
                 <Text style={styles.text}>Join Room</Text>
                 <View style={styles.formContainer}>
-                    <View style={styles.matchTextContainer}>
-                        <Text style={styles.matchText}>{game}</Text>
-                    </View>
+                    {
+                        gameData != undefined &&
+                        <View style={{ width:'100%',flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
+                            <Text style={styles.matchText}>{gameData.home}</Text>
+                            <View style={{ flexDirection: 'column' }}>
+                                <Text style={styles.minute}>{gameData.minute}</Text>
+                                <Text style={styles.matchText}>{gameData.goalsHome}-{gameData.goalsAway}</Text>
+                            </View>
+                            <Text style={styles.matchText}>{gameData.away}</Text>
+                        </View>
+                    }
                     <View>
                         {
                             !isLoggedIn ?
@@ -103,9 +110,6 @@ const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, l
                                     </View>
                                     :
                                     <Room roomCode={roomCode} navigation={navigation} />
-                            // <View>
-                            //     <Text>Display list of friends results and match data</Text>
-                            // </View>
                         }
                     </View>
                 </View>
@@ -123,16 +127,20 @@ JoinRoom.propTypes = {
     isSetResult: PropTypes.bool,
     isLoggedIn: PropTypes.bool,
     setUserData: PropTypes.func,
-    login: PropTypes.func
+    login: PropTypes.func,
+    gamePreview: PropTypes.func,
+    gameData: PropTypes.object
 };
 
 
-const mapStateToProps = ({ rooms }) => {
+const mapStateToProps = ({ rooms, prediction }) => {
     return {
         game: rooms.game,
         isSetResult: rooms.isSetResult,
-        isLoggedIn: rooms.isLoggedIn
+        isLoggedIn: rooms.isLoggedIn,
+        gameData: rooms.gameData,
+        gamesData: prediction.gamesData
     };
 };
 
-export default connect(mapStateToProps, { getGame, setUserData, login })(JoinRoom);
+export default connect(mapStateToProps, { getGame, setUserData, login, gamePreview })(JoinRoom);
