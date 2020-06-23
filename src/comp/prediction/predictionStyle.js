@@ -200,6 +200,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
     justifyContent: 'space-evenly',
   },
+  dropdown:{
+    alignItems:'center',
+    justifyContent:'center'
+  }
 });
 
 export default styles

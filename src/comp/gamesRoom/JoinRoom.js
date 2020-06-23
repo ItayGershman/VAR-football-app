@@ -12,6 +12,7 @@ import { getGame, setUserData, login } from '../actions/roomsActions'
 import { connect } from 'react-redux';
 import { TextInput } from 'react-native-paper';
 // import { Input } from 'react-native-elements';
+import { OutlinedTextField } from 'react-native-material-textfield'
 
 let score = []
 for (let i = 0; i < 10; ++i) {
@@ -44,13 +45,23 @@ const JoinRoom = ({ route, navigation, getGame, game, isSetResult, isLoggedIn, l
                     <View>
                         {
                             !isLoggedIn ?
-                                <TextInput
-                                    label='Enter full name'
-                                    returnKeyType="go"
-                                    onSubmitEditing={(event) => {
-                                        login(roomCode, event.nativeEvent.text)
-                                    }}
-                                />
+                                <View style={{ justifyContent: 'center' }}>
+                                    <OutlinedTextField
+                                        containerStyle={{ width: 235 ,borderBottomColor:'rgb(255, 197, 66)',borderBottomWidth:1 }}
+                                        textColor={'rgb(255, 197, 66)'}
+                                        baseColor={'rgb(255, 197, 66)'}
+                                        tintColor={'rgb(255, 197, 66)'}
+                                        lineWidth={0}
+                                        activeLineWidth={0}
+                                        shadeOpacity={0.20}
+                                        label='Enter full name'
+                                        returnKeyType="go"
+                                        textColor='rgb(255, 197, 66)'
+                                        onSubmitEditing={(event) => {
+                                            login(roomCode, event.nativeEvent.text)
+                                        }}
+                                    />
+                                </View>
                                 :
                                 !isSetResult ?
                                     <View>

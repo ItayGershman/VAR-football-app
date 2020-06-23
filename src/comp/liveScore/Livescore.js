@@ -11,8 +11,10 @@ import liveStyles from './liveStyles'
 import Image from 'react-native-remote-svg'
 import Loader from '../Loader'
 import { ScrollView } from 'react-native-gesture-handler';
+import getCurrentDate from '../../constants'
 
 const Livescore = ({ navigation, getLiveGames, leagues, isLoading }) => {
+  const date = getCurrentDate();
   useEffect(() => {
     getLiveGames('LIVE_GAMES')
   }, []);
@@ -20,8 +22,10 @@ const Livescore = ({ navigation, getLiveGames, leagues, isLoading }) => {
     <View style={liveStyles.container}>
       <Header navigation={navigation} />
       <View style={DataContainerStyles.dataContainer}>
-        <Text style={liveStyles.text}> Livescore</Text>
-        {/* <Text>{getCurrentDate()}</Text> */}
+        <View style={liveStyles.headlineAndDate}>
+          <Text style={liveStyles.text}> Livescore</Text>
+          <Text style={liveStyles.date}>{date.replace(/-/g, '.')}</Text>
+        </View>
         <ScrollView>
           {
             isLoading ?
