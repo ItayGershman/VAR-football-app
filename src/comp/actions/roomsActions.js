@@ -13,7 +13,7 @@
 * }
 */
 
-import { ROOM_CODE, ROOM_GAME, USER_DATA, LOGIN, SET_ROOM_DATA, SET_POINTS, GAME_DATA } from './actionsType';
+import { ROOM_CODE, ROOM_GAME, USER_DATA, LOGIN, SET_ROOM_DATA, SET_POINTS, GAME_DATA, CLEAN_STATE } from './actionsType';
 import AsyncStorage from '@react-native-community/async-storage';
 const randomString = require('random-string');
 
@@ -179,4 +179,10 @@ export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
             }
         })
         .catch(e => console.log(e))
+}
+
+export const cleanState = () => (dispatch) => {
+    dispatch({
+        type: CLEAN_STATE
+    })
 }

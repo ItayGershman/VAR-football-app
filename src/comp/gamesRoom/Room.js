@@ -2,12 +2,12 @@ import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import PropTypes from 'prop-types';
-import { getRoomData } from '../actions/roomsActions';
+import { getRoomData, cleanState } from '../actions/roomsActions';
 import { connect } from 'react-redux';
 import styles from './RoomStyles'
 import { IconButton, Colors } from 'react-native-paper'
 
-const Room = ({ navigation, getRoomData, roomCode, roomData, roomDataUsers }) => { //props is roomCode
+const Room = ({ navigation, getRoomData, roomCode, roomData, roomDataUsers, gameData, cleanState }) => { //props is roomCode
     useEffect(() => {
         getRoomData(roomCode)
     }, [])
@@ -19,10 +19,24 @@ const Room = ({ navigation, getRoomData, roomCode, roomData, roomDataUsers }) =>
                     <IconButton
                         icon="chevron-left"
                         color={Colors.white}
-                        onPress={() => navigation.navigate('GamesRoom')}
+                        onPress={() => {
+                            cleanState()
+                            navigation.navigate('GamesRoom')
+                        }}
                         size={30}
                     />
                 </View>
+                {
+                    gameData != undefined &&
+                    <View style={{ margin: 10, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
+                        <Text style={styles.matchText}>{gameData.home}</Text>
+                        <View style={{ flexDirection: 'column' }}>
+                            <Text style={styles.minute}>{gameData.minute}</Text>
+                            <Text style={styles.matchText}>{gameData.goalsHome}-{gameData.goalsAway}</Text>
+                        </View>
+                        <Text style={styles.matchText}>{gameData.away}</Text>
+                    </View>
+                }
             </View>
             {
                 roomDataUsers.length > 0 &&
@@ -57,7 +71,8 @@ Room.propTypes = {
     getRoomData: PropTypes.func,
     roomCode: PropTypes.string,
     roomData: PropTypes.object,
-    roomDataUsers: PropTypes.array
+    roomDataUsers: PropTypes.array,
+    cleanState:PropTypes.func
 };
 
 const mapStateToProps = ({ rooms }) => {
@@ -67,4 +82,4 @@ const mapStateToProps = ({ rooms }) => {
     };
 };
 
-export default connect(mapStateToProps, { getRoomData })(Room);
+export default connect(mapStateToProps, { getRoomData, cleanState })(Room);
