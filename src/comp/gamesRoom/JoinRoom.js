@@ -44,20 +44,16 @@ const JoinRoom = ({ route, navigation, isSetResult, isLoggedIn, login, setUserDa
                             <View style={{ flexDirection: 'column' }}>
                                 <Text style={styles.minute}>{gameData.minute}</Text>
                                 <Text style={styles.matchText}>{gameData.goalsHome}-{gameData.goalsAway}</Text>
-
                             </View>
                             <Text style={styles.matchText}>{gameData.away}</Text>
-
-
                         </View>
                     }
-
                     <View>
                         {
                             !isLoggedIn ?
-                                <View style={{ justifyContent: 'center', marginLeft: '20%' }}>
+                                <View style={{ justifyContent: 'center',marginBottom:'20%' }}>
                                     <OutlinedTextField
-                                        containerStyle={{ width: 235, borderBottomColor: 'rgb(255, 197, 66)', borderBottomWidth: 1 }}
+                                        containerStyle={{ width: 235,height:43, borderBottomColor: 'rgb(255, 197, 66)', borderBottomWidth: 1 }}
                                         textColor={'rgb(255, 197, 66)'}
                                         baseColor={'rgb(255, 197, 66)'}
                                         tintColor={'rgb(255, 197, 66)'}
@@ -74,7 +70,7 @@ const JoinRoom = ({ route, navigation, isSetResult, isLoggedIn, login, setUserDa
                                 </View>
                                 :
                                 !isSetResult ?
-                                    <View>
+                                    <View style={styles.inputResultContainer}>
                                         <Text style={styles.joinText}>Your Result</Text>
                                         <Form forwardRef="form">
                                             <View style={styles.score}>

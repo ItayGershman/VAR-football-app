@@ -11,29 +11,36 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 30,
         marginTop: 10,
-        marginLeft: 105
+        marginLeft: 125
     },
     joinText: {
         fontSize: 16,
         color: 'white',
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         marginTop: 25,
-        marginRight: 140,
-        position: 'relative',
+        // marginRight: 140,
+        // position: 'relative',
+        justifyContent:'center',
+        alignItems:'center',
+        textAlign:'center'
     },
     matchText: {
-        fontSize: 16,
+        fontFamily: 'sans-serif-thin',
         color: 'white',
-        // fontFamily: 'sans-serif-thin',
         // marginTop: 25,
         // marginRight: 75,
         position: 'relative',
+        marginTop: 5,
+        width: '100%',
+        textAlign: 'center',
+        fontSize: 14,
         justifyContent: 'center',
-        textAlign: 'center'
+        alignItems: 'center'
     },
     formContainer: {
         position: 'relative',
         // marginLeft: 80,
+        alignItems: 'center',
         marginTop: 15,
         textAlign: 'center',
         justifyContent: 'center',
@@ -47,17 +54,18 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     league: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         fontSize: 15,
         color: '#FFFFFF',
-        marginRight: 50
+        // marginRight: 50
     },
     score: {
         flexDirection: 'row-reverse',
         justifyContent: 'space-between',
-        marginRight: 35,
-        alignItems: 'center',
-        marginLeft: 90
+        margin:'2%'
+        // marginRight: 35,
+        // alignItems: 'center',
+        // marginLeft: 90
     },
     submit: {
         position: 'relative',
@@ -69,7 +77,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 65,
-        marginLeft: 40,
+        // marginLeft: 40,
         shadowColor: 'rgb(255, 197, 66)',
         shadowOffset: {
             width: 0,
@@ -80,7 +88,7 @@ const styles = StyleSheet.create({
         elevation: 24,
     },
     buttonText: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         fontSize: 20,
         color: 'white'
     },
@@ -91,34 +99,34 @@ const styles = StyleSheet.create({
     },
     msgContainer: {
         flex: 1,
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
     },
     titleRoom: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
         fontSize: 30,
     },
     titleCode: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
         fontSize: 25
     },
     roomCode: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
         fontSize: 20
     },
     copyCode: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
@@ -126,7 +134,7 @@ const styles = StyleSheet.create({
     goBackButton: {
         marginTop: 50,
         marginLeft: 100,
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         backgroundColor: '#286053',
@@ -140,6 +148,12 @@ const styles = StyleSheet.create({
         shadowRadius: 16.00,
         elevation: 24,
     },
+    matchTextContainer: {
+        justifyContent: 'center'
+    },
+    inputResultContainer:{
+        justifyContent:'center'
+    }
     minute: {
         color: "#FF8A34",
         fontSize: 9,

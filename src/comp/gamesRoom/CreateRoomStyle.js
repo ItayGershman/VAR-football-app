@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         backgroundColor: '#286053',
-        width: 120,
+        width: 130,
         shadowColor: 'rgb(255, 197, 66)',
         shadowOffset: {
             width: 0,
