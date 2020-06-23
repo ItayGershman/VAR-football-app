@@ -9,13 +9,8 @@ const JoinBox = ({ navigation }) => {
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     }
-    const moveAndHide = ({ navigation }) => {
-        let nickname = ''
-        let roomCode = ''
-
-        //get nickname & room code
-        //enter this values into room state -> [{id:roomID,userData:{user:nickname,result:3-1}},{id:...}]
-        //enterRoom(roomID,nickname)
+    let roomCode = ''
+    const moveAndHide = (navigation, roomCode) => {
         navigation.navigate('JoinRoom', {
             roomCode: roomCode
         });
@@ -35,22 +30,15 @@ const JoinBox = ({ navigation }) => {
                 <Text style={styles.infoText}>Enter the PIN you got from your{"\n"}friend and join!</Text>
                 <Modal isVisible={isModalVisible} style={styles.modal}>
                     <View style={styles.msgContainer}>
-                        <Text style={styles.titleRoom}>What's your Nickname:</Text>
-                        <Input
-                            style={styles.inputText}
-                            placeholder=''
-                            inputStyle={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontFamily: 'sans-serif-thin' }}
-                            // value={}
-                            // onChangeText={(value)=>nickname = value}
-                        />
                         <Text style={styles.titleRoom}>Enter the room code:</Text>
                         <Input
                             style={styles.inputText}
                             placeholder=''
-                            inputStyle={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontFamily: 'sans-serif-thin' }}
-                            // onChangeText={(value)=> roomCode = value}
+                            // inputStyle={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontFamily: 'sans-serif-thin' }}
+                            inputStyle={{ color: 'white', justifyContent: 'center', textAlign: 'center' }}
+                            onChangeText={(value) => roomCode = value}
                         />
-                        <TouchableOpacity style={styles.enterButton} title="LETS PLAY!" onPress={() => moveAndHide({ navigation,roomCode,nickname })}>
+                        <TouchableOpacity style={styles.enterButton} title="LETS PLAY!" onPress={() => moveAndHide(navigation, roomCode)}>
                             <Text style={styles.enterButtonText}>LET'S PLAY!</Text>
                         </TouchableOpacity>
                     </View>
@@ -116,7 +104,7 @@ const styles = StyleSheet.create({
         marginLeft: 50,
         zIndex: 5,
         fontWeight: 'bold',
-        fontFamily: 'sans-serif-thin'
+        // fontFamily: 'sans-serif-thin'
     },
     modal: {
         flex: 1,
@@ -124,7 +112,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around'
     },
     titleRoom: {
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
@@ -133,7 +121,7 @@ const styles = StyleSheet.create({
     enterButton: {
         marginTop: 50,
         marginLeft: 100,
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         backgroundColor: '#286053',
@@ -157,17 +145,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     inputText: {
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center'
     },
     enterButtonText: {
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
-        fontFamily: 'sans-serif-thin',
+        // fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         backgroundColor: '#286053',

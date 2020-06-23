@@ -1,16 +1,18 @@
-import { ROOM_DATA, ROOM_GAME, USER_DATA, LOGIN } from '../actions/actionsType'
+import { ROOM_CODE, ROOM_GAME, USER_DATA, LOGIN, SET_ROOM_DATA } from '../actions/actionsType'
 
 const initialState = {
     game: '',
     userData: {},
     roomCode: '',
     isLoggedIn: false,
-    isSetResult: false
+    isSetResult: false,
+    roomData: {},
+    roomDataUsers: []
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case ROOM_DATA: {
+        case ROOM_CODE: {
             console.log('ROOM_DATA')
             return {
                 ...state,
@@ -28,7 +30,7 @@ export default (state = initialState, action) => {
             console.log('USER_DATA')
             return {
                 ...state,
-                userData: action.userData
+                isSetResult: action.isSetResult
             }
         }
         case LOGIN: {
@@ -37,6 +39,14 @@ export default (state = initialState, action) => {
                 ...state,
                 isSetResult: action.isSetResult,
                 isLoggedIn: action.isLoggedIn
+            }
+        }
+        case SET_ROOM_DATA: {
+            console.log('SET_ROOM_DATA')
+            return {
+                ...state,
+                roomData: action.roomData,
+                roomDataUsers: action.roomData.userData
             }
         }
         default:

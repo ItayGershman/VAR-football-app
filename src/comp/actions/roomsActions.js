@@ -2,35 +2,32 @@
 * value should be {
 *      roomCode:roomCode,
 *      participants:[{
-*          nickname:israel israeli,
+*          fullName:israel israeli,
 *          result: '3-1',
 *          points: 0
 *      },{
-*          nickname:israel israeli,
+*          fullName:israel israeli,
 *          result: '3-1'
 *      }
 * ]
 * }
 */
 
-import { ROOM_DATA, ROOM_GAME, USER_DATA, LOGIN } from './actionsType';
+import { ROOM_CODE, ROOM_GAME, USER_DATA, LOGIN, SET_ROOM_DATA } from './actionsType';
 import getCurrentDate from '../../constants'
 import AsyncStorage from '@react-native-community/async-storage';
 const randomString = require('random-string');
 
 export const setGame = (game) => async (dispatch) => {
-    // alert(`game:${game}`)
     const roomCode = randomString()
     try {
-
         let jsonObj = {
             game: game
         }
-        alert(JSON.stringify(jsonObj))
         await AsyncStorage.setItem(roomCode, JSON.stringify(jsonObj))
 
         dispatch({
-            type: ROOM_DATA,
+            type: ROOM_CODE,
             roomCode: roomCode
         })
     } catch (e) {
@@ -39,55 +36,45 @@ export const setGame = (game) => async (dispatch) => {
 }
 
 export const getGame = (roomCode) => async (dispatch) => {
-
     try {
-        // const roomData = await AsyncStorage.getItem(roomCode)
-        // alert(`roomData:${roomData}`)
-
         AsyncStorage.getItem(roomCode)
-            .then((game) => {
+            .then((data) => {
                 dispatch({
                     type: ROOM_GAME,
-                    game: game
+                    game: JSON.parse(data).game
                 })
             })
             .catch(e => alert(e))
-
-        // alert(`match:${roomData.match}`)
-
     } catch (error) {
         console.log(error)
     }
 }
 
 export const setUserData = (roomCode, userData) => async (dispatch) => {
-    // alert(JSON.stringify(userData))
     let newObj = {}
     try {
         AsyncStorage.getItem(roomCode)
             .then(data => {
-                data = JSON.parse(data)
-                newObj.game = data.game
-                newObj.nickname = data.nickname
-                userData.nickname = newObj.nickname
-                
-                if (JSON.stringify(data).userData === undefined) {
-                    newObj.userData = userData
-                    AsyncStorage.setItem(roomCode, JSON.stringify(newObj))
-                        .then(() => {
-                            dispatch({
-                                type: USER_DATA,
-                                isSetResult: true,
-                            })
+                alert(`data:${data}`)
+                newObj = JSON.parse(data)
+                // newObj.game = data.game
+                // newObj.fullName = data.fullName
+                userData.fullName = newObj.fullName
+                if (newObj.userData === undefined) {
+                    newObj.userData = []
+                }
+                alert(JSON.stringify(newObj.userData[0]))
+                newObj.userData.push(userData)
+                // newObj.userData = [...newObj.userData, userData]
+                alert(`newObj:${JSON.stringify(newObj)}`)
+                AsyncStorage.setItem(roomCode, JSON.stringify(newObj))
+                    .then(() => {
+                        dispatch({
+                            type: USER_DATA,
+                            isSetResult: true,
                         })
-                        .catch(e => alert(e))
-                }
-                else {
-                    dispatch({
-                        type: USER_DATA,
-                        isSetResult: true,
                     })
-                }
+                    .catch(e => alert(e))
 
             })
             .catch(e => alert(e))
@@ -95,52 +82,48 @@ export const setUserData = (roomCode, userData) => async (dispatch) => {
     } catch (error) {
         alert(`error:${error}`)
     }
-
-
-    try {
-        // await AsyncStorage.setItem(roomCode, value)
-        await AsyncStorage.mergeItem(roomCode, JSON.stringify({ userData: userData }))
-        alert(`roomCode - ${roomCode}`)
-        dispatch({
-            type: USER_DATA,
-            userData: userData
-        })
-    } catch (e) {
-        console.log(`Error${e}`)
-    }
 }
 
-export const login = (roomCode, nickname) => async (dispatch) => {
-    // alert(nickname)
+export const login = (roomCode, fullName) => async (dispatch) => {
     let newObj = {}
-
     try {
-
         AsyncStorage.getItem(roomCode)
             .then(data => {
-                alert(JSON.parse(data).game)
-                newObj.game = JSON.parse(data).game
-                alert(JSON.parse(data).nickname)
-                if (JSON.parse(data).nickname === undefined) {
-                    newObj.nickname = nickname
-                    AsyncStorage.setItem(roomCode, JSON.stringify(newObj))
-                        .then(() => {
+                alert(data.userData)
+
+                newObj = JSON.parse(data)
+                if (newObj.userData !== undefined) {
+                    for (let i = 0; i < newObj.userData.length; ++i) {
+                        if (fullName === newObj.userData[i].fullName) {
+                            alert("yes!")
                             dispatch({
                                 type: LOGIN,
-                                isSetResult: false,
+                                isSetResult: true,
                                 isLoggedIn: true
                             })
+                            return
+                        }
+                    }
+                }
+                newObj.fullName = fullName
+                AsyncStorage.setItem(roomCode, JSON.stringify(newObj))
+                    .then(() => {
+                        dispatch({
+                            type: LOGIN,
+                            isSetResult: false,
+                            isLoggedIn: true
                         })
-                        .catch(e => alert(e))
-                }
-                else {
-                    dispatch({
-                        type: LOGIN,
-                        isSetResult: false,
-                        isLoggedIn: true
                     })
-                }
+                    .catch(e => alert(e))
 
+                // }
+                // else {
+                //     dispatch({
+                //         type: LOGIN,
+                //         isSetResult: false,
+                //         isLoggedIn: true
+                //     })
+                // }
             })
             .catch(e => alert(e))
 
@@ -149,25 +132,16 @@ export const login = (roomCode, nickname) => async (dispatch) => {
     }
 }
 
-    // try {
-    //     let data = await AsyncStorage.getItem(roomCode)
-    //     alert(JSON.parse(data).game)
-    //     newObj.game = JSON.parse(data).game
-    //     newObj.nickname = nickname
-    // }
-    // catch (err) {
-    //     alert(err)
-    // }
-    // try {
-    //     await AsyncStorage.setItem(roomCode, newObj)
-    //     let result = await AsyncStorage.getItem(roomCode)
-    //     alert(`result:${result}`)
-    // }
-    // catch (err) {
-    //     alert(err)
-    // }
-    // dispatch({
-    //     type: LOGIN,
-    //     isSetResult: false,
-    //     isLoggedIn: true
-    // })
+export const getRoomData = (roomCode) => async (dispatch) => {
+    try {
+        let data = await AsyncStorage.getItem(roomCode)
+
+        dispatch({
+            type: SET_ROOM_DATA,
+            roomData: JSON.parse(data)
+        })
+    }
+    catch (err) {
+        alert(err)
+    }
+}
