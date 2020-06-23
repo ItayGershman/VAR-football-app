@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     },
     inputResultContainer:{
         justifyContent:'center'
-    }
+    },
     minute: {
         color: "#FF8A34",
         fontSize: 9,
