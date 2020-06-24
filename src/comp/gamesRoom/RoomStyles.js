@@ -177,10 +177,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row-reverse',
         justifyContent: 'space-evenly',
     },
-    titleAndArrow:{
-        flexDirection:'row',
-        marginLeft:'5%',
-        justifyContent:'space-between'
+    titleAndArrow: {
+        flexDirection: 'row',
+        marginLeft: '5%',
+        justifyContent: 'space-between'
     },
     matchRow: {
         // marginBottom:'1.5%',
@@ -198,6 +198,24 @@ const styles = StyleSheet.create({
         width: '40%',
         textAlign: 'center',
         fontSize: 10
+    },
+    tableBox: {
+        marginBottom: 30,
+        marginTop: 10,
+        marginLeft: '5%',
+        width: '90%',
+        // height: '100%',
+        backgroundColor: '#2A3C44',
+        borderRadius: 20,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 24,
+        justifyContent: 'space-between'
     },
 });
 

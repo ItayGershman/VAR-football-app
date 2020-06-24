@@ -47,24 +47,26 @@ const Room = ({ navigation, getRoomData, gamePreview, roomCode, roomData, roomDa
                         </View>
                     }
                     <View style={{ marginBottom: '20%' }}>
-                        <View style={styles.nameHomeAway}>
-                            <Text style={styles.columnsTitle}>NAME</Text>
-                            <Text style={styles.columnsTitle}>HOME</Text>
-                            <Text style={styles.columnsTitle}>AWAY</Text>
-                            {/* <Text style={styles.columnsTitle}>POINTS</Text> */}
+                        <View style={styles.tableBox}>
+                            <View style={styles.nameHomeAway}>
+                                <Text style={styles.columnsTitle}>NAME</Text>
+                                <Text style={styles.columnsTitle}>HOME</Text>
+                                <Text style={styles.columnsTitle}>AWAY</Text>
+                                {/* <Text style={styles.columnsTitle}>POINTS</Text> */}
+                            </View>
+                            <FlatList
+                                data={roomDataUsers}
+                                numColumns={1}
+                                renderItem={({ item }) => (
+                                    <View style={styles.rowContent}>
+                                        <Text style={styles.rowFlatList}>{item.fullName}</Text>
+                                        <Text style={styles.rowFlatList}>{item.home}</Text>
+                                        <Text style={styles.rowFlatList}>{item.away}</Text>
+                                    </View>
+                                )}
+                                keyExtractor={item => item.id}
+                            />
                         </View>
-                        <FlatList
-                            data={roomDataUsers}
-                            numColumns={1}
-                            renderItem={({ item }) => (
-                                <View style={styles.rowContent}>
-                                    <Text style={styles.rowFlatList}>{item.fullName}</Text>
-                                    <Text style={styles.rowFlatList}>{item.home}</Text>
-                                    <Text style={styles.rowFlatList}>{item.away}</Text>
-                                </View>
-                            )}
-                            keyExtractor={item => item.id}
-                        />
                     </View>
                 </View>
             }
