@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     joinText: {
         fontSize: 16,
         color: 'white',
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         marginTop: 25,
         marginRight: 140,
         position: 'relative',
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     matchText: {
         fontSize: 16,
         color: 'white',
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         marginTop: 25,
         marginRight: 75,
         position: 'relative',
@@ -47,17 +47,17 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     league: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         fontSize: 15,
         color: '#FFFFFF',
         marginRight: 50
     },
     score: {
-        flexDirection: 'row-reverse',
-        justifyContent: 'space-between',
-        marginRight: 35,
-        alignItems: 'center',
-        marginLeft: 90
+        fontFamily: 'sans-serif-thin',
+        color: 'rgb(255, 197, 66)',
+        position: 'relative',
+        marginTop: 5,
+        justifyContent: 'center'
     },
     submit: {
         position: 'relative',
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         elevation: 24,
     },
     buttonText: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         fontSize: 20,
         color: 'white'
     },
@@ -91,34 +91,34 @@ const styles = StyleSheet.create({
     },
     msgContainer: {
         flex: 1,
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
     },
     titleRoom: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
         fontSize: 30,
     },
     titleCode: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
         fontSize: 25
     },
     roomCode: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
         fontSize: 20
     },
     copyCode: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     goBackButton: {
         marginTop: 50,
         marginLeft: 100,
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         backgroundColor: '#286053',
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         marginTop: '1%',
         flexDirection: 'row-reverse',
         justifyContent: 'space-evenly',
-        marginBottom:'5%'
+        // marginBottom:'5%'
     },
     columnsTitle: {
         fontFamily: 'sans-serif-thin',
@@ -177,11 +177,46 @@ const styles = StyleSheet.create({
         flexDirection: 'row-reverse',
         justifyContent: 'space-evenly',
     },
-    titleAndArrow:{
-        flexDirection:'row',
-        marginLeft:'5%',
-        justifyContent:'space-between'
-    }
+    titleAndArrow: {
+        flexDirection: 'row',
+        marginLeft: '5%',
+        justifyContent: 'space-between'
+    },
+    matchRow: {
+        // marginBottom:'1.5%',
+        flexDirection: 'row-reverse',
+        justifyContent: 'space-around',
+        position: 'relative',
+        // width: '70%'
+    },
+    teamName: {
+        fontFamily: 'sans-serif-thin',
+        // color: 'rgb(255, 197, 66)',
+        color: 'white',
+        position: 'relative',
+        marginTop: 5,
+        width: '40%',
+        textAlign: 'center',
+        fontSize: 10
+    },
+    tableBox: {
+        marginBottom: 30,
+        marginTop: 10,
+        marginLeft: '5%',
+        width: '90%',
+        // height: '100%',
+        backgroundColor: '#2A3C44',
+        borderRadius: 20,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 24,
+        justifyContent: 'space-between'
+    },
 });
 
 export default styles

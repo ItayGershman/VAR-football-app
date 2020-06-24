@@ -42,13 +42,23 @@ const JoinRoom = ({ route, navigation, isSetResult, isLoggedIn, login, setUserDa
                             <View style={styles.formContainer}>
                                 {
                                     gameData != undefined &&
-                                    <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
-                                        <Text style={styles.matchText}>{gameData.home}</Text>
-                                        <View style={{ flexDirection: 'column' }}>
-                                            <Text style={styles.minute}>{gameData.minute}</Text>
-                                            <Text style={styles.matchText}>{gameData.goalsHome}-{gameData.goalsAway}</Text>
-                                        </View>
-                                        <Text style={styles.matchText}>{gameData.away}</Text>
+                                    <View style={styles.matchRow}>
+                                        {/* <Image
+                                        style={liveStyles.teamLogo}
+                                        source={{ uri: game.matchHome.logo }}
+                                    /> */}
+                                        <Text style={styles.teamName}>{gameData.home}</Text>
+                                        <Text style={styles.scoreJoin}>{gameData.goalsHome}
+                                            {
+                                                gameData.minute == 0 ? 'VS' : '-'
+                                            }
+                                            {gameData.goalsAway}
+                                        </Text>
+                                        <Text style={styles.teamName}>{gameData.away}</Text>
+                                        {/* <Image
+                                        style={liveStyles.teamLogo}
+                                        source={{ uri: game.matchAway.logo }}
+                                    /> */}
                                     </View>
                                 }
                                 <View style={{ justifyContent: 'center', marginBottom: '20%' }}>
@@ -76,6 +86,24 @@ const JoinRoom = ({ route, navigation, isSetResult, isLoggedIn, login, setUserDa
                         <View style={DataContainerStyles.dataContainer}>
                             <View style={styles.inputResultContainer}>
                                 <Text style={styles.joinText}>Your Result</Text>
+                                <View style={styles.matchRow}>
+                                    {/* <Image
+                                        style={liveStyles.teamLogo}
+                                        source={{ uri: game.matchHome.logo }}
+                                    /> */}
+                                    <Text style={styles.teamName}>{gameData.home}</Text>
+                                    <Text style={styles.scoreJoin}>{gameData.goalsHome}
+                                        {
+                                            gameData.minute == 0 ? 'VS' : '-'
+                                        }
+                                        {gameData.goalsAway}
+                                    </Text>
+                                    <Text style={styles.teamName}>{gameData.away}</Text>
+                                    {/* <Image
+                                        style={liveStyles.teamLogo}
+                                        source={{ uri: game.matchAway.logo }}
+                                    /> */}
+                                </View>
                                 <Form forwardRef="form">
                                     <View style={styles.score}>
                                         <Dropdown

@@ -2,15 +2,16 @@ import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import PropTypes from 'prop-types';
-import { getRoomData, cleanState } from '../actions/roomsActions';
+import { getRoomData, gamePreview, cleanState } from '../actions/roomsActions';
 import { connect } from 'react-redux';
 import styles from './RoomStyles'
 import { IconButton, Colors } from 'react-native-paper'
 import DataContainerStyles from '../../styles'
 
-const Room = ({ navigation, getRoomData, roomCode, roomData, roomDataUsers, gameData, cleanState }) => { //props is roomCode
+const Room = ({ navigation, getRoomData, gamePreview, roomCode, roomData, roomDataUsers, gamesData, gameData, cleanState }) => { //props is roomCode
     useEffect(() => {
         getRoomData(roomCode)
+        gamePreview(roomCode, gamesData)
     }, [])
     return (
         <View style={DataContainerStyles.dataContainer}>
@@ -19,7 +20,7 @@ const Room = ({ navigation, getRoomData, roomCode, roomData, roomDataUsers, game
                 <View>
                     <IconButton
                         icon="chevron-left"
-                        color={Colors.white}
+                        color={Colors.grey100}
                         onPress={() => {
                             cleanState()
                             navigation.navigate('GamesRoom')
@@ -27,40 +28,46 @@ const Room = ({ navigation, getRoomData, roomCode, roomData, roomDataUsers, game
                         size={30}
                     />
                 </View>
-                {
-                    gameData != undefined &&
-                    <View style={{ margin: 10, width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
-                        <Text style={styles.matchText}>{gameData.home}</Text>
-                        <View style={{ flexDirection: 'column' }}>
-                            <Text style={styles.minute}>{gameData.minute}</Text>
-                            <Text style={styles.matchText}>{gameData.goalsHome}-{gameData.goalsAway}</Text>
-                        </View>
-                        <Text style={styles.matchText}>{gameData.away}</Text>
-                    </View>
-                }
+
             </View>
             {
                 roomDataUsers.length > 0 &&
                 <View>
-                    {/* <Text>{roomData.game}</Text> */}
-                    {/* <View style={{ width:'70%',flexDirection: 'row-reverse', justifyContent: 'space-between' }}> */}
-                    <View style={styles.nameHomeAway}>
-                        <Text style={styles.columnsTitle}>NAME</Text>
-                        <Text style={styles.columnsTitle}>HOME</Text>
-                        <Text style={styles.columnsTitle}>AWAY</Text>
-                    </View>
-                    <FlatList
-                        data={roomDataUsers}
-                        numColumns={1}
-                        renderItem={({ item }) => (
-                            <View style={styles.rowContent}>
-                                <Text style={styles.rowFlatList}>{item.fullName}</Text>
-                                <Text style={styles.rowFlatList}>{item.home}</Text>
-                                <Text style={styles.rowFlatList}>{item.away}</Text>
+                    {
+                        gameData != undefined &&
+                        <View style={styles.matchRow}>
+                            <Text style={styles.teamName}>{gameData.home}</Text>
+                            <Text style={styles.score}>{gameData.goalsHome}
+                                {
+                                    gameData.minute == 0 ? 'VS' : '-'
+                                }
+                                {gameData.goalsAway}
+                            </Text>
+                            <Text style={styles.teamName}>{gameData.away}</Text>
+                        </View>
+                    }
+                    <View style={{ marginBottom: '20%' }}>
+                        <View style={styles.tableBox}>
+                            <View style={styles.nameHomeAway}>
+                                <Text style={styles.columnsTitle}>NAME</Text>
+                                <Text style={styles.columnsTitle}>HOME</Text>
+                                <Text style={styles.columnsTitle}>AWAY</Text>
+                                {/* <Text style={styles.columnsTitle}>POINTS</Text> */}
                             </View>
-                        )}
-                        keyExtractor={item => item.id}
-                    />
+                            <FlatList
+                                data={roomDataUsers}
+                                numColumns={1}
+                                renderItem={({ item }) => (
+                                    <View style={styles.rowContent}>
+                                        <Text style={styles.rowFlatList}>{item.fullName}</Text>
+                                        <Text style={styles.rowFlatList}>{item.home}</Text>
+                                        <Text style={styles.rowFlatList}>{item.away}</Text>
+                                    </View>
+                                )}
+                                keyExtractor={item => item.id}
+                            />
+                        </View>
+                    </View>
                 </View>
             }
         </View>
@@ -70,17 +77,21 @@ const Room = ({ navigation, getRoomData, roomCode, roomData, roomDataUsers, game
 Room.propTypes = {
     navigation: PropTypes.object,
     getRoomData: PropTypes.func,
+    gamePreview: PropTypes.func,
     roomCode: PropTypes.string,
     roomData: PropTypes.object,
     roomDataUsers: PropTypes.array,
-    cleanState:PropTypes.func
+    cleanState: PropTypes.func,
+    gameData: PropTypes.object
 };
 
 const mapStateToProps = ({ rooms }) => {
     return {
         roomData: rooms.roomData,
-        roomDataUsers: rooms.roomDataUsers
+        roomDataUsers: rooms.roomDataUsers,
+        gameData: rooms.gameData,
+        // gamesData: prediction.gamesData
     };
 };
 
-export default connect(mapStateToProps, { getRoomData, cleanState })(Room);
+export default connect(mapStateToProps, { getRoomData, gamePreview, cleanState })(Room);
