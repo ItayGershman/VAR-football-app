@@ -52,7 +52,7 @@ const Room = ({ navigation, getRoomData, gamePreview, roomCode, roomData, roomDa
                                 <Text style={styles.columnsTitle}>NAME</Text>
                                 <Text style={styles.columnsTitle}>HOME</Text>
                                 <Text style={styles.columnsTitle}>AWAY</Text>
-                                {/* <Text style={styles.columnsTitle}>POINTS</Text> */}
+                                <Text style={styles.columnsTitle}>POINTS</Text>
                             </View>
                             <FlatList
                                 data={roomDataUsers}
@@ -62,6 +62,7 @@ const Room = ({ navigation, getRoomData, gamePreview, roomCode, roomData, roomDa
                                         <Text style={styles.rowFlatList}>{item.fullName}</Text>
                                         <Text style={styles.rowFlatList}>{item.home}</Text>
                                         <Text style={styles.rowFlatList}>{item.away}</Text>
+                                        <Text style={styles.rowFlatList}>{item.points}</Text>
                                     </View>
                                 )}
                                 keyExtractor={item => item.id}
