@@ -15,7 +15,7 @@ const liveStyles = StyleSheet.create({
         marginBottom: '5%'
     },
     leagueName: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         // color: 'rgb(255, 197, 66)',
         color: 'white',
         position: 'relative',
@@ -28,7 +28,7 @@ const liveStyles = StyleSheet.create({
         marginRight: 15
     },
     teamName: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         // color: 'rgb(255, 197, 66)',
         color: 'white',
         position: 'relative',
@@ -95,7 +95,7 @@ const liveStyles = StyleSheet.create({
         position: 'relative',
     },
     score: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'rgb(255, 197, 66)',
         position: 'relative',
         marginTop: 5,

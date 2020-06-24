@@ -40,35 +40,39 @@ const CreateRoom = ({ navigation, getLiveGames, getLeagues, leagues, selectedGam
                                 <TextInput type="TextInput" name="myTextInput" />
                             </View>
                         </View>
-                        <Dropdown
-                            label='Please Choose League'
-                            data={leagues}
-                            containerStyle={{ width: 235 }}
-                            textColor={'rgb(255, 197, 66)'}
-                            baseColor={'rgb(255, 197, 66)'}
-                            dropdownPosition={-4.2}
-                            pickerStyle={{ backgroundColor: '#2A3C44' }}
-                            shadeOpacity={0.20}
-                            onChangeText={(league) => {
-                                getLiveGames(league)
-                            }}
-                        />
-                        <Dropdown
-                            label='Choose a game from today'
-                            data={selectedGames}
-                            containerStyle={{ width: 235 }}
-                            textColor={'rgb(255, 197, 66)'}
-                            baseColor={'rgb(255, 197, 66)'}
-                            dropdownPosition={-2.3}
-                            pickerStyle={{ backgroundColor: '#2A3C44' }}
-                            shadeOpacity={0.20}
-                            onChangeText={(match) => {
-                                setGame(match)
-                            }}
-                        />
-                        <TouchableOpacity style={styles.submit} title="SUBMIT" onPress={toggleModal}>
-                            <Text style={styles.buttonText} >SUBMIT</Text>
-                        </TouchableOpacity>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+                            <Dropdown
+                                label='Please Choose League'
+                                data={leagues}
+                                containerStyle={{ width: 235 }}
+                                textColor={'rgb(255, 197, 66)'}
+                                baseColor={'rgb(255, 197, 66)'}
+                                dropdownPosition={-4.2}
+                                pickerStyle={{ backgroundColor: '#2A3C44' }}
+                                shadeOpacity={0.20}
+                                onChangeText={(league) => {
+                                    getLiveGames(league)
+                                }}
+                            />
+                            <Dropdown
+                                label='Choose a game from today'
+                                data={selectedGames}
+                                containerStyle={{ width: 235 }}
+                                textColor={'rgb(255, 197, 66)'}
+                                baseColor={'rgb(255, 197, 66)'}
+                                dropdownPosition={-2.3}
+                                pickerStyle={{ backgroundColor: '#2A3C44' }}
+                                shadeOpacity={0.20}
+                                onChangeText={(match) => {
+                                    setGame(match)
+                                }}
+                            />
+                        </View>
+                        <View style={{ justifyContent: 'center',width:'100%', alignItems:'center' }}>
+                            <TouchableOpacity style={styles.submit} title="SUBMIT" onPress={toggleModal}>
+                                <Text style={styles.buttonText} >SUBMIT</Text>
+                            </TouchableOpacity>
+                        </View>
                         <Modal isVisible={isModalVisible} style={styles.modal}>
                             <View style={styles.msgContainer}>
                                 <Text style={styles.titleRoom}>The Room has been created!</Text>

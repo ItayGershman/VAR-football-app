@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontFamily: 'sans-serif-thin',
         marginTop: 25,
+        marginBottom:10,
         // marginRight: 140,
         // position: 'relative',
         justifyContent: 'center',
@@ -158,6 +159,31 @@ const styles = StyleSheet.create({
         fontSize: 9,
         marginTop: 20,
         marginBottom: 30
+    },
+    matchRow: {
+        // marginBottom:'1.5%',
+        flexDirection: 'row-reverse',
+        justifyContent: 'space-around',
+        position: 'relative',
+        marginBottom:'8%'
+        // width: '70%'
+    },
+    teamName: {
+        fontFamily: 'sans-serif-thin',
+        // color: 'rgb(255, 197, 66)',
+        color: 'white',
+        position: 'relative',
+        marginTop: 5,
+        width: '40%',
+        textAlign: 'center',
+        fontSize: 13
+    },
+    scoreJoin: {
+        fontFamily: 'sans-serif-thin',
+        color: 'rgb(255, 197, 66)',
+        position: 'relative',
+        marginTop: 5,
+        justifyContent: 'center'
     },
 });
 

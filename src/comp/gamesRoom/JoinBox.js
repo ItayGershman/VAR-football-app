@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         marginLeft: 50,
         zIndex: 5,
         fontWeight: 'bold',
-        // fontFamily: 'sans-serif-thin'
+        fontFamily: 'sans-serif-thin'
     },
     modal: {
         flex: 1,
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around'
     },
     titleRoom: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     enterButton: {
         marginTop: 50,
         marginLeft: 100,
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         backgroundColor: '#286053',
@@ -145,19 +145,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     inputText: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center'
     },
     enterButtonText: {
-        // fontFamily: 'sans-serif-thin',
+        fontFamily: 'sans-serif-thin',
         color: 'white',
         textAlign: 'center',
         justifyContent: 'center',
-        // fontFamily: 'sans-serif-thin',
-        color: 'white',
-        textAlign: 'center',
         backgroundColor: '#286053',
         width: 120,
         shadowColor: 'rgb(255, 197, 66)',
