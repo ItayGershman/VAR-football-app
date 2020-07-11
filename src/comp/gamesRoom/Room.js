@@ -58,14 +58,15 @@ const Room = ({ navigation, getRoomData, gamePreview, roomCode, roomData, roomDa
                                 data={roomDataUsers}
                                 numColumns={1}
                                 renderItem={({ item }) => (
-                                    <View style={styles.rowContent}>
+                                    <View keyExtractor={item.id} style={styles.rowContent} >
+                                        
                                         <Text style={styles.rowFlatList}>{item.fullName}</Text>
                                         <Text style={styles.rowFlatList}>{item.home}</Text>
                                         <Text style={styles.rowFlatList}>{item.away}</Text>
                                         <Text style={styles.rowFlatList}>{item.points}</Text>
                                     </View>
                                 )}
-                                keyExtractor={item => item.id}
+                                
                             />
                         </View>
                     </View>

@@ -45,39 +45,34 @@ export const getOdds = (match, gamesData) => async (dispatch) => {
 }
 
 const organizeData = (data, logos) => {
-    let prediction = {
-        matchTeams: {},
-        advice: '',
-        score: {},
-        winningPercent: {},
-        h2hGames: {}
-    }
+    
+    const API_DATA = data.api.predictions[0]
     const matchTeams = {
-        home: data.api.predictions[0].teams.home.team_name,
+        home: API_DATA.teams.home.team_name,
         homeLogo: logos.homeLogo,
-        away: data.api.predictions[0].teams.away.team_name,
+        away: API_DATA.teams.away.team_name,
         awayLogo: logos.awayLogo
     }
     const predictedScore = {
-        home: Math.round(data.api.predictions[0].goals_home * -1),
-        away: Math.round(data.api.predictions[0].goals_away * -1)
+        home: Math.round(API_DATA.goals_home * -1),
+        away: Math.round(API_DATA.goals_away * -1)
     }
     const winPercent = {
-        home: data.api.predictions[0].winning_percent.home,
-        draw: data.api.predictions[0].winning_percent.draws,
-        away: data.api.predictions[0].winning_percent.away,
+        home: API_DATA.winning_percent.home,
+        draw: API_DATA.winning_percent.draws,
+        away: API_DATA.winning_percent.away,
     }
-    const advice = data.api.predictions[0].advice
+    const advice = API_DATA.advice
     const h2h = {
         games: []
     }
-    const lastGames = data.api.predictions[0].h2h.length
+    const lastGames = API_DATA.h2h.length
     if (lastGames > 5) {
         for (let i = lastGames - 5; i < lastGames; ++i) {
             let matchDetails = {
-                home: data.api.predictions[0].h2h[i].homeTeam.team_name,
-                away: data.api.predictions[0].h2h[i].awayTeam.team_name,
-                score: data.api.predictions[0].h2h[i].score.fulltime
+                home: API_DATA.h2h[i].homeTeam.team_name,
+                away: API_DATA.h2h[i].awayTeam.team_name,
+                score: API_DATA.h2h[i].score.fulltime
             }
             h2h.games.push(matchDetails)
         }
@@ -86,21 +81,27 @@ const organizeData = (data, logos) => {
     else {
         for (let i = 0; i < lastGames; ++i) {
             let matchDetails = {
-                home: data.api.predictions[0].h2h[i].homeTeam.team_name,
-                away: data.api.predictions[0].h2h[i].awayTeam.team_name,
-                score: data.api.predictions[0].h2h[i].score.fulltime
+                home: API_DATA.h2h[i].homeTeam.team_name,
+                away: API_DATA.h2h[i].awayTeam.team_name,
+                score: API_DATA.h2h[i].score.fulltime
             }
             h2h.games.push(matchDetails)
 
         }
         h2h.games.reverse()
     }
-
-    prediction.matchTeams = matchTeams
-    prediction.advice = advice
-    prediction.score = predictedScore
-    prediction.winningPercent = winPercent
-    prediction.h2hGames = h2h
+    let prediction = {
+        matchTeams: matchTeams,
+        advice: advice,
+        score: predictedScore,
+        winningPercent: winPercent,
+        h2hGames: h2h
+    }
+    // prediction.matchTeams = matchTeams
+    // prediction.advice = advice
+    // prediction.score = predictedScore
+    // prediction.winningPercent = winPercent
+    // prediction.h2hGames = h2h
     return prediction
 }
 
@@ -177,16 +178,17 @@ export const getLeagues = () => async (dispatch) => {
                     }
                     leagues.push(leagueName)
                     //finish get leagues name
+                    let API_DATA = data.api.fixtures[i]
                     let match = {}
-                    match.home = data.api.fixtures[i].awayTeam.team_name
-                    match.away = data.api.fixtures[i].homeTeam.team_name
-                    match.leagueID = data.api.fixtures[i].league_id
-                    match.minute = data.api.fixtures[i].elapsed
-                    match.date = data.api.fixtures[i].event_date.substring(11, 16)
-                    match.goalsAway = data.api.fixtures[i].goalsAwayTeam
-                    match.goalsHome = data.api.fixtures[i].goalsHomeTeam
-                    match.fulltime = data.api.fixtures[i].score.fulltime
-                    match.fixtureID = data.api.fixtures[i].fixture_id
+                    match.home = API_DATA.awayTeam.team_name
+                    match.away = API_DATA.homeTeam.team_name
+                    match.leagueID = API_DATA.league_id
+                    match.minute = API_DATA.elapsed
+                    match.date = API_DATA.event_date.substring(11, 16)
+                    match.goalsAway = API_DATA.goalsAwayTeam
+                    match.goalsHome = API_DATA.goalsHomeTeam
+                    match.fulltime = API_DATA.score.fulltime
+                    match.fixtureID = API_DATA.fixture_id
                     gamesData.push(match)
                 }
             }

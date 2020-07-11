@@ -28,9 +28,9 @@ export default function PredictionGameView({ predictedScore, winningPercent, h2h
             <View style={predictionStyle.lastH2H}>
                 <Text style={predictionStyle.h2hTitle}>Last H2H</Text>
                 {
-                    h2hGames.games.map(game => {
+                    h2hGames.games.map((game,key) => {
                         return (
-                            <View style={predictionStyle.matchRow}>
+                            <View key={key} style={predictionStyle.matchRow}>
                                 <Text style={predictionStyle.teamName}>{game.home.replace(/"/g, '')}</Text>
                                 <Text style={predictionStyle.score}>{game.score.replace(/"/g, '')}</Text>
                                 <Text style={predictionStyle.teamName}>{game.away.replace(/"/g, '')}</Text>
