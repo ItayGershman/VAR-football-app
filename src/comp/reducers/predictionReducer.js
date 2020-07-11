@@ -1,4 +1,4 @@
-import { ODDS, PREDICTION_LIVE_GAMES, PREDICTION_LEAGUES, LOADING } from '../actions/actionsType'
+import { ODDS, PREDICTION_LIVE_GAMES, PREDICTION_LEAGUES, LOADING_PREDICTION } from '../actions/actionsType'
 import { number, string, bool } from 'prop-types';
 
 const initialState = {
@@ -27,14 +27,14 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case LOADING: {
+        case LOADING_PREDICTION: {
             return {
                 ...state,
                 isLoading: true
             }
         }
         case ODDS: {
-            console.log('ODDS')
+            // console.log('ODDS')
             return {
                 ...state,
                 match: action.match,
@@ -46,7 +46,7 @@ export default (state = initialState, action) => {
             }
         }
         case PREDICTION_LIVE_GAMES: {
-            console.log("PREDICTION_LIVE_GAMES")
+            // console.log("PREDICTION_LIVE_GAMES")
             //filter games by action.league
             const result = state.gamesData.filter((game) => game.leagueID == action.league)
             let matches = []

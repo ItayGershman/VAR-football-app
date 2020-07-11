@@ -16,4 +16,5 @@ export const GAME_DATA = 'GAME_DATA'
 export const CLEAN_STATE = 'CLEAN_STATE'
 
 
-export const LOADING = 'LOADING'
+export const LOADING_PREDICTION = 'LOADING_PREDICTION'
+export const LOADING_LIVESCORE = 'LOADING_LIVESCORE'
