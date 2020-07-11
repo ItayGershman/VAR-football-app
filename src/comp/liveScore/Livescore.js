@@ -16,8 +16,9 @@ import getCurrentDate from '../../constants'
 const Livescore = ({ navigation, getLiveGames, leagues, isLoading }) => {
   const date = getCurrentDate();
   useEffect(() => {
-    getLiveGames('LIVE_GAMES')
+    getLiveGames()
   }, []);
+  console.log(isLoading)
   return (
     <View style={liveStyles.container}>
       <Header navigation={navigation} />

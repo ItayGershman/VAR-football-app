@@ -11,6 +11,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import { getGame, setUserData, login, gamePreview } from '../actions/roomsActions'
 import { connect } from 'react-redux';
 import { OutlinedTextField } from 'react-native-material-textfield'
+import Image from 'react-native-remote-svg'
 
 let score = []
 for (let i = 0; i < 10; ++i) {
@@ -44,9 +45,9 @@ const JoinRoom = ({ route, navigation, isSetResult, isLoggedIn, login, setUserDa
                                     gameData != undefined &&
                                     <View style={styles.matchRow}>
                                         {/* <Image
-                                        style={liveStyles.teamLogo}
-                                        source={{ uri: game.matchHome.logo }}
-                                    /> */}
+                                            style={styles.teamLogo}
+                                            source={{ uri: gameData.home.logo }}
+                                        /> */}
                                         <Text style={styles.teamName}>{gameData.home}</Text>
                                         <Text style={styles.scoreJoin}>{gameData.goalsHome}
                                             {
@@ -56,9 +57,9 @@ const JoinRoom = ({ route, navigation, isSetResult, isLoggedIn, login, setUserDa
                                         </Text>
                                         <Text style={styles.teamName}>{gameData.away}</Text>
                                         {/* <Image
-                                        style={liveStyles.teamLogo}
-                                        source={{ uri: game.matchAway.logo }}
-                                    /> */}
+                                            style={styles.teamLogo}
+                                            source={{ uri: gameData.away.logo }}
+                                        /> */}
                                     </View>
                                 }
                                 <View style={{ justifyContent: 'center', marginBottom: '20%' }}>

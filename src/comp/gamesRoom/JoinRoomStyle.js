@@ -185,6 +185,11 @@ const styles = StyleSheet.create({
         marginTop: 5,
         justifyContent: 'center'
     },
+    teamLogo: {
+        position: 'relative',
+        width: 20,
+        height: 20,
+    }
 });
 
 export default styles

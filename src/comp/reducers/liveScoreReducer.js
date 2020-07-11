@@ -1,4 +1,4 @@
-import { LIVE_GAMES, LOADING } from '../actions/actionsType'
+import { LIVE_GAMES, LOADING_LIVESCORE } from '../actions/actionsType'
 import { bool } from 'prop-types';
 const initialState = {
     leagues: [],
@@ -7,7 +7,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case LOADING: {
+        case LOADING_LIVESCORE: {
             return {
                 ...state,
                 isLoading: true

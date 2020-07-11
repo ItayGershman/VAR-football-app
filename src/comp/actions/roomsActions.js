@@ -160,6 +160,7 @@ export const setPoints = (roomCode, match, gamesData) => async (dispatch) => {
 }
 
 export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
+    console.log(gamesData)
     AsyncStorage.getItem(roomCode)
         .then((data) => {
             let newObj = {}

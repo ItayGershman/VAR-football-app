@@ -1,4 +1,4 @@
-import { ODDS, PREDICTION_LIVE_GAMES, PREDICTION_LEAGUES, LOADING } from './actionsType';
+import { ODDS, PREDICTION_LIVE_GAMES, PREDICTION_LEAGUES, LOADING_PREDICTION } from './actionsType';
 import { API_KEY, API_HOST } from 'react-native-dotenv'
 import getCurrentDate from '../../constants'
 
@@ -16,7 +16,7 @@ const getFixtureID = (match, gamesData) => {
 
 export const getOdds = (match, gamesData) => async (dispatch) => {
     //find from match the fixture_id
-    dispatch({ type: LOADING })
+    dispatch({ type: LOADING_PREDICTION })
     let fixture_id = getFixtureID(match, gamesData)
     let logos = getTeamsLogo(fixture_id)
     fetch(`https://api-football-v1.p.rapidapi.com/v2/predictions/${fixture_id}`, {
@@ -115,7 +115,7 @@ const getTeamsLogo = (fixture_id) => {
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log('Success:', data);
+            // console.log('Success:', data);
             teamsLogo.homeLogo = data.api.fixtures[0].homeTeam.logo,
                 teamsLogo.awayLogo = data.api.fixtures[0].awayTeam.logo
         })
@@ -157,13 +157,13 @@ export const getLeagues = () => async (dispatch) => {
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log('SuccessDate:', data);
+            // console.log('SuccessDate:', data);
             let leaguesId = [775, 524, 891, 637, 525, 754]
             let leagues = []
             let gamesData = []
             for (let i = 0; i < data.api.fixtures.length; ++i) {
                 if (leaguesId.includes(data.api.fixtures[i].league_id)) {
-                    console.log(`league no.${JSON.stringify(data.api.fixtures[i].league_id)}`)
+                    // console.log(`league no.${JSON.stringify(data.api.fixtures[i].league_id)}`)
                     let leagueName = ''
                     switch (JSON.stringify(data.api.fixtures[i].league_id)) {
                         case '775': leagueName = 'Spain'; break;
@@ -192,16 +192,16 @@ export const getLeagues = () => async (dispatch) => {
             }
 
             let uniqueLeagues = [...new Set(leagues)];
-            console.log(uniqueLeagues);
-            console.log(`leagues:${uniqueLeagues}`);//contains only leagues from the leagues array
+            // console.log(uniqueLeagues);
+            // console.log(`leagues:${uniqueLeagues}`);//contains only leagues from the leagues array
             for (let i = 0; i < uniqueLeagues.length; ++i) {
                 let leagueObj = {
                     value: uniqueLeagues[i]
                 }
                 uniqueLeagues[i] = leagueObj
             }
-            console.log(`leagues:${JSON.stringify(uniqueLeagues)}`);//contains only leagues from the leagues array
-            console.log(`gamesData:${JSON.stringify(gamesData)}`)
+            // console.log(`leagues:${JSON.stringify(uniqueLeagues)}`);//contains only leagues from the leagues array
+            // console.log(`gamesData:${JSON.stringify(gamesData)}`)
             dispatch({
                 type: PREDICTION_LEAGUES,
                 leagues: uniqueLeagues,

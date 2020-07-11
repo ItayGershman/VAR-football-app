@@ -60,7 +60,7 @@ const Prediction = ({ navigation, predictedScore, winningPercent, h2hGames, leag
               </View>
               {
                 advice.length > 0 &&
-                <View style={{ height: '63%' }}>
+                <View style={{ marginTop: '5%',height: '66%' }}>
                   <ScrollView >
                     <PredictionGameView
                       predictedScore={predictedScore}
