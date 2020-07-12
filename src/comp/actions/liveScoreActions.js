@@ -40,18 +40,18 @@ const getGamesByLeague = (dispatch, leaguedID) => {
 const organizeMatchByLeague = (data) => {
   const leagues = [];
   for (let i = 0; i < data.api.fixtures.length; ++i) {
-    const match = {};
     const fixture = data.api.fixtures[i];
-    match.matchLeague = fixture.league.country;
-    match.leagueFlag = fixture.league.flag;
-    match.matchHome = fixture.homeTeam;
-    match.matchAway = fixture.awayTeam;
-    match.minute = fixture.elapsed;
-    match.goalsAwayTeam = fixture.goalsAwayTeam;
-    match.goalsHomeTeam = fixture.goalsHomeTeam;
-    match.gameTime = fixture.event_date.substring(11, 16);
-    match.id = fixture.fixture_id;
-
+    const match = {
+      matchLeague: fixture.league.country,
+      leagueFlag: fixture.league.flag,
+      matchHome: fixture.homeTeam,
+      matchAway: fixture.awayTeam,
+      minute: fixture.elapsed,
+      goalsAwayTeam: fixture.goalsAwayTeam,
+      goalsHomeTeam: fixture.goalsHomeTeam,
+      gameTime: fixture.event_date.substring(11, 16),
+      id: fixture.fixture_id
+    };
     const gamesByLeague = {
       league: fixture.league.name,
       games: [match]
@@ -62,7 +62,7 @@ const organizeMatchByLeague = (data) => {
         leagues[i].games.push(match);
         return true;
       }
-      // return false?
+      return false;
     });
     //Push another league (with game) into leagues array
     if (obj === undefined) leagues.push(gamesByLeague);

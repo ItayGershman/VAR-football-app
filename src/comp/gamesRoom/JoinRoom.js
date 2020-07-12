@@ -11,6 +11,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import { getGame, setUserData, login, gamePreview } from '../actions/roomsActions';
 import { connect } from 'react-redux';
 import { OutlinedTextField } from 'react-native-material-textfield';
+import Image from 'react-native-remote-svg';
 
 const score = [];
 for (let i = 0; i < 10; ++i) {
@@ -50,6 +51,8 @@ const JoinRoom = ({
             <View style={styles.formContainer}>
               {gameData !== undefined && (
                 <View style={styles.matchRow}>
+                  {alert(JSON.stringify(gameData))}
+                  {/* <Image style={{ width: 30, height: 30 }} source={{ uri: gameData.homeLogo }} /> */}
                   <Text style={styles.teamName}>{gameData.home}</Text>
                   <Text style={styles.scoreJoin}>
                     {gameData.goalsHome}
@@ -57,6 +60,7 @@ const JoinRoom = ({
                     {gameData.goalsAway}
                   </Text>
                   <Text style={styles.teamName}>{gameData.away}</Text>
+                  <Image source={{ uri: gameData.awayLogo }} />
                 </View>
               )}
               <View style={styles.nameStyleContainer}>
