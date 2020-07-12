@@ -71,7 +71,6 @@ const liveStyles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     position: 'relative',
-    // width: '100%',
     height: 48,
     marginBottom: '2%'
   },
@@ -92,8 +91,6 @@ const liveStyles = StyleSheet.create({
     justifyContent: 'center'
   },
   flatListMatch: {
-    // justifyContent:'center',
-    // textAlign: 'center',
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -104,7 +101,6 @@ const liveStyles = StyleSheet.create({
   },
   headlineAndDate: {
     flexDirection: 'row-reverse',
-    // justifyContent:'center',
     textAlign: 'center'
   },
   date: {

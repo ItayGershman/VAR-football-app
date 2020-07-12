@@ -37,13 +37,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 105
   }
-  // createText: {
-  //   fontSize: 16,
-  //   fontWeight: 'bold',
-  //   justifyContent: 'center',
-  //   color: 'white',
-  //   textAlign: 'center'
-  // }
 });
 
 export default GamesRoom;

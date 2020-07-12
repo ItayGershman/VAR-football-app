@@ -12,7 +12,6 @@ import { Dropdown } from 'react-native-material-dropdown';
 import PredictionGameView from './PredictionGameView';
 
 import Loader from '../../comp/Loader';
-// import predictionStyle from './predictionStyle';
 
 const Prediction = ({
   navigation,

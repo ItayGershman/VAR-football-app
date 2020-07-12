@@ -191,18 +191,18 @@ export const getLeagues = () => async (dispatch) => {
               break;
           }
           leagues.push(leagueName);
-          //finish getting leagues name
           const API_DATA = data.api.fixtures[i];
-          const match = {};
-          match.home = API_DATA.awayTeam.team_name;
-          match.away = API_DATA.homeTeam.team_name;
-          match.leagueID = API_DATA.league_id;
-          match.minute = API_DATA.elapsed;
-          match.date = API_DATA.event_date.substring(11, 16);
-          match.goalsAway = API_DATA.goalsAwayTeam;
-          match.goalsHome = API_DATA.goalsHomeTeam;
-          match.fulltime = API_DATA.score.fulltime;
-          match.fixtureID = API_DATA.fixture_id;
+          const match = {
+            home: API_DATA.awayTeam.team_name,
+            away: API_DATA.homeTeam.team_name,
+            leagueID: API_DATA.league_id,
+            minute: API_DATA.elapsed,
+            date: API_DATA.event_date.substring(11, 16),
+            goalsAway: API_DATA.goalsAwayTeam,
+            goalsHome: API_DATA.goalsHomeTeam,
+            fulltime: API_DATA.score.fulltime,
+            fixtureID: API_DATA.fixture_id
+          };
           gamesData.push(match);
         }
       }
@@ -221,36 +221,3 @@ export const getLeagues = () => async (dispatch) => {
       });
     });
 };
-
-// const organizeMatchByLeague = (data) => {
-//   const leagues = [];
-//   for (let i = 0; i < data.api.fixtures.length; ++i) {
-//     const match = {};
-//     const fixture = data.api.fixtures[i];
-//     match.matchLeague = fixture.league.country;
-//     match.leagueFlag = fixture.league.flag;
-//     match.matchHome = fixture.homeTeam;
-//     match.matchAway = fixture.awayTeam;
-//     match.minute = fixture.elapsed;
-//     match.goalsAwayTeam = fixture.goalsAwayTeam;
-//     match.goalsHomeTeam = fixture.goalsHomeTeam;
-//     match.gameTime = fixture.event_date.substring(11, 16);
-//     match.id = fixture.fixture_id;
-
-//     const gamesByLeague = {
-//       league: fixture.league.name,
-//       games: [match]
-//     };
-
-//     //Search if a specific league is inside leagues array - if yes push game into this league
-//     const obj = leagues.find((obj, i) => {
-//       if (obj.league === data.api.fixtures[i].league.name) {
-//         leagues[i].games.push(match);
-//         return true; // Stop searching
-//       }
-//     });
-//     //Push another league (with game) into leagues array
-//     if (obj === undefined) leagues.push(gamesByLeague);
-//   }
-//   return leagues;
-// };

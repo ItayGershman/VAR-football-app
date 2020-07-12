@@ -60,9 +60,9 @@ const organizeMatchByLeague = (data) => {
     const obj = leagues.find((obj, i) => {
       if (obj.league === data.api.fixtures[i].league.name) {
         leagues[i].games.push(match);
-        return true; // Stop searching
+        return true;
       }
-      //return false?
+      // return false?
     });
     //Push another league (with game) into leagues array
     if (obj === undefined) leagues.push(gamesByLeague);

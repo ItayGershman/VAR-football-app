@@ -39,7 +39,6 @@ export default (state = initialState, action) => {
       };
     }
     case ODDS: {
-      // console.log('ODDS')
       return {
         ...state,
         match: action.match,
@@ -51,8 +50,6 @@ export default (state = initialState, action) => {
       };
     }
     case PREDICTION_LIVE_GAMES: {
-      // console.log("PREDICTION_LIVE_GAMES")
-      //filter games by action.league
       const result = state.gamesData.filter((game) => game.leagueID === action.league);
       const matches = [];
       for (let i = 0; i < result.length; ++i) {

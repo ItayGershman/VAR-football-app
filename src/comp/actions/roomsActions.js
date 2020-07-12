@@ -120,24 +120,18 @@ export const setPoints = (roomCode, match, gamesData) => async (dispatch) => {
                 newObj.userData[i].home > newObj.userData[i].away &&
                 gamesData[i].goalsHome > gamesData[i].goalsAway
               ) {
-                //user got the winner
                 pointsReceived = 1;
-              } //Home wins
-              else if (
+              } else if (
                 newObj.userData[i].away > newObj.userData[i].home &&
                 gamesData[i].goalsAway > gamesData[i].goalsHome
               ) {
-                //user got the winner
                 pointsReceived = 1;
-              } //Away wins
-              else if (
+              } else if (
                 newObj.userData[i].away === newObj.userData[i].home &&
                 gamesData[i].goalsAway === gamesData[i].goalsHome
               ) {
-                //user got the draw
                 pointsReceived = 1;
-              } //Draw
-              else {
+              } else {
                 pointsReceived = 0;
               }
               newObj.userData[i].points = pointsReceived;
