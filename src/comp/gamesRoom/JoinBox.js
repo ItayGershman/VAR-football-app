@@ -4,17 +4,26 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Icon, Input } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
+import { connect } from 'react-redux';
 
-const JoinBox = ({ navigation }) => {
+const JoinBox = ({ navigation, rooms }) => {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isModalInputVisible, setisModalInputVisible] = useState(false);
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
   let roomCode = '';
   const moveAndHide = (navigation, roomCode) => {
-    navigation.navigate('JoinRoom', {
-      roomCode
-    });
+    if (!rooms.includes(roomCode)) {
+      setisModalInputVisible(!isModalInputVisible)
+      navigation.navigate('GamesRoom');
+    }
+    else {
+      navigation.navigate('JoinRoom', {
+        roomCode
+      });
+    }
     setModalVisible(false);
   };
   return (
@@ -40,6 +49,18 @@ const JoinBox = ({ navigation }) => {
               onPress={() => moveAndHide(navigation, roomCode)}
             >
               <Text style={styles.enterButtonText}>LET&apos;S PLAY!</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Modal isVisible={isModalInputVisible} style={styles.modal}>
+          <View style={styles.msgContainer}>
+            <Text style={styles.titleRoom}>Wrong room code!</Text>
+            <TouchableOpacity
+              style={styles.enterButton}
+              title="TRY AGAIN!"
+              onPress={() => moveAndHide(navigation, roomCode)}
+            >
+              <Text style={styles.enterButtonText}>TRY AGAIN!</Text>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -177,4 +198,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default JoinBox;
+const mapStateToProps = ({ rooms }) => {
+  return {
+    rooms: rooms.rooms
+  };
+};
+
+export default connect(mapStateToProps)(JoinBox);

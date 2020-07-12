@@ -22,7 +22,7 @@ export const setGame = (game) => async (dispatch) => {
 
     dispatch({
       type: ROOM_CODE,
-      roomCode
+      roomCode,
     });
   } catch (e) {
     console.log(`Error${e}`);
