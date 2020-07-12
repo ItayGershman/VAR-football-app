@@ -52,7 +52,7 @@ const JoinRoom = ({
               {gameData !== undefined && (
                 <View style={styles.matchRow}>
                   {alert(JSON.stringify(gameData))}
-                  {/* <Image style={{ width: 30, height: 30 }} source={{ uri: gameData.homeLogo }} /> */}
+                  <Image style={{ width: 30, height: 30 }} source={{ uri: gameData.homeLogo }} />
                   <Text style={styles.teamName}>{gameData.home}</Text>
                   <Text style={styles.scoreJoin}>
                     {gameData.goalsHome}
@@ -61,6 +61,7 @@ const JoinRoom = ({
                   </Text>
                   <Text style={styles.teamName}>{gameData.away}</Text>
                   <Image source={{ uri: gameData.awayLogo }} />
+                  <Image style={{ width: 30, height: 30 }} source={{ uri: gameData.awayLogo }} />
                 </View>
               )}
               <View style={styles.nameStyleContainer}>

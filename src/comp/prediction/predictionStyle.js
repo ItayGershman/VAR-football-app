@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     width: '40%',
     textAlign: 'center',
-    fontSize: 16
+    fontSize: 12
   },
   score: {
     fontFamily: 'sans-serif-thin',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     width: '40%',
     textAlign: 'center',
-    fontSize: 16
+    fontSize: 12
   },
   percentNumber: {
     fontFamily: 'sans-serif-thin',
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginTop: 15,
     marginBottom: 5,
-    fontSize: 16,
+    fontSize: 12,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
@@ -182,11 +182,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
     width: '80%',
     textAlign: 'center',
-    fontSize: 16
+    fontSize: 12
   },
   percentTitle: {
     fontFamily: 'sans-serif-thin',
-    fontSize: 16,
+    fontSize: 12,
     color: 'white'
   },
   homeDrawAway: {

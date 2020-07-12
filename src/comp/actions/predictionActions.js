@@ -97,9 +97,9 @@ const organizeData = (data, logos) => {
   return prediction;
 };
 
-export const getTeamsLogo = (fixture_id) => {
+const getTeamsLogo = (fixture_id) => {
   const teamsLogo = {};
-  fetch(
+  return fetch(
     `https://api-football-v1.p.rapidapi.com/v2/fixtures/id/${fixture_id}?timezone=Asia/Jerusalem`,
     {
       method: 'GET',
@@ -113,13 +113,12 @@ export const getTeamsLogo = (fixture_id) => {
     .then((data) => {
       teamsLogo.homeLogo = data.api.fixtures[0].homeTeam.logo;
       teamsLogo.awayLogo = data.api.fixtures[0].awayTeam.logo;
+      return teamsLogo;
     })
     .catch((error) => {
       console.error(`error:${error}`);
       return 'No logos for this teams';
     });
-    alert(`logos:${JSON.stringify(teamsLogo)}`)
-  return teamsLogo;
 };
 
 export const getLiveGames = (league) => async (dispatch) => {

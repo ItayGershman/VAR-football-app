@@ -9,7 +9,7 @@ import {
   CLEAN_STATE
 } from './actionsType';
 import AsyncStorage from '@react-native-community/async-storage';
-import { getTeamsLogo } from '../actions/predictionActions';
+import { API_KEY, API_HOST } from 'react-native-dotenv';
 const randomString = require('random-string');
 
 export const setGame = (game) => async (dispatch) => {
@@ -155,16 +155,14 @@ export const setPoints = (roomCode, match, gamesData) => async (dispatch) => {
 
 export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
   AsyncStorage.getItem(roomCode)
-    .then((data) => {
+    .then(async (data) => {
       const newObj = {};
       for (let i = 0; i < gamesData.length; ++i) {
         if (
           JSON.parse(data).game.includes(gamesData[i].home) &&
           JSON.parse(data).game.includes(gamesData[i].away)
         ) {
-          alert(`ID: ${gamesData[i].fixtureID}`)
-          const logos = getTeamsLogo(gamesData[i].fixtureID);
-          alert(`logos: ${JSON.stringify(logos)}`)
+          const logos = await getTeamsLogo(gamesData[i].fixtureID);
           newObj.home = gamesData[i].home;
           newObj.homeLogo = logos.homeLogo;
           newObj.away = gamesData[i].away;
@@ -187,4 +185,28 @@ export const cleanState = () => (dispatch) => {
   dispatch({
     type: CLEAN_STATE
   });
+};
+
+const getTeamsLogo = (fixture_id) => {
+  const teamsLogo = {};
+  return fetch(
+    `https://api-football-v1.p.rapidapi.com/v2/fixtures/id/${fixture_id}?timezone=Asia/Jerusalem`,
+    {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-host': API_HOST,
+        'x-rapidapi-key': API_KEY
+      }
+    }
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      teamsLogo.homeLogo = data.api.fixtures[0].homeTeam.logo;
+      teamsLogo.awayLogo = data.api.fixtures[0].awayTeam.logo;
+      return teamsLogo;
+    })
+    .catch((error) => {
+      console.error(`error:${error}`);
+      return 'No logos for this teams';
+    });
 };
