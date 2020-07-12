@@ -9,7 +9,7 @@ import {
   CLEAN_STATE
 } from './actionsType';
 import AsyncStorage from '@react-native-community/async-storage';
-import { getTeamsLogo } from '../actions/predictionActions'
+import { getTeamsLogo } from '../actions/predictionActions';
 const randomString = require('random-string');
 
 export const setGame = (game) => async (dispatch) => {
@@ -155,7 +155,7 @@ export const setPoints = (roomCode, match, gamesData) => async (dispatch) => {
 
 export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
   AsyncStorage.getItem(roomCode)
-    .then(async (data) => {
+    .then((data) => {
       const newObj = {};
       for (let i = 0; i < gamesData.length; ++i) {
         if (
@@ -163,7 +163,7 @@ export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
           JSON.parse(data).game.includes(gamesData[i].away)
         ) {
           alert(`ID: ${gamesData[i].fixtureID}`)
-          const logos = await getTeamsLogo(gamesData[i].fixtureID);
+          const logos = getTeamsLogo(gamesData[i].fixtureID);
           alert(`logos: ${JSON.stringify(logos)}`)
           newObj.home = gamesData[i].home;
           newObj.homeLogo = logos.homeLogo;

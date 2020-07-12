@@ -98,7 +98,6 @@ const organizeData = (data, logos) => {
 };
 
 export const getTeamsLogo = (fixture_id) => {
-  alert(`fixture_ID:${fixture_id}`)
   const teamsLogo = {};
   fetch(
     `https://api-football-v1.p.rapidapi.com/v2/fixtures/id/${fixture_id}?timezone=Asia/Jerusalem`,
@@ -119,6 +118,7 @@ export const getTeamsLogo = (fixture_id) => {
       console.error(`error:${error}`);
       return 'No logos for this teams';
     });
+    alert(`logos:${JSON.stringify(teamsLogo)}`)
   return teamsLogo;
 };
 
