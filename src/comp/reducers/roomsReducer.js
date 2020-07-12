@@ -27,7 +27,8 @@ export default (state = initialState, action) => {
       console.log('ROOM_DATA');
       return {
         ...state,
-        roomCode: action.roomCode
+        roomCode: action.roomCode,
+        rooms: [...state.rooms, action.roomCode]
       };
     }
     case ROOM_GAME: {
