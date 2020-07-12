@@ -51,21 +51,6 @@ const JoinRoom = ({
     setInputScoreAway(!inputScoreAway);
   };
 
-  // const inputScore = {
-  //   flagHomeScore: false,
-  //   flagAwayScore: false
-  // };
-
-  // const checkInputs = (inputScore) => {
-  //   if (inputScore.flagHomeScore === true && inputScore.flagAwayScore === true) {
-  //     setInputScore(true)
-  //     return
-  //   } else {
-  //     setInputScore(false)
-  //     return
-  //   }
-  // }
-
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
@@ -135,8 +120,6 @@ const JoinRoom = ({
                   onChangeText={(homeResult) => {
                     userScore.home = homeResult;
                     homeScore(inputScoreHome);
-                    // inputScore.flagHomeScore = true;
-                    // alert(`flagHomeScore:${inputScore.flagHomeScore}`)
                   }}
                 />
                 <Dropdown
@@ -151,8 +134,6 @@ const JoinRoom = ({
                   onChangeText={(awayResult) => {
                     userScore.away = awayResult;
                     awayScore(inputScoreAway);
-                    // inputScore.flagAwayScore = true;
-                    // alert(`flagAwayScore:${inputScore.flagAwayScore}`)
                   }}
                 />
               </View>
@@ -180,8 +161,6 @@ const JoinRoom = ({
 JoinRoom.propTypes = {
   route: PropTypes.object,
   navigation: PropTypes.object,
-  // game: PropTypes.string,
-  // getGame: PropTypes.func,
   roomCode: PropTypes.string,
   isSetResult: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
