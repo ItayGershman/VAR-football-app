@@ -168,6 +168,12 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     alignItems: 'center',
     marginTop: 11
+  },
+  inputStyle: {
+    color: 'white',
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontFamily: 'sans-serif-thin'
   }
 });
 

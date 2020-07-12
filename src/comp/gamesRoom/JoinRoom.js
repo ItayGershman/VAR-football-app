@@ -52,7 +52,7 @@ const JoinRoom = ({
               {gameData !== undefined && (
                 <View style={styles.matchRow}>
                   {alert(JSON.stringify(gameData))}
-                  <Image style={{ width: 30, height: 30 }} source={{ uri: gameData.homeLogo }} />
+                  <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
                   <Text style={styles.teamName}>{gameData.home}</Text>
                   <Text style={styles.scoreJoin}>
                     {gameData.goalsHome}
@@ -60,8 +60,7 @@ const JoinRoom = ({
                     {gameData.goalsAway}
                   </Text>
                   <Text style={styles.teamName}>{gameData.away}</Text>
-                  <Image source={{ uri: gameData.awayLogo }} />
-                  <Image style={{ width: 30, height: 30 }} source={{ uri: gameData.awayLogo }} />
+                  <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
                 </View>
               )}
               <View style={styles.nameStyleContainer}>
@@ -88,6 +87,7 @@ const JoinRoom = ({
           <View style={styles.inputResultContainer}>
             <Text style={styles.joinText}>Your Result</Text>
             <View style={styles.matchRow}>
+            <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
               <Text style={styles.teamName}>{gameData.home}</Text>
               <Text style={styles.scoreJoin}>
                 {gameData.goalsHome}
@@ -95,6 +95,7 @@ const JoinRoom = ({
                 {gameData.goalsAway}
               </Text>
               <Text style={styles.teamName}>{gameData.away}</Text>
+              <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
             </View>
             <Form forwardRef="form">
               <View style={styles.score}>

@@ -29,7 +29,7 @@ const liveStyles = StyleSheet.create({
     marginTop: 5,
     width: '40%',
     textAlign: 'center',
-    fontSize: 16
+    fontSize: 12
   },
   leagueBox: {
     marginBottom: 30,

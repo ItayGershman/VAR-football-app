@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import styles from './RoomStyles';
 import { IconButton, Colors } from 'react-native-paper';
 import DataContainerStyles from '../../styles';
+import Image from 'react-native-remote-svg';
 
 const Room = ({
   navigation,
@@ -44,6 +45,7 @@ const Room = ({
         <View>
           {gameData !== undefined && (
             <View style={styles.matchRow}>
+              <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
               <Text style={styles.teamName}>{gameData.home}</Text>
               <Text style={styles.score}>
                 {gameData.goalsHome}
@@ -51,6 +53,7 @@ const Room = ({
                 {gameData.goalsAway}
               </Text>
               <Text style={styles.teamName}>{gameData.away}</Text>
+              <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
             </View>
           )}
           <View style={styles.headlines}>

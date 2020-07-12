@@ -179,8 +179,9 @@ const styles = StyleSheet.create({
   },
   matchRow: {
     flexDirection: 'row-reverse',
-    justifyContent: 'space-around',
-    position: 'relative'
+    justifyContent: 'space-evenly',
+    position: 'relative',
+    width: '100%'
   },
   teamName: {
     fontFamily: 'sans-serif-thin',
@@ -190,6 +191,11 @@ const styles = StyleSheet.create({
     width: '40%',
     textAlign: 'center',
     fontSize: 10
+  },
+  teamLogo: {
+    position: 'relative',
+    width: 20,
+    height: 20
   },
   tableBox: {
     marginBottom: 30,
