@@ -20,14 +20,14 @@ const styles = StyleSheet.create({
     height: '40%',
     backgroundColor: '#2A3C44',
     borderRadius: 20,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 12,
+      height: 12
     },
     shadowOpacity: 0.58,
-    shadowRadius: 16.00,
-    elevation: 24,
+    shadowRadius: 16.0,
+    elevation: 24
   },
   league: {
     color: '#FFFFFF',
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   predictionText: {
     color: '#FFFFFF',
     fontSize: 14,
-    marginLeft: '4%',
+    marginLeft: '4%'
   },
   match: {
     flexDirection: 'row-reverse'
@@ -56,10 +56,10 @@ const styles = StyleSheet.create({
   },
   minuteContainer: {
     justifyContent: 'center',
-    position: 'relative',
+    position: 'relative'
   },
   minute: {
-    color: "#FF8A34",
+    color: '#FF8A34',
     fontSize: 9,
     marginTop: 20
   },
@@ -73,12 +73,12 @@ const styles = StyleSheet.create({
   homeLogo: {
     position: 'relative',
     width: 20,
-    height: 20,
+    height: 20
   },
   awayLogo: {
     position: 'relative',
     width: 20,
-    height: 20,
+    height: 20
   },
   teamName: {
     fontFamily: 'sans-serif-thin',
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     width: '40%',
     textAlign: 'center',
-    fontSize: 10
+    fontSize: 12
   },
   score: {
     fontFamily: 'sans-serif-thin',
@@ -118,62 +118,64 @@ const styles = StyleSheet.create({
     position: 'relative',
     width: '100%'
   },
-  homeAway:{
+  homeAway: {
     textAlign: 'center',
     justifyContent: 'space-around',
-    alignItems:'center',
-    flex:1,
-    flexDirection:'row-reverse',
-    width:'100%',
-    marginBottom:'2%',
-    position:'relative'
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row-reverse',
+    width: '100%',
+    marginBottom: '2%',
+    position: 'relative'
   },
-  h2hTitle:{
+  h2hTitle: {
     fontFamily: 'sans-serif-thin',
     color: 'white',
     position: 'relative',
     marginTop: 5,
+    marginBottom: 5,
     width: '40%',
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: 12
   },
-  percentNumber:{
+  percentNumber: {
     fontFamily: 'sans-serif-thin',
     color: 'rgb(255, 197, 66)',
     position: 'relative',
-    marginTop: 5,
+    marginTop: 5
   },
-  homeTitle:{
+  homeTitle: {
     color: 'rgb(255, 197, 66)',
-    fontFamily: 'sans-serif-thin',
+    fontFamily: 'sans-serif-thin'
   },
-  winningPercent:{
+  winningPercent: {
     fontFamily: 'sans-serif-thin',
     color: 'white',
-    marginTop: 5,
+    marginTop: 15,
+    marginBottom: 5,
     fontSize: 12,
-    justifyContent:'center',
-    alignItems:'center',
-    textAlign:'center',
-    width:'100%'
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    width: '100%'
   },
-  advice:{
+  advice: {
     marginBottom: '1.5%',
     flexDirection: 'row-reverse',
     justifyContent: 'space-evenly',
     position: 'relative',
     width: '100%'
   },
-  ourAdvice:{
+  ourAdvice: {
     fontFamily: 'sans-serif-thin',
     color: 'white',
     position: 'relative',
-    marginTop: 5,
+    marginTop: 15,
     width: '100%',
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: 16
   },
-  adviceText:{
+  adviceText: {
     fontFamily: 'sans-serif-thin',
     color: 'rgb(255, 197, 66)',
     position: 'relative',
@@ -182,28 +184,35 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 12
   },
-  percentTitle:{
+  percentTitle: {
     fontFamily: 'sans-serif-thin',
-    fontSize: 8,
-    color:'white'
+    fontSize: 12,
+    color: 'white'
   },
-  homeDrawAway:{
+  homeDrawAway: {
     textAlign: 'center',
-    alignItems:'center',
-    flex:1,
-    flexDirection:'row-reverse',
-    width:'100%',
-    marginBottom:'2%',
-    position:'relative',
-    width:'100%',
-    marginTop:'1%',
-    // flexDirection: 'row-revers',
-    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row-reverse',
+    width: '100%',
+    marginBottom: '2%',
+    position: 'relative',
+    marginTop: '1%',
+    justifyContent: 'space-evenly'
   },
-  dropdown:{
-    alignItems:'center',
-    justifyContent:'center'
+  dropdown: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  pickerStyle: { backgroundColor: '#2A3C44' },
+  containerStyle: { width: 235 },
+  textColor: {
+    color: 'rgb(255, 197, 66)'
+  },
+  gameViewContainer: {
+    marginTop: '5%',
+    height: '66%'
   }
 });
 
-export default styles
+export default styles;
