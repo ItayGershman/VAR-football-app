@@ -170,6 +170,8 @@ export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
           newObj.minute = gamesData[i].minute;
           newObj.goalsHome = gamesData[i].goalsHome;
           newObj.goalsAway = gamesData[i].goalsAway;
+          newObj.gameTime= gamesData[i].date;
+          newObj.minute=gamesData[i].minute;
           dispatch({
             type: GAME_DATA,
             gameData: newObj
