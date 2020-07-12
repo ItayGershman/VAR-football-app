@@ -2,11 +2,11 @@
 import React from 'react';
 
 //Screens
-import CreateRoom from './src/comp/gamesRoom/CreateRoom'
-import JoinRoom from './src/comp/gamesRoom/JoinRoom'
+import CreateRoom from './src/comp/gamesRoom/CreateRoom';
+import JoinRoom from './src/comp/gamesRoom/JoinRoom';
 
 //Tab screens
-import MainTabNavigator from './src/comp/MainTabNavigator'
+import MainTabNavigator from './src/comp/MainTabNavigator';
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -26,13 +26,12 @@ const store = createStore(rootReducer, compose(middleware));
 export default function App() {
   return (
     <Provider store={store}>
-      <VAR />
+      <Var />
     </Provider>
-  )
+  );
 }
 
-
-function VAR() {
+function Var() {
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -40,20 +39,10 @@ function VAR() {
           headerShown: false
         }}
       >
-        <Stack.Screen
-          name='tabScreens'
-          component={MainTabNavigator}
-        />
-        <Stack.Screen
-          name='CreateRoom'
-          component={CreateRoom}
-        />
-        <Stack.Screen
-          name='JoinRoom'
-          component={JoinRoom}
-        />
+        <Stack.Screen name="tabScreens" component={MainTabNavigator} />
+        <Stack.Screen name="CreateRoom" component={CreateRoom} />
+        <Stack.Screen name="JoinRoom" component={JoinRoom} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
