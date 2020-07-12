@@ -51,7 +51,6 @@ const JoinRoom = ({
             <View style={styles.formContainer}>
               {gameData !== undefined && (
                 <View style={styles.matchRow}>
-                  {alert(JSON.stringify(gameData))}
                   <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
                   <Text style={styles.teamName}>{gameData.home}</Text>
                   <Text style={styles.scoreJoin}>

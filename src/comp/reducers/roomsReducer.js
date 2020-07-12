@@ -18,7 +18,8 @@ const initialState = {
   roomData: {},
   roomDataUsers: [],
   setPoints: false,
-  gameData: {}
+  gameData: {},
+  rooms: []
 };
 
 export default (state = initialState, action) => {
