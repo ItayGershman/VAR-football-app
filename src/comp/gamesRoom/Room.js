@@ -44,16 +44,25 @@ const Room = ({
       {roomDataUsers.length > 0 && (
         <View>
           {gameData !== undefined && (
-            <View style={styles.matchRow}>
-              <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
-              <Text style={styles.teamName}>{gameData.home}</Text>
-              <Text style={styles.score}>
-                {gameData.goalsHome}
-                {gameData.minute === 0 ? 'VS' : '-'}
-                {gameData.goalsAway}
-              </Text>
-              <Text style={styles.teamName}>{gameData.away}</Text>
-              <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
+            <View style={styles.matchView}>
+              <View style={styles.minuteContainer}>
+                {gameData.minute === 0 ? (
+                  <Text style={styles.minute}>{gameData.gameTime}</Text>
+                ) : (
+                    <Text style={styles.minute}>{gameData.minute}</Text>
+                  )}
+              </View>
+              <View style={styles.matchRow}>
+                <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
+                <Text style={styles.teamName}>{gameData.home}</Text>
+                <Text style={styles.score}>
+                  {gameData.goalsHome}
+                  {gameData.minute === 0 ? 'VS' : '-'}
+                  {gameData.goalsAway}
+                </Text>
+                <Text style={styles.teamName}>{gameData.away}</Text>
+                <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
+              </View>
             </View>
           )}
           <View style={styles.headlines}>

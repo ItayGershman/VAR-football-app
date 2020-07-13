@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './JoinRoomStyle';
 import PropTypes from 'prop-types';
@@ -41,7 +41,6 @@ const JoinRoom = ({
     away: -1,
     points: 0
   };
-
   const submitForm = () => {
     if (userScore.home >= 0 && userScore.away >= 0) setUserData(roomCode, userScore);
   };
@@ -54,16 +53,25 @@ const JoinRoom = ({
             <Text style={styles.text}>Join Room</Text>
             <View style={styles.formContainer}>
               {gameData !== undefined && (
-                <View style={styles.matchRow}>
-                  <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
-                  <Text style={styles.teamName}>{gameData.home}</Text>
-                  <Text style={styles.scoreJoin}>
-                    {gameData.goalsHome}
-                    {gameData.minute === 0 ? 'VS' : '-'}
-                    {gameData.goalsAway}
-                  </Text>
-                  <Text style={styles.teamName}>{gameData.away}</Text>
-                  <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
+                <View style={styles.matchView}>
+                  <View style={styles.minuteContainer}>
+                    {gameData.minute === 0 ? (
+                      <Text style={styles.minute}>{gameData.gameTime}</Text>
+                    ) : (
+                        <Text style={styles.minute}>{gameData.minute}</Text>
+                      )}
+                  </View>
+                  <View style={styles.matchRow}>
+                    <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
+                    <Text style={styles.teamName}>{gameData.home}</Text>
+                    <Text style={styles.scoreJoin}>
+                      {gameData.goalsHome}
+                      {gameData.minute === 0 ? 'VS' : '-'}
+                      {gameData.goalsAway}
+                    </Text>
+                    <Text style={styles.teamName}>{gameData.away}</Text>
+                    <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
+                  </View>
                 </View>
               )}
               <View style={styles.nameStyleContainer}>
@@ -89,16 +97,25 @@ const JoinRoom = ({
         <View style={DataContainerStyles.dataContainer}>
           <View style={styles.inputResultContainer}>
             <Text style={styles.joinText}>Your Result</Text>
-            <View style={styles.matchRow}>
-              <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
-              <Text style={styles.teamName}>{gameData.home}</Text>
-              <Text style={styles.scoreJoin}>
-                {gameData.goalsHome}
-                {gameData.minute === 0 ? 'VS' : '-'}
-                {gameData.goalsAway}
-              </Text>
-              <Text style={styles.teamName}>{gameData.away}</Text>
-              <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
+            <View style={styles.matchView}>
+              <View style={styles.minuteContainer}>
+                {gameData.minute === 0 ? (
+                  <Text style={styles.minute}>{gameData.gameTime}</Text>
+                ) : (
+                    <Text style={styles.minute}>{gameData.minute}</Text>
+                  )}
+              </View>
+              <View style={styles.matchRow}>
+                <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
+                <Text style={styles.teamName}>{gameData.home}</Text>
+                <Text style={styles.scoreJoin}>
+                  {gameData.goalsHome}
+                  {gameData.minute === 0 ? 'VS' : '-'}
+                  {gameData.goalsAway}
+                </Text>
+                <Text style={styles.teamName}>{gameData.away}</Text>
+                <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
+              </View>
             </View>
             <Form forwardRef="form">
               <View style={styles.score}>
@@ -113,6 +130,7 @@ const JoinRoom = ({
                   shadeOpacity={0.2}
                   onChangeText={(homeResult) => {
                     userScore.home = homeResult;
+                    homeScore(inputScoreHome);
                   }}
                 />
                 <Dropdown
@@ -126,6 +144,7 @@ const JoinRoom = ({
                   shadeOpacity={0.2}
                   onChangeText={(awayResult) => {
                     userScore.away = awayResult;
+                    awayScore(inputScoreAway);
                   }}
                 />
               </View>
@@ -138,17 +157,16 @@ const JoinRoom = ({
           </View>
         </View>
       ) : (
-        <Room roomCode={roomCode} navigation={navigation} />
-      )}
-    </View>
+            <Room roomCode={roomCode} navigation={navigation} />
+          )
+      }
+    </View >
   );
 };
 
 JoinRoom.propTypes = {
   route: PropTypes.object,
   navigation: PropTypes.object,
-  // game: PropTypes.string,
-  // getGame: PropTypes.func,
   roomCode: PropTypes.string,
   isSetResult: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
