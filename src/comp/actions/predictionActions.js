@@ -2,7 +2,7 @@ import { ODDS, PREDICTION_LIVE_GAMES, PREDICTION_LEAGUES, LOADING_PREDICTION } f
 import { API_KEY, API_HOST } from 'react-native-dotenv';
 import getCurrentDate from '../../constants';
 
-const getFixtureID = (match, gamesData) => {
+export const getFixtureID = (match, gamesData) => {
   for (let i = 0; i < gamesData.length; ++i) {
     if (~match.indexOf(gamesData[i].home.toString())) {
       //Search for home team
