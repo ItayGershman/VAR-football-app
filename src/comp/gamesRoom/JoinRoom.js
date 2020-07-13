@@ -37,9 +37,13 @@ const JoinRoom = ({
     gamePreview(roomCode, gamesData);
   }, []);
   const userScore = {
-    home: 0,
-    away: 0,
+    home: -1,
+    away: -1,
     points: 0
+  };
+
+  const submitForm = () => {
+    if (userScore.home >= 0 && userScore.away >= 0) setUserData(roomCode, userScore);
   };
   return (
     <View style={styles.container}>
@@ -86,7 +90,7 @@ const JoinRoom = ({
           <View style={styles.inputResultContainer}>
             <Text style={styles.joinText}>Your Result</Text>
             <View style={styles.matchRow}>
-            <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
+              <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
               <Text style={styles.teamName}>{gameData.home}</Text>
               <Text style={styles.scoreJoin}>
                 {gameData.goalsHome}
@@ -126,11 +130,7 @@ const JoinRoom = ({
                 />
               </View>
               <View style={styles.submitContainer}>
-                <TouchableOpacity
-                  style={styles.submit}
-                  title="SUBMIT"
-                  onPress={() => setUserData(roomCode, userScore)}
-                >
+                <TouchableOpacity style={styles.submit} title="SUBMIT" onPress={() => submitForm()}>
                   <Text style={styles.buttonText}>SUBMIT</Text>
                 </TouchableOpacity>
               </View>
