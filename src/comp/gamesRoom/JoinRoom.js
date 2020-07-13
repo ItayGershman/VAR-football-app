@@ -37,21 +37,13 @@ const JoinRoom = ({
     gamePreview(roomCode, gamesData);
   }, []);
   const userScore = {
-    home: 0,
-    away: 0,
+    home: -1,
+    away: -1,
     points: 0
   };
-  const [inputScoreHome, setInputScoreHome] = useState(false);
-  const [inputScoreAway, setInputScoreAway] = useState(false);
-
-  const homeScore = (inputScoreHome) => {
-    setInputScoreHome(!inputScoreHome);
+  const submitForm = () => {
+    if (userScore.home >= 0 && userScore.away >= 0) setUserData(roomCode, userScore);
   };
-  const awayScore = (inputScoreAway) => {
-    setInputScoreAway(!inputScoreAway);
-    userScore.away = awayResult;
-  };
-
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
@@ -157,12 +149,7 @@ const JoinRoom = ({
                 />
               </View>
               <View style={styles.submitContainer}>
-                <TouchableOpacity
-                  disabled={inputScoreAway === true && inputScoreHome === true ? false : true}
-                  style={styles.submit}
-                  title="SUBMIT"
-                  onPress={() => setUserData(roomCode, userScore)}
-                >
+                <TouchableOpacity style={styles.submit} title="SUBMIT" onPress={() => submitForm()}>
                   <Text style={styles.buttonText}>SUBMIT</Text>
                 </TouchableOpacity>
               </View>
