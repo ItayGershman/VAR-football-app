@@ -30,18 +30,6 @@ export const setGame = (game) => async (dispatch) => {
       });
     })
     .catch((e) => alert(`ERROR: ${e}`));
-  // try {
-  //   const jsonObj = {
-  //     game
-  //   };
-  //   await AsyncStorage.setItem(roomCode, JSON.stringify(jsonObj));
-  //   dispatch({
-  //     type: ROOM_CODE,
-  //     roomCode
-  //   });
-  // } catch (e) {
-  //   console.log(`Error${e}`);
-  // }
 };
 
 export const getGame = (roomCode) => async (dispatch) => {
@@ -55,28 +43,10 @@ export const getGame = (roomCode) => async (dispatch) => {
         game: result
       });
     });
-  // AsyncStorage.getItem(roomCode)
-  //   .then((data) => {
-  //     dispatch({
-  //       type: ROOM_GAME,
-  //       game: JSON.parse(data).game
-  //     });
-  //   })
-  //   .catch((e) => console.log(e));
 };
 
 export const setUserData = (roomCode, userData, fullName) => async (dispatch) => {
   const newObj = {};
-  // AsyncStorage.getItem(roomCode)
-  //   .then((data) => {
-  //     newObj = JSON.parse(data);
-  //     userData.fullName = newObj.fullName;
-  //     if (newObj.userData === undefined) {
-  //       newObj.userData = [];
-  //     }
-  //     newObj.userData.push(userData);
-
-  //     alert(`setUserData newObj:${newObj}`);
   //signup with newObj
   //signup(newObj) in server side
   userData.fullName = fullName;
@@ -89,24 +59,13 @@ export const setUserData = (roomCode, userData, fullName) => async (dispatch) =>
     }
   })
     .then((res) => res.json())
-    .then((res) => {
+    .then(() => {
       dispatch({
         type: USER_DATA,
         isSetResult: true
       });
     })
     .catch((e) => alert(`ERROR: ${e}`));
-
-  // AsyncStorage.setItem(roomCode, JSON.stringify(newObj))
-  //   .then(() => {
-  //     dispatch({
-  //       type: USER_DATA,
-  //       isSetResult: true
-  //     });
-  //   })
-  //   .catch((e) => console.log(e));
-  // })
-  // .catch((e) => console.log(e));
 };
 
 export const login = (roomCode, fullName) => async (dispatch) => {
@@ -145,50 +104,11 @@ export const login = (roomCode, fullName) => async (dispatch) => {
           }
         })
         .catch((e) => console.log(e));
-      /*
-      if (newObj.userData !== undefined) {
-        for (let i = 0; i < newObj.userData.length; ++i) {
-          if (fullName === newObj.userData[i].fullName) {
-            dispatch({
-              type: LOGIN,
-              isSetResult: true,
-              isLoggedIn: true
-            });
-            return;
-          }
-        }
-      }
-      */
-      //   newObj.fullName = fullName;
-      //   AsyncStorage.setItem(roomCode, JSON.stringify(newObj))
-      //     .then(() => {
-      //       dispatch({
-      //         type: LOGIN,
-      //         isSetResult: false,
-      //         isLoggedIn: true
-      //       });
-      //     })
-      //     .catch((e) => console.log(e));
     })
     .catch((e) => console.log(e));
 };
 
 export const getRoomData = (roomCode) => async (dispatch) => {
-  // let data = await AsyncStorage.getItem(roomCode);
-  // data = JSON.parse(data);
-  // alert(data);
-  // const post_data = {
-  //   method: 'POST',
-  //   body: JSON.stringify({
-  //     game: data.game,
-  //     userData: data.userData,
-  //     roomCode
-  //   }),
-  //   headers: {
-  //     Accept: 'application/json',
-  //     'Content-Type': 'application/json'
-  //   }
-  // };
   fetch(`http://var-football-prediction.herokuapp.com/routes/room_data/${roomCode}`, {
     method: 'GET'
   })
@@ -203,19 +123,6 @@ export const getRoomData = (roomCode) => async (dispatch) => {
         roomData
       });
     });
-  // fetch(`http://var-football-prediction.herokuapp.com/routes/room_data`, post_data)
-  //   .then((response) => response.json())
-  //   .then((json) => {
-  // const roomData = {
-  //   game: json.game,
-  //   userData: json.userData
-  // };
-  // dispatch({
-  //   type: SET_ROOM_DATA,
-  //   roomData
-  // });
-  //   })
-  //   .catch((e) => console.log(e));
 };
 
 export const setPoints = (roomCode, match, gamesData) => async (dispatch) => {
@@ -324,11 +231,6 @@ export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
         });
       }
     });
-  // AsyncStorage.getItem(roomCode)
-  //   .then(async (data) => {
-
-  //   })
-  //   .catch((e) => console.log(e));
 };
 
 export const cleanState = () => (dispatch) => {
