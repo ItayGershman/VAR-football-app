@@ -7,15 +7,29 @@ import Modal from 'react-native-modal';
 
 const JoinBox = ({ navigation }) => {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isModalInputVisible, setIsModalInputVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
   let roomCode = '';
   const moveAndHide = (navigation, roomCode) => {
-    navigation.navigate('JoinRoom', {
-      roomCode
-    });
-    setModalVisible(false);
+    fetch(`http://var-football-prediction.herokuapp.com/routes/check_room/${roomCode}`, {
+      method: 'GET'
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (!result) {
+          // setModalVisible(false);
+          setIsModalInputVisible(!isModalInputVisible);
+          navigation.navigate('GamesRoom');
+        } else {
+          // setModalVisible(false);
+          navigation.navigate('JoinRoom', {
+            roomCode
+          });
+        }
+        setModalVisible(!isModalVisible);
+      });
   };
   return (
     <View style={styles.container}>
@@ -40,6 +54,18 @@ const JoinBox = ({ navigation }) => {
               onPress={() => moveAndHide(navigation, roomCode)}
             >
               <Text style={styles.enterButtonText}>LET&apos;S PLAY!</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Modal isVisible={isModalInputVisible} style={styles.modal}>
+          <View style={styles.msgContainer}>
+            <Text style={styles.titleRoom}>Wrong room code!</Text>
+            <TouchableOpacity
+              style={styles.enterButton}
+              title="TRY AGAIN!"
+              onPress={() => moveAndHide(navigation, roomCode)}
+            >
+              <Text style={styles.enterButtonText}>TRY AGAIN!</Text>
             </TouchableOpacity>
           </View>
         </Modal>
