@@ -50,7 +50,7 @@ export const setUserData = (roomCode, userData) => async (dispatch) => {
       }
       newObj.userData.push(userData);
 
-      alert(`setUserData newObj:${newObj}`);
+      alert(`setUserData newObj:${JSON.stringify(newObj)}`);
       //signup with newObj
       //signup(newObj) in server side
 
@@ -68,51 +68,43 @@ export const setUserData = (roomCode, userData) => async (dispatch) => {
 
 export const login = (roomCode, fullName) => async (dispatch) => {
   let newObj = {};
-
   AsyncStorage.getItem(roomCode)
     .then((data) => {
       newObj = JSON.parse(data);
-      fetch(`http://var-football-prediction.herokuapp.com/routes/login`, {
-        method: 'POST',
-        body: JSON.stringify({ roomCode, fullName }),
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
-        .then((response) => response.json())
-        .then(() => {
-          dispatch({
-            type: LOGIN,
-            isSetResult: true,
-            isLoggedIn: true
-          });
-        })
-        .catch((e) => console.log(e));
-      /*
       if (newObj.userData !== undefined) {
-        for (let i = 0; i < newObj.userData.length; ++i) {
-          if (fullName === newObj.userData[i].fullName) {
-            dispatch({
-              type: LOGIN,
-              isSetResult: true,
-              isLoggedIn: true
-            });
-            return;
+        fetch(`http://var-football-prediction.herokuapp.com/routes/login`, {
+          method: 'POST',
+          body: JSON.stringify({ roomCode, fullName }),
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
           }
-        }
-      }
-      */
-      newObj.fullName = fullName;
-      AsyncStorage.setItem(roomCode, JSON.stringify(newObj))
-        .then(() => {
-          dispatch({
-            type: LOGIN,
-            isSetResult: false,
-            isLoggedIn: true
-          });
         })
-        .catch((e) => console.log(e));
+          .then((response) => response.json())
+          .then((res) => {
+            if (res) {
+              dispatch({
+                type: LOGIN,
+                isSetResult: true,
+                isLoggedIn: true
+              });
+            }
+            else {
+              newObj.fullName = fullName;
+              AsyncStorage.setItem(roomCode, JSON.stringify(newObj))
+                .then(() => {
+                  dispatch({
+                    type: LOGIN,
+                    isSetResult: false,
+                    isLoggedIn: true
+                  });
+                })
+                .catch((e) => console.log(e));
+            }
+          })
+          .catch((e) => console.log(e));
+        return;
+      }
     })
     .catch((e) => console.log(e));
 };
