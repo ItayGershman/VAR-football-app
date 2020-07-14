@@ -81,8 +81,7 @@ export const login = (roomCode, fullName) => async (dispatch) => {
         }
       })
         .then((response) => response.json())
-        .then((json) => {
-          alert(json);
+        .then(() => {
           dispatch({
             type: LOGIN,
             isSetResult: true,
@@ -186,7 +185,7 @@ export const setPoints = (roomCode, match, gamesData) => async (dispatch) => {
               newObj.userData[i].points = pointsReceived;
             }
           }
-          alert(`newObj data:${JSON.stringify(newObj)}`);
+          // alert(`newObj data:${JSON.stringify(newObj)}`);
           //insert newObj to DB
           dispatch({
             type: SET_POINTS,

@@ -216,6 +216,24 @@ const styles = StyleSheet.create({
   },
   headlines: {
     marginBottom: '20%'
+  },
+  minute: {
+    color: '#FF8A34',
+    fontSize: 9,
+    marginTop: 20
+  },
+  minuteContainer: {
+    justifyContent: 'center',
+    position: 'relative'
+  },
+  matchView: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingRight: 10,
+    paddingLeft: 10,
+    marginBottom: 20
   }
 });
 

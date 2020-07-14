@@ -28,7 +28,7 @@ const JoinBox = ({ navigation }) => {
             roomCode
           });
         }
-        setModalVisible(!isModalVisible);
+        setModalVisible(false);
       });
   };
   return (
