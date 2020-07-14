@@ -155,14 +155,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative'
   },
-  matchView:{
-      alignSelf: 'center',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      width: '100%',
-      paddingRight: 10,
-      paddingLeft: 10,
-      marginBottom: 20
+  matchView: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingRight: 10,
+    paddingLeft: 10,
+    marginBottom: 20
   },
   matchRow: {
     flexDirection: 'row-reverse',

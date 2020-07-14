@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './JoinRoomStyle';
 import PropTypes from 'prop-types';
@@ -58,8 +58,8 @@ const JoinRoom = ({
                     {gameData.minute === 0 ? (
                       <Text style={styles.minute}>{gameData.gameTime}</Text>
                     ) : (
-                        <Text style={styles.minute}>{gameData.minute}</Text>
-                      )}
+                      <Text style={styles.minute}>{gameData.minute}</Text>
+                    )}
                   </View>
                   <View style={styles.matchRow}>
                     <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
@@ -102,8 +102,8 @@ const JoinRoom = ({
                 {gameData.minute === 0 ? (
                   <Text style={styles.minute}>{gameData.gameTime}</Text>
                 ) : (
-                    <Text style={styles.minute}>{gameData.minute}</Text>
-                  )}
+                  <Text style={styles.minute}>{gameData.minute}</Text>
+                )}
               </View>
               <View style={styles.matchRow}>
                 <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
@@ -155,10 +155,9 @@ const JoinRoom = ({
           </View>
         </View>
       ) : (
-            <Room roomCode={roomCode} navigation={navigation} />
-          )
-      }
-    </View >
+        <Room roomCode={roomCode} navigation={navigation} />
+      )}
+    </View>
   );
 };
 
