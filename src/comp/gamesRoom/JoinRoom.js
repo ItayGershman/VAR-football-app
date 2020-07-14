@@ -130,7 +130,6 @@ const JoinRoom = ({
                   shadeOpacity={0.2}
                   onChangeText={(homeResult) => {
                     userScore.home = homeResult;
-                    homeScore(inputScoreHome);
                   }}
                 />
                 <Dropdown
@@ -144,7 +143,6 @@ const JoinRoom = ({
                   shadeOpacity={0.2}
                   onChangeText={(awayResult) => {
                     userScore.away = awayResult;
-                    awayScore(inputScoreAway);
                   }}
                 />
               </View>

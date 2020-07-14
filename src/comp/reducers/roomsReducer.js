@@ -19,7 +19,7 @@ const initialState = {
   roomDataUsers: [],
   setPoints: false,
   gameData: {},
-  rooms: []
+  // rooms: []
 };
 
 export default (state = initialState, action) => {
@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         roomCode: action.roomCode,
-        rooms: [...state.rooms, action.roomCode]
+        // rooms: [...state.rooms, action.roomCode]
       };
     }
     case ROOM_GAME: {
