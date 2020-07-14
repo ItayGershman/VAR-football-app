@@ -43,6 +43,7 @@ const Room = ({
       </View>
       {roomDataUsers.length > 0 && (
         <View>
+          {alert(`gameData:${JSON.stringify(gameData)}`)}
           {gameData !== undefined && (
             <View style={styles.matchView}>
               <View style={styles.minuteContainer}>

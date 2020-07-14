@@ -18,7 +18,8 @@ const initialState = {
   roomData: {},
   roomDataUsers: [],
   setPoints: false,
-  gameData: {}
+  gameData: {},
+  fullName: ''
 };
 
 export default (state = initialState, action) => {
@@ -49,7 +50,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isSetResult: action.isSetResult,
-        isLoggedIn: action.isLoggedIn
+        isLoggedIn: action.isLoggedIn,
+        fullName: action.fullName
       };
     }
     case SET_ROOM_DATA: {

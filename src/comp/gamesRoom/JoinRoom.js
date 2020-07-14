@@ -30,7 +30,8 @@ const JoinRoom = ({
   setUserData,
   gamePreview,
   gameData,
-  gamesData
+  gamesData,
+  fullName
 }) => {
   const { roomCode } = route.params;
   useEffect(() => {
@@ -42,7 +43,7 @@ const JoinRoom = ({
     points: 0
   };
   const submitForm = () => {
-    if (userScore.home >= 0 && userScore.away >= 0) setUserData(roomCode, userScore);
+    if (userScore.home >= 0 && userScore.away >= 0) setUserData(roomCode, userScore, fullName);
   };
   return (
     <View style={styles.container}>
@@ -171,7 +172,8 @@ JoinRoom.propTypes = {
   login: PropTypes.func,
   gamePreview: PropTypes.func,
   gameData: PropTypes.object,
-  gamesData: PropTypes.object
+  gamesData: PropTypes.object,
+  fullName: PropTypes.string
 };
 
 const mapStateToProps = ({ rooms, prediction }) => {
@@ -180,7 +182,8 @@ const mapStateToProps = ({ rooms, prediction }) => {
     isSetResult: rooms.isSetResult,
     isLoggedIn: rooms.isLoggedIn,
     gameData: rooms.gameData,
-    gamesData: prediction.gamesData
+    gamesData: prediction.gamesData,
+    fullName: rooms.fullName
   };
 };
 
