@@ -4,27 +4,32 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Icon, Input } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
-import { connect } from 'react-redux';
 
-const JoinBox = ({ navigation, rooms }) => {
+const JoinBox = ({ navigation }) => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [isModalInputVisible, setisModalInputVisible] = useState(false);
-
+  const [isModalInputVisible, setIsModalInputVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
   let roomCode = '';
   const moveAndHide = (navigation, roomCode) => {
-    if (!rooms.includes(roomCode)) {
-      setisModalInputVisible(!isModalInputVisible)
-      navigation.navigate('GamesRoom');
-    }
-    else {
-      navigation.navigate('JoinRoom', {
-        roomCode
+    fetch(`http://var-football-prediction.herokuapp.com/routes/check_room/${roomCode}`, {
+      method: 'GET'
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (!result) {
+          // setModalVisible(false);
+          setIsModalInputVisible(!isModalInputVisible);
+          navigation.navigate('GamesRoom');
+        } else {
+          // setModalVisible(false);
+          navigation.navigate('JoinRoom', {
+            roomCode
+          });
+        }
+        setModalVisible(false);
       });
-    }
-    setModalVisible(false);
   };
   return (
     <View style={styles.container}>
@@ -198,10 +203,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ rooms }) => {
-  return {
-    rooms: rooms.rooms
-  };
-};
-
-export default connect(mapStateToProps)(JoinBox);
+export default JoinBox;

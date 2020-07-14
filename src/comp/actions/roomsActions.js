@@ -19,10 +19,9 @@ export const setGame = (game) => async (dispatch) => {
       game
     };
     await AsyncStorage.setItem(roomCode, JSON.stringify(jsonObj));
-
     dispatch({
       type: ROOM_CODE,
-      roomCode,
+      roomCode
     });
   } catch (e) {
     console.log(`Error${e}`);
@@ -50,6 +49,11 @@ export const setUserData = (roomCode, userData) => async (dispatch) => {
         newObj.userData = [];
       }
       newObj.userData.push(userData);
+
+      alert(`setUserData newObj:${newObj}`);
+      //signup with newObj
+      //signup(newObj) in server side
+
       AsyncStorage.setItem(roomCode, JSON.stringify(newObj))
         .then(() => {
           dispatch({
@@ -64,9 +68,28 @@ export const setUserData = (roomCode, userData) => async (dispatch) => {
 
 export const login = (roomCode, fullName) => async (dispatch) => {
   let newObj = {};
+
   AsyncStorage.getItem(roomCode)
     .then((data) => {
       newObj = JSON.parse(data);
+      fetch(`http://var-football-prediction.herokuapp.com/routes/login`, {
+        method: 'POST',
+        body: JSON.stringify({ roomCode, fullName }),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+        .then((response) => response.json())
+        .then(() => {
+          dispatch({
+            type: LOGIN,
+            isSetResult: true,
+            isLoggedIn: true
+          });
+        })
+        .catch((e) => console.log(e));
+      /*
       if (newObj.userData !== undefined) {
         for (let i = 0; i < newObj.userData.length; ++i) {
           if (fullName === newObj.userData[i].fullName) {
@@ -79,6 +102,7 @@ export const login = (roomCode, fullName) => async (dispatch) => {
           }
         }
       }
+      */
       newObj.fullName = fullName;
       AsyncStorage.setItem(roomCode, JSON.stringify(newObj))
         .then(() => {
@@ -94,14 +118,37 @@ export const login = (roomCode, fullName) => async (dispatch) => {
 };
 
 export const getRoomData = (roomCode) => async (dispatch) => {
-  const data = await AsyncStorage.getItem(roomCode);
-  dispatch({
-    type: SET_ROOM_DATA,
-    roomData: JSON.parse(data)
-  });
+  let data = await AsyncStorage.getItem(roomCode);
+  data = JSON.parse(data);
+  const post_data = {
+    method: 'POST',
+    body: JSON.stringify({
+      game: data.game,
+      userData: data.userData,
+      roomCode
+    }),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  };
+  fetch(`http://var-football-prediction.herokuapp.com/routes/room_data`, post_data)
+    .then((response) => response.json())
+    .then((json) => {
+      const roomData = {
+        game: json.game,
+        userData: json.userData
+      };
+      dispatch({
+        type: SET_ROOM_DATA,
+        roomData
+      });
+    })
+    .catch((e) => console.log(e));
 };
 
 export const setPoints = (roomCode, match, gamesData) => async (dispatch) => {
+  //insert user points into DB
   AsyncStorage.getItem(roomCode)
     .then((data) => {
       let newObj = {};
@@ -138,6 +185,8 @@ export const setPoints = (roomCode, match, gamesData) => async (dispatch) => {
               newObj.userData[i].points = pointsReceived;
             }
           }
+          // alert(`newObj data:${JSON.stringify(newObj)}`);
+          //insert newObj to DB
           dispatch({
             type: SET_POINTS,
             setPoints: true
@@ -154,28 +203,42 @@ export const setPoints = (roomCode, match, gamesData) => async (dispatch) => {
 };
 
 export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
+  //Instead of get roomCode with AsyncStorage - we need to get it from mongo
   AsyncStorage.getItem(roomCode)
     .then(async (data) => {
-      const newObj = {};
+      const match = {};
       for (let i = 0; i < gamesData.length; ++i) {
         if (
           JSON.parse(data).game.includes(gamesData[i].home) &&
           JSON.parse(data).game.includes(gamesData[i].away)
         ) {
           const logos = await getTeamsLogo(gamesData[i].fixtureID);
-          newObj.home = gamesData[i].home;
-          newObj.homeLogo = logos.homeLogo;
-          newObj.away = gamesData[i].away;
-          newObj.awayLogo = logos.awayLogo;
-          newObj.minute = gamesData[i].minute;
-          newObj.goalsHome = gamesData[i].goalsHome;
-          newObj.goalsAway = gamesData[i].goalsAway;
-          newObj.gameTime = gamesData[i].date;
-          newObj.minute = gamesData[i].minute;
-          dispatch({
-            type: GAME_DATA,
-            gameData: newObj
-          });
+          match.home = gamesData[i].home;
+          match.homeLogo = logos.homeLogo;
+          match.away = gamesData[i].away;
+          match.awayLogo = logos.awayLogo;
+          match.minute = gamesData[i].minute;
+          match.goalsHome = gamesData[i].goalsHome;
+          match.goalsAway = gamesData[i].goalsAway;
+          match.gameTime = gamesData[i].date;
+
+          //insert match gameData into DB
+          fetch(`http://var-football-prediction.herokuapp.com/routes/game_preview`, {
+            method: 'POST',
+            body: JSON.stringify({ match, roomCode }),
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            }
+          })
+            .then((response) => response.json())
+            .then(() => {
+              dispatch({
+                type: GAME_DATA,
+                gameData: match
+              });
+            })
+            .catch((e) => console.log(e));
           return;
         }
       }
