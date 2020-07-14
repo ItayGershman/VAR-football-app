@@ -153,12 +153,12 @@ const styles = StyleSheet.create({
   },
   columnsTitle: {
     fontFamily: 'sans-serif-thin',
-    fontSize: 12,
+    fontSize: 13,
     color: 'rgb(255, 197, 66)'
   },
   rowFlatList: {
     fontFamily: 'sans-serif-thin',
-    fontSize: 10,
+    fontSize: 11.5,
     color: 'white'
   },
   rowContent: {
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     width: '40%',
     textAlign: 'center',
-    fontSize: 10
+    fontSize: 12
   },
   teamLogo: {
     position: 'relative',
