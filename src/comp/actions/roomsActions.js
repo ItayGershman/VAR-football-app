@@ -171,7 +171,7 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
               }
             })
               .then((res) => res.json())
-              .then((result) => {
+              .then(() => {
                 dispatch({
                   type: SET_POINTS,
                   setPoints: true
