@@ -31,6 +31,10 @@ const JoinBox = ({ navigation }) => {
         setModalVisible(false);
       });
   };
+  const Hide = (navigation) => {
+    setIsModalInputVisible(!isModalInputVisible);
+    navigation.navigate('GamesRoom');
+  }
   return (
     <View style={styles.container}>
       <View style={styles.boxJoin}>
@@ -63,7 +67,7 @@ const JoinBox = ({ navigation }) => {
             <TouchableOpacity
               style={styles.enterButton}
               title="TRY AGAIN!"
-              onPress={() => moveAndHide(navigation, roomCode)}
+              onPress={() => Hide(navigation)}
             >
               <Text style={styles.enterButtonText}>TRY AGAIN!</Text>
             </TouchableOpacity>
