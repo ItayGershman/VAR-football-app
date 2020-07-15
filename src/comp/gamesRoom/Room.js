@@ -50,23 +50,22 @@ const Room = ({
                 {gameData.minute === 0 ? (
                   <Text style={styles.minute}>{gameData.gameTime}</Text>
                 ) : (
-                  <Text style={styles.minute}>{gameData.minute}</Text>
-                )}
+                    <Text style={styles.minute}>{gameData.minute}</Text>
+                  )}
               </View>
               <View style={styles.matchRow}>
-                <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
-                <Text style={styles.teamName}>{gameData.home}</Text>
+                <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
+                <Text style={styles.teamName}>{gameData.away}</Text>
                 <Text style={styles.score}>
                   {gameData.goalsHome}
                   {gameData.minute === 0 ? 'VS' : '-'}
                   {gameData.goalsAway}
                 </Text>
-                <Text style={styles.teamName}>{gameData.away}</Text>
-                <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
+                <Text style={styles.teamName}>{gameData.home}</Text>
+                <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
               </View>
             </View>
           )}
-          {gameData.f}
           <View style={styles.headlines}>
             <View style={styles.tableBox}>
               <View style={styles.nameHomeAway}>
