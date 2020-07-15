@@ -119,13 +119,16 @@ export const getRoomData = (roomCode) => async (dispatch) => {
 
 export const setPoints = (roomCode, gamesData) => async (dispatch) => {
   //insert user points into DB
+  alert(`Before Fetch`)
   fetch(`http://var-football-prediction.herokuapp.com/routes/room_data/${roomCode}`, {
     method: 'GET'
   })
     .then((res) => res.json())
     .then((result) => {
       console.log(result); //Should get room
+      alert(`BEFORE FOR result.matchString: ${JSON.stringify(result.matchString)}`)
       for (let i = 0; i < gamesData.length; ++i) {
+        alert(`INSIDE FOR result.matchString: ${JSON.stringify(result.matchString)}`)
         if (
           result.matchString.includes(gamesData[i].home) &&
           result.matchString.includes(gamesData[i].away)
@@ -133,8 +136,12 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
           // match is matchString
           if (gamesData[i].fulltime !== null) {
             const userData = result.userData; //userData will get points for each user
+            alert(`BEFORE FOR result.userData: ${JSON.stringify(result.userData)}`)
             for (let j = 0; j < result.userData.length; ++i) {
+              alert(`result.userData: ${JSON.stringify(result.userData)}`)
+              alert(`INSIDE FOR`)
               let pointsReceived = 0;
+              alert(`gamesData[i]: ${JSON.stringify(gamesData[i])}`)
               if (
                 userData[i].home === gamesData[i].goalsHome &&
                 userData[i].away === gamesData[i].goalsAway
@@ -172,6 +179,7 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
             })
               .then((res) => res.json())
               .then(() => {
+                alert(`Dispatch`)
                 dispatch({
                   type: SET_POINTS,
                   setPoints: true
@@ -180,6 +188,7 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
               })
               .catch((e) => alert(e));
           }
+          alert(`After Fetch`)
           dispatch({
             type: SET_POINTS,
             setPoints: false
