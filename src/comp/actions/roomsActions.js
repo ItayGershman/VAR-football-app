@@ -125,59 +125,74 @@ export const getRoomData = (roomCode) => async (dispatch) => {
     });
 };
 
-export const setPoints = (roomCode, match, gamesData) => async (dispatch) => {
+export const setPoints = (roomCode, gamesData) => async (dispatch) => {
   //insert user points into DB
-  AsyncStorage.getItem(roomCode)
-    .then((data) => {
-      let newObj = {};
-      newObj = JSON.parse(data);
+  fetch(`http://var-football-prediction.herokuapp.com/routes/room_data/${roomCode}`, {
+    method: 'GET'
+  })
+    .then((res) => res.json())
+    .then((result) => {
+      console.log(result); //Should get room
       for (let i = 0; i < gamesData.length; ++i) {
-        if (match.includes(gamesData[i].home) && match.includes(gamesData[i].away)) {
+        if (
+          result.matchString.includes(gamesData[i].home) &&
+          result.matchString.includes(gamesData[i].away)
+        ) {
+          // match is matchString
           if (gamesData[i].fulltime !== null) {
-            for (let j = 0; j < JSON.parse(data).userData.length; ++i) {
+            for (let j = 0; j < result.userData.length; ++i) {
               let pointsReceived = 0;
               if (
-                newObj.userData[i].home === gamesData[i].goalsHome &&
-                newObj.userData[i].away === gamesData[i].goalsAway
+                result.userData[i].home === gamesData[i].goalsHome &&
+                result.userData[i].away === gamesData[i].goalsAway
               ) {
                 //user got the result
                 pointsReceived = 3;
               } else if (
-                newObj.userData[i].home > newObj.userData[i].away &&
+                result.userData[i].home > result.userData[i].away &&
                 gamesData[i].goalsHome > gamesData[i].goalsAway
               ) {
                 pointsReceived = 1;
               } else if (
-                newObj.userData[i].away > newObj.userData[i].home &&
+                result.userData[i].away > result.userData[i].home &&
                 gamesData[i].goalsAway > gamesData[i].goalsHome
               ) {
                 pointsReceived = 1;
               } else if (
-                newObj.userData[i].away === newObj.userData[i].home &&
+                result.userData[i].away === result.userData[i].home &&
                 gamesData[i].goalsAway === gamesData[i].goalsHome
               ) {
                 pointsReceived = 1;
               } else {
                 pointsReceived = 0;
               }
-              newObj.userData[i].points = pointsReceived;
+              result.userData[i].points = pointsReceived;
             }
-          }
-          // alert(`newObj data:${JSON.stringify(newObj)}`);
-          //insert newObj to DB
-          dispatch({
-            type: SET_POINTS,
-            setPoints: true
-          });
-          return;
+            //insert newObj to DB
+            fetch(`http://var-football-prediction.herokuapp.com/routes/points`, {
+              method: 'POST',
+              body:JSON.stringify({roomCode,userData}),
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+            })
+              .then((res) => res.json())
+              .then((result) => {
+                dispatch({
+                  type: SET_POINTS,
+                  setPoints: true
+                });
+                return;
+              })
+              .catch(e => alert(e))
         }
-      }
-      dispatch({
-        type: SET_POINTS,
-        setPoints: false
-      });
-    })
-    .catch((e) => console.log(e));
+        dispatch({
+          type: SET_POINTS,
+          setPoints: false
+        });
+      })
+    .catch((e) => alert(e));
 };
 
 export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
