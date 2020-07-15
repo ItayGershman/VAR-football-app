@@ -8,7 +8,6 @@ import {
   GAME_DATA,
   CLEAN_STATE
 } from './actionsType';
-import AsyncStorage from '@react-native-community/async-storage';
 import { API_KEY, API_HOST } from 'react-native-dotenv';
 const randomString = require('random-string');
 
@@ -69,41 +68,34 @@ export const setUserData = (roomCode, userData, fullName) => async (dispatch) =>
 };
 
 export const login = (roomCode, fullName) => async (dispatch) => {
-  let newObj = {};
-
-  AsyncStorage.getItem(roomCode)
-    .then((data) => {
-      newObj = JSON.parse(data);
-      fetch(`http://var-football-prediction.herokuapp.com/routes/login`, {
-        method: 'POST',
-        body: JSON.stringify({ roomCode, fullName }),
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
-        .then((response) => response.json())
-        .then((res) => {
-          //check if user exist
-          if (res) {
-            dispatch({
-              // Login
-              type: LOGIN,
-              isSetResult: true,
-              isLoggedIn: true,
-              fullName
-            });
-          } else {
-            dispatch({
-              // Save name and afterwards sign up
-              type: LOGIN,
-              isSetResult: false,
-              isLoggedIn: true,
-              fullName
-            });
-          }
-        })
-        .catch((e) => console.log(e));
+  fetch(`http://var-football-prediction.herokuapp.com/routes/login`, {
+    method: 'POST',
+    body: JSON.stringify({ roomCode, fullName }),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+    .then((response) => response.json())
+    .then((res) => {
+      //check if user exist
+      if (res) {
+        dispatch({
+          // Login
+          type: LOGIN,
+          isSetResult: true,
+          isLoggedIn: true,
+          fullName
+        });
+      } else {
+        dispatch({
+          // Save name and afterwards sign up
+          type: LOGIN,
+          isSetResult: false,
+          isLoggedIn: true,
+          fullName
+        });
+      }
     })
     .catch((e) => console.log(e));
 };
@@ -125,63 +117,79 @@ export const getRoomData = (roomCode) => async (dispatch) => {
     });
 };
 
-export const setPoints = (roomCode, match, gamesData) => async (dispatch) => {
+export const setPoints = (roomCode, gamesData) => async (dispatch) => {
   //insert user points into DB
-  AsyncStorage.getItem(roomCode)
-    .then((data) => {
-      let newObj = {};
-      newObj = JSON.parse(data);
+  fetch(`http://var-football-prediction.herokuapp.com/routes/room_data/${roomCode}`, {
+    method: 'GET'
+  })
+    .then((res) => res.json())
+    .then((result) => {
+      console.log(result); //Should get room
       for (let i = 0; i < gamesData.length; ++i) {
-        if (match.includes(gamesData[i].home) && match.includes(gamesData[i].away)) {
+        if (
+          result.matchString.includes(gamesData[i].home) &&
+          result.matchString.includes(gamesData[i].away)
+        ) {
+          // match is matchString
           if (gamesData[i].fulltime !== null) {
-            for (let j = 0; j < JSON.parse(data).userData.length; ++i) {
+            const userData = result.userData; //userData will get points for each user
+            for (let j = 0; j < result.userData.length; ++i) {
               let pointsReceived = 0;
               if (
-                newObj.userData[i].home === gamesData[i].goalsHome &&
-                newObj.userData[i].away === gamesData[i].goalsAway
+                userData[i].home === gamesData[i].goalsHome &&
+                userData[i].away === gamesData[i].goalsAway
               ) {
                 //user got the result
                 pointsReceived = 3;
               } else if (
-                newObj.userData[i].home > newObj.userData[i].away &&
+                userData[i].home > userData[i].away &&
                 gamesData[i].goalsHome > gamesData[i].goalsAway
               ) {
                 pointsReceived = 1;
               } else if (
-                newObj.userData[i].away > newObj.userData[i].home &&
+                userData[i].away > userData[i].home &&
                 gamesData[i].goalsAway > gamesData[i].goalsHome
               ) {
                 pointsReceived = 1;
               } else if (
-                newObj.userData[i].away === newObj.userData[i].home &&
+                userData[i].away === userData[i].home &&
                 gamesData[i].goalsAway === gamesData[i].goalsHome
               ) {
                 pointsReceived = 1;
               } else {
                 pointsReceived = 0;
               }
-              newObj.userData[i].points = pointsReceived;
+              userData[i].points = pointsReceived;
             }
+            //insert new userData into DB
+            fetch(`http://var-football-prediction.herokuapp.com/routes/points`, {
+              method: 'POST',
+              body: JSON.stringify({ roomCode, userData }),
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+            })
+              .then((res) => res.json())
+              .then((result) => {
+                dispatch({
+                  type: SET_POINTS,
+                  setPoints: true
+                });
+                return;
+              })
+              .catch((e) => alert(e));
           }
-          // alert(`newObj data:${JSON.stringify(newObj)}`);
-          //insert newObj to DB
           dispatch({
             type: SET_POINTS,
-            setPoints: true
+            setPoints: false
           });
-          return;
         }
       }
-      dispatch({
-        type: SET_POINTS,
-        setPoints: false
-      });
     })
-    .catch((e) => console.log(e));
+    .catch((e) => alert(e));
 };
-
 export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
-  //Instead of get roomCode with AsyncStorage - we need to get it from mongo
   fetch(`http://var-football-prediction.herokuapp.com/routes/room_data/${roomCode}`, {
     method: 'GET'
   })
