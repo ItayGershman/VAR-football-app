@@ -74,6 +74,6 @@ describe('predictionReducer tests', () => {
     expect(state).toHaveProperty('isLoading', false);
   });
   test('PREDICTION_LIVE_GAMES',()=>{
-      
+
   })
 });
