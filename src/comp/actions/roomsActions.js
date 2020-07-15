@@ -30,18 +30,6 @@ export const setGame = (game) => async (dispatch) => {
       });
     })
     .catch((e) => alert(`ERROR: ${e}`));
-  // try {
-  //   const jsonObj = {
-  //     game
-  //   };
-  //   await AsyncStorage.setItem(roomCode, JSON.stringify(jsonObj));
-  //   dispatch({
-  //     type: ROOM_CODE,
-  //     roomCode
-  //   });
-  // } catch (e) {
-  //   console.log(`Error${e}`);
-  // }
 };
 
 export const getGame = (roomCode) => async (dispatch) => {
@@ -55,28 +43,10 @@ export const getGame = (roomCode) => async (dispatch) => {
         game: result
       });
     });
-  // AsyncStorage.getItem(roomCode)
-  //   .then((data) => {
-  //     dispatch({
-  //       type: ROOM_GAME,
-  //       game: JSON.parse(data).game
-  //     });
-  //   })
-  //   .catch((e) => console.log(e));
 };
 
 export const setUserData = (roomCode, userData, fullName) => async (dispatch) => {
   const newObj = {};
-  // AsyncStorage.getItem(roomCode)
-  //   .then((data) => {
-  //     newObj = JSON.parse(data);
-  //     userData.fullName = newObj.fullName;
-  //     if (newObj.userData === undefined) {
-  //       newObj.userData = [];
-  //     }
-  //     newObj.userData.push(userData);
-
-  //     alert(`setUserData newObj:${newObj}`);
   //signup with newObj
   //signup(newObj) in server side
   userData.fullName = fullName;
@@ -89,24 +59,13 @@ export const setUserData = (roomCode, userData, fullName) => async (dispatch) =>
     }
   })
     .then((res) => res.json())
-    .then((res) => {
+    .then(() => {
       dispatch({
         type: USER_DATA,
         isSetResult: true
       });
     })
     .catch((e) => alert(`ERROR: ${e}`));
-
-  // AsyncStorage.setItem(roomCode, JSON.stringify(newObj))
-  //   .then(() => {
-  //     dispatch({
-  //       type: USER_DATA,
-  //       isSetResult: true
-  //     });
-  //   })
-  //   .catch((e) => console.log(e));
-  // })
-  // .catch((e) => console.log(e));
 };
 
 export const login = (roomCode, fullName) => async (dispatch) => {
@@ -145,50 +104,11 @@ export const login = (roomCode, fullName) => async (dispatch) => {
           }
         })
         .catch((e) => console.log(e));
-      /*
-      if (newObj.userData !== undefined) {
-        for (let i = 0; i < newObj.userData.length; ++i) {
-          if (fullName === newObj.userData[i].fullName) {
-            dispatch({
-              type: LOGIN,
-              isSetResult: true,
-              isLoggedIn: true
-            });
-            return;
-          }
-        }
-      }
-      */
-      //   newObj.fullName = fullName;
-      //   AsyncStorage.setItem(roomCode, JSON.stringify(newObj))
-      //     .then(() => {
-      //       dispatch({
-      //         type: LOGIN,
-      //         isSetResult: false,
-      //         isLoggedIn: true
-      //       });
-      //     })
-      //     .catch((e) => console.log(e));
     })
     .catch((e) => console.log(e));
 };
 
 export const getRoomData = (roomCode) => async (dispatch) => {
-  // let data = await AsyncStorage.getItem(roomCode);
-  // data = JSON.parse(data);
-  // alert(data);
-  // const post_data = {
-  //   method: 'POST',
-  //   body: JSON.stringify({
-  //     game: data.game,
-  //     userData: data.userData,
-  //     roomCode
-  //   }),
-  //   headers: {
-  //     Accept: 'application/json',
-  //     'Content-Type': 'application/json'
-  //   }
-  // };
   fetch(`http://var-football-prediction.herokuapp.com/routes/room_data/${roomCode}`, {
     method: 'GET'
   })
@@ -203,74 +123,76 @@ export const getRoomData = (roomCode) => async (dispatch) => {
         roomData
       });
     });
-  // fetch(`http://var-football-prediction.herokuapp.com/routes/room_data`, post_data)
-  //   .then((response) => response.json())
-  //   .then((json) => {
-  // const roomData = {
-  //   game: json.game,
-  //   userData: json.userData
-  // };
-  // dispatch({
-  //   type: SET_ROOM_DATA,
-  //   roomData
-  // });
-  //   })
-  //   .catch((e) => console.log(e));
 };
 
-export const setPoints = (roomCode, match, gamesData) => async (dispatch) => {
+export const setPoints = (roomCode, gamesData) => async (dispatch) => {
   //insert user points into DB
-  AsyncStorage.getItem(roomCode)
-    .then((data) => {
-      let newObj = {};
-      newObj = JSON.parse(data);
+  fetch(`http://var-football-prediction.herokuapp.com/routes/room_data/${roomCode}`, {
+    method: 'GET'
+  })
+    .then((res) => res.json())
+    .then((result) => {
+      console.log(result); //Should get room
       for (let i = 0; i < gamesData.length; ++i) {
-        if (match.includes(gamesData[i].home) && match.includes(gamesData[i].away)) {
+        if (
+          result.matchString.includes(gamesData[i].home) &&
+          result.matchString.includes(gamesData[i].away)
+        ) {
+          // match is matchString
           if (gamesData[i].fulltime !== null) {
-            for (let j = 0; j < JSON.parse(data).userData.length; ++i) {
+            for (let j = 0; j < result.userData.length; ++i) {
               let pointsReceived = 0;
               if (
-                newObj.userData[i].home === gamesData[i].goalsHome &&
-                newObj.userData[i].away === gamesData[i].goalsAway
+                result.userData[i].home === gamesData[i].goalsHome &&
+                result.userData[i].away === gamesData[i].goalsAway
               ) {
                 //user got the result
                 pointsReceived = 3;
               } else if (
-                newObj.userData[i].home > newObj.userData[i].away &&
+                result.userData[i].home > result.userData[i].away &&
                 gamesData[i].goalsHome > gamesData[i].goalsAway
               ) {
                 pointsReceived = 1;
               } else if (
-                newObj.userData[i].away > newObj.userData[i].home &&
+                result.userData[i].away > result.userData[i].home &&
                 gamesData[i].goalsAway > gamesData[i].goalsHome
               ) {
                 pointsReceived = 1;
               } else if (
-                newObj.userData[i].away === newObj.userData[i].home &&
+                result.userData[i].away === result.userData[i].home &&
                 gamesData[i].goalsAway === gamesData[i].goalsHome
               ) {
                 pointsReceived = 1;
               } else {
                 pointsReceived = 0;
               }
-              newObj.userData[i].points = pointsReceived;
+              result.userData[i].points = pointsReceived;
             }
-          }
-          // alert(`newObj data:${JSON.stringify(newObj)}`);
-          //insert newObj to DB
-          dispatch({
-            type: SET_POINTS,
-            setPoints: true
-          });
-          return;
+            //insert newObj to DB
+            fetch(`http://var-football-prediction.herokuapp.com/routes/points`, {
+              method: 'POST',
+              body:JSON.stringify({roomCode,userData}),
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+            })
+              .then((res) => res.json())
+              .then((result) => {
+                dispatch({
+                  type: SET_POINTS,
+                  setPoints: true
+                });
+                return;
+              })
+              .catch(e => alert(e))
         }
-      }
-      dispatch({
-        type: SET_POINTS,
-        setPoints: false
-      });
-    })
-    .catch((e) => console.log(e));
+        dispatch({
+          type: SET_POINTS,
+          setPoints: false
+        });
+      })
+    .catch((e) => alert(e));
 };
 
 export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
@@ -324,11 +246,6 @@ export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
         });
       }
     });
-  // AsyncStorage.getItem(roomCode)
-  //   .then(async (data) => {
-
-  //   })
-  //   .catch((e) => console.log(e));
 };
 
 export const cleanState = () => (dispatch) => {

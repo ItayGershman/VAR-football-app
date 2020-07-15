@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import PropTypes from 'prop-types';
-import { getRoomData, gamePreview, cleanState } from '../actions/roomsActions';
+import { getRoomData, gamePreview, cleanState, setPoints } from '../actions/roomsActions';
 import { connect } from 'react-redux';
 import styles from './RoomStyles';
 import { IconButton, Colors } from 'react-native-paper';
@@ -14,16 +14,17 @@ const Room = ({
   getRoomData,
   gamePreview,
   roomCode,
-  // roomData,
   roomDataUsers,
   gamesData,
   gameData,
-  cleanState
+  cleanState,
+  setPoints
 }) => {
   //props is roomCode
   useEffect(() => {
     getRoomData(roomCode);
     gamePreview(roomCode, gamesData);
+    setPoints(roomCode, gamesData);
   }, []);
   return (
     <View style={DataContainerStyles.dataContainer}>
@@ -43,7 +44,6 @@ const Room = ({
       </View>
       {roomDataUsers.length > 0 && (
         <View>
-          {alert(`gameData:${JSON.stringify(gameData)}`)}
           {gameData !== undefined && (
             <View style={styles.matchView}>
               <View style={styles.minuteContainer}>
@@ -66,6 +66,7 @@ const Room = ({
               </View>
             </View>
           )}
+          {gameData.f}
           <View style={styles.headlines}>
             <View style={styles.tableBox}>
               <View style={styles.nameHomeAway}>
@@ -99,19 +100,20 @@ Room.propTypes = {
   getRoomData: PropTypes.func,
   gamePreview: PropTypes.func,
   roomCode: PropTypes.string,
-  // roomData: PropTypes.object,
   roomDataUsers: PropTypes.array,
   cleanState: PropTypes.func,
   gameData: PropTypes.object,
-  gamesData: PropTypes.object
+  gamesData: PropTypes.object,
+  setPoints: PropTypes.func
 };
 
-const mapStateToProps = ({ rooms }) => {
+const mapStateToProps = ({ rooms, prediction }) => {
   return {
-    roomData: rooms.roomData,
+    // roomData: rooms.roomData,
     roomDataUsers: rooms.roomDataUsers,
-    gameData: rooms.gameData
+    gameData: rooms.gameData,
+    gamesData: prediction.gamesData
   };
 };
 
-export default connect(mapStateToProps, { getRoomData, gamePreview, cleanState })(Room);
+export default connect(mapStateToProps, { getRoomData, gamePreview, cleanState, setPoints })(Room);
