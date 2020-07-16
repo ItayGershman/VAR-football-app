@@ -6,7 +6,8 @@ import {
   SET_ROOM_DATA,
   SET_POINTS,
   GAME_DATA,
-  CLEAN_STATE
+  CLEAN_STATE,
+  LOADING_ROOMS
 } from './actionsType';
 import { API_KEY, API_HOST } from 'react-native-dotenv';
 const randomString = require('random-string');
@@ -22,7 +23,7 @@ export const setGame = (game) => async (dispatch) => {
     }
   })
     .then((res) => res.json())
-    .then((res) => {
+    .then(() => {
       dispatch({
         type: ROOM_CODE,
         roomCode
@@ -45,9 +46,6 @@ export const getGame = (roomCode) => async (dispatch) => {
 };
 
 export const setUserData = (roomCode, userData, fullName) => async (dispatch) => {
-  const newObj = {};
-  //signup with newObj
-  //signup(newObj) in server side
   userData.fullName = fullName;
   fetch(`http://var-football-prediction.herokuapp.com/routes/signup`, {
     method: 'POST',
@@ -130,36 +128,35 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
           result.matchString.includes(gamesData[i].home) &&
           result.matchString.includes(gamesData[i].away)
         ) {
-          // match is matchString
           if (gamesData[i].fulltime !== null) {
             const userData = result.userData; //userData will get points for each user
-            for (let j = 0; j < result.userData.length; ++i) {
+            for (let j = 0; j < result.userData.length; ++j) {
               let pointsReceived = 0;
               if (
-                userData[i].home === gamesData[i].goalsHome &&
-                userData[i].away === gamesData[i].goalsAway
+                userData[j].home === gamesData[i].goalsHome &&
+                userData[j].away === gamesData[i].goalsAway
               ) {
                 //user got the result
                 pointsReceived = 3;
               } else if (
-                userData[i].home > userData[i].away &&
+                userData[j].home > userData[j].away &&
                 gamesData[i].goalsHome > gamesData[i].goalsAway
               ) {
                 pointsReceived = 1;
               } else if (
-                userData[i].away > userData[i].home &&
+                userData[j].away > userData[j].home &&
                 gamesData[i].goalsAway > gamesData[i].goalsHome
               ) {
                 pointsReceived = 1;
               } else if (
-                userData[i].away === userData[i].home &&
+                userData[j].away === userData[j].home &&
                 gamesData[i].goalsAway === gamesData[i].goalsHome
               ) {
                 pointsReceived = 1;
               } else {
                 pointsReceived = 0;
               }
-              userData[i].points = pointsReceived;
+              userData[j].points = pointsReceived;
             }
             //insert new userData into DB
             fetch(`http://var-football-prediction.herokuapp.com/routes/points`, {
@@ -176,9 +173,8 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
                   type: SET_POINTS,
                   setPoints: true
                 });
-                return;
               })
-              .catch((e) => alert(e));
+              .catch((e) => alert(`e${e}`));
           }
           dispatch({
             type: SET_POINTS,
@@ -187,56 +183,54 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
         }
       }
     })
-    .catch((e) => alert(e));
+    .catch((e) => alert(`e"${e}`));
 };
 export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
+  // setLoader(true);
+  dispatch({ type: LOADING_ROOMS, isLoading: true });
+  // alert(`set loader to true and call room_data`)
   fetch(`http://var-football-prediction.herokuapp.com/routes/room_data/${roomCode}`, {
     method: 'GET'
   })
     .then((res) => res.json())
     .then(async (result) => {
-      if (result.match === undefined) {
-        const match = {};
-        for (let i = 0; i < gamesData.length; ++i) {
-          if (
-            result.matchString.includes(gamesData[i].home) &&
-            result.matchString.includes(gamesData[i].away)
-          ) {
-            const logos = await getTeamsLogo(gamesData[i].fixtureID);
-            match.home = gamesData[i].home;
-            match.homeLogo = logos.homeLogo;
-            match.away = gamesData[i].away;
-            match.awayLogo = logos.awayLogo;
-            match.minute = gamesData[i].minute;
-            match.goalsHome = gamesData[i].goalsHome;
-            match.goalsAway = gamesData[i].goalsAway;
-            match.gameTime = gamesData[i].date;
-
-            //insert match gameData into DB
-            fetch(`http://var-football-prediction.herokuapp.com/routes/game_preview`, {
-              method: 'POST',
-              body: JSON.stringify({ match, roomCode }),
-              headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-              }
+      const match = {};
+      for (let i = 0; i < gamesData.length; ++i) {
+        if (
+          result.matchString.includes(gamesData[i].home) &&
+          result.matchString.includes(gamesData[i].away)
+        ) {
+          const logos = await getTeamsLogo(gamesData[i].fixtureID);
+          match.home = gamesData[i].home;
+          match.homeLogo = logos.homeLogo;
+          match.away = gamesData[i].away;
+          match.awayLogo = logos.awayLogo;
+          match.minute = gamesData[i].minute;
+          match.goalsHome = gamesData[i].goalsHome;
+          match.goalsAway = gamesData[i].goalsAway;
+          match.gameTime = gamesData[i].date;
+          //insert match gameData into DB
+          fetch(`http://var-football-prediction.herokuapp.com/routes/game_preview`, {
+            method: 'POST',
+            body: JSON.stringify({ match, roomCode }),
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            }
+          })
+            .then((response) => response.json())
+            .then(() => {
+              dispatch({
+                type: GAME_DATA,
+                gameData: match
+              });
+              // alert(`before set loader to false`);
+              // setLoader(false);
+              dispatch({ type: LOADING_ROOMS, isLoading: false });
             })
-              .then((response) => response.json())
-              .then(() => {
-                dispatch({
-                  type: GAME_DATA,
-                  gameData: match
-                });
-              })
-              .catch((e) => alert(e));
-            return;
-          }
+            .catch((e) => alert(e));
+          return;
         }
-      } else {
-        dispatch({
-          type: GAME_DATA,
-          gameData: result.match
-        });
       }
     });
 };

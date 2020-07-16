@@ -6,7 +6,8 @@ import {
   SET_ROOM_DATA,
   SET_POINTS,
   GAME_DATA,
-  CLEAN_STATE
+  CLEAN_STATE,
+  LOADING_ROOMS
 } from '../actions/actionsType';
 
 const initialState = {
@@ -19,11 +20,18 @@ const initialState = {
   roomDataUsers: [],
   setPoints: false,
   gameData: {},
-  fullName: ''
+  fullName: '',
+  isLoading: false
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case LOADING_ROOMS: {
+      return {
+        ...state,
+        isLoading: action.isLoading
+      };
+    }
     case ROOM_CODE: {
       console.log('ROOM_DATA');
       return {
@@ -46,7 +54,6 @@ export default (state = initialState, action) => {
       };
     }
     case LOGIN: {
-      console.log('isLoggedIn');
       return {
         ...state,
         isSetResult: action.isSetResult,
@@ -55,7 +62,6 @@ export default (state = initialState, action) => {
       };
     }
     case SET_ROOM_DATA: {
-      console.log('SET_ROOM_DATA');
       return {
         ...state,
         roomData: action.roomData,
@@ -65,13 +71,15 @@ export default (state = initialState, action) => {
     case SET_POINTS: {
       return {
         ...state,
-        setPoints: action.points
+        setPoints: action.points,
+        isLoading: false
       };
     }
     case GAME_DATA: {
       return {
         ...state,
-        gameData: action.gameData
+        gameData: action.gameData,
+        isLoading: false
       };
     }
     case CLEAN_STATE: {

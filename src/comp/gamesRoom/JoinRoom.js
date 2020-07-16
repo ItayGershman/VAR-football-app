@@ -12,6 +12,7 @@ import { getGame, setUserData, login, gamePreview } from '../actions/roomsAction
 import { connect } from 'react-redux';
 import { OutlinedTextField } from 'react-native-material-textfield';
 import Image from 'react-native-remote-svg';
+import Loader from '../Loader';
 
 const score = [];
 for (let i = 0; i < 10; ++i) {
@@ -31,7 +32,8 @@ const JoinRoom = ({
   gamePreview,
   gameData,
   gamesData,
-  fullName
+  fullName,
+  isLoading
 }) => {
   const { roomCode } = route.params;
   useEffect(() => {
@@ -48,7 +50,9 @@ const JoinRoom = ({
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
-      {!isLoggedIn ? (
+      {isLoading ? (
+        <Loader />
+      ) : !isLoggedIn ? (
         <View style={DataContainerStyles.dataContainer}>
           <View>
             <Text style={styles.text}>Join Room</Text>
@@ -172,8 +176,9 @@ JoinRoom.propTypes = {
   login: PropTypes.func,
   gamePreview: PropTypes.func,
   gameData: PropTypes.object,
-  gamesData: PropTypes.object,
-  fullName: PropTypes.string
+  gamesData: PropTypes.array,
+  fullName: PropTypes.string,
+  isLoading: PropTypes.bool
 };
 
 const mapStateToProps = ({ rooms, prediction }) => {
@@ -183,7 +188,8 @@ const mapStateToProps = ({ rooms, prediction }) => {
     isLoggedIn: rooms.isLoggedIn,
     gameData: rooms.gameData,
     gamesData: prediction.gamesData,
-    fullName: rooms.fullName
+    fullName: rooms.fullName,
+    isLoading: rooms.isLoading
   };
 };
 

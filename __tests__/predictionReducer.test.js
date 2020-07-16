@@ -73,7 +73,5 @@ describe('predictionReducer tests', () => {
     expect(state).toHaveProperty('h2hGames', action.h2hGames);
     expect(state).toHaveProperty('isLoading', false);
   });
-  test('PREDICTION_LIVE_GAMES',()=>{
-
-  })
+  test('PREDICTION_LIVE_GAMES', () => {});
 });
