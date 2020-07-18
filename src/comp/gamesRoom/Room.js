@@ -22,9 +22,9 @@ const Room = ({
 }) => {
   //props is roomCode
   useEffect(() => {
+    setPoints(roomCode, gamesData);
     getRoomData(roomCode);
     gamePreview(roomCode, gamesData);
-    setPoints(roomCode, gamesData);
   }, []);
   return (
     <View style={DataContainerStyles.dataContainer}>
