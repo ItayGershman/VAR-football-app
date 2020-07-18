@@ -34,7 +34,7 @@ const JoinBox = ({ navigation }) => {
   const Hide = (navigation) => {
     setIsModalInputVisible(!isModalInputVisible);
     navigation.navigate('GamesRoom');
-  }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.boxJoin}>
