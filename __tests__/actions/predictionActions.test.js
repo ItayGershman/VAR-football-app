@@ -47,15 +47,9 @@ const gamesData = [
   }
 ];
 
-// const teamsLogo = {
-//   home: 'https://media.api-sports.io/football/teams/529.png',
-//   away: 'https://media.api-sports.io/football/teams/727.png'
-// };
-
 describe('predictionActions functions testing', () => {
   test('getFixtureID function ', () => {
     const fixture = getFixtureID('Barcelona vs Osasuna', gamesData);
-    console.log(fixture);
     expect(fixture).toEqual('214383');
   });
 });

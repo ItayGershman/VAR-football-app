@@ -16,7 +16,6 @@ const getGamesByLeague = (dispatch, leaguedID) => {
   fetch(
     `https://api-football-v1.p.rapidapi.com/v2/fixtures/league/${leaguedID}/${date}?timezone=Asia/Jerusalem`,
     {
-      //All league games by round
       method: 'GET',
       headers: {
         'x-rapidapi-host': API_HOST,
@@ -33,7 +32,7 @@ const getGamesByLeague = (dispatch, leaguedID) => {
       });
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
 };
 
@@ -56,7 +55,6 @@ const organizeMatchByLeague = (data) => {
       league: fixture.league.name,
       games: [match]
     };
-    //Search if a specific league is inside leagues array - if yes push game into this league
     const obj = leagues.find((obj, i) => {
       if (obj.league === data.api.fixtures[i].league.name) {
         leagues[i].games.push(match);
@@ -64,7 +62,6 @@ const organizeMatchByLeague = (data) => {
       }
       return false;
     });
-    //Push another league (with game) into leagues array
     if (obj === undefined) leagues.push(gamesByLeague);
   }
   return leagues;

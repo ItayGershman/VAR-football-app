@@ -1,11 +1,12 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import Header from '../Header';
 import DataContainerStyles from '../../styles';
 import CreateBox from './CreateBox';
 import JoinBox from './JoinBox';
+import styles from './GamesRoomStyle';
 
 const GamesRoom = (props) => {
   return (
@@ -24,19 +25,5 @@ const GamesRoom = (props) => {
 GamesRoom.propTypes = {
   navigation: PropTypes.object
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#22343C'
-  },
-  text: {
-    justifyContent: 'center',
-    color: 'white',
-    textAlign: 'center',
-    fontSize: 30,
-    marginTop: 10,
-    marginLeft: 105
-  }
-});
 
 export default GamesRoom;
