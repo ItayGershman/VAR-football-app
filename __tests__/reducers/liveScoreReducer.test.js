@@ -1,5 +1,5 @@
-import liveScoreReducer from '../src/comp/reducers/liveScoreReducer';
-import { LOADING_LIVESCORE, LIVE_GAMES } from '../src/comp/actions/actionsType';
+import liveScoreReducer from '../../src/comp/reducers/liveScoreReducer';
+import { LOADING_LIVESCORE, LIVE_GAMES } from '../../src/comp/actions/actionsType';
 const leagues = [
   {
     league: 'Premier League',

@@ -105,7 +105,7 @@ export const getRoomData = (roomCode) => async (dispatch) => {
     .then((res) => res.json())
     .then((json) => {
       const roomData = {
-        game: json.game,
+        game: json.matchString,
         userData: json.userData
       };
       dispatch({
@@ -171,14 +171,14 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
               .then(() => {
                 dispatch({
                   type: SET_POINTS,
-                  setPoints: true
+                  points: true
                 });
               })
               .catch((e) => alert(`e${e}`));
           }
           dispatch({
             type: SET_POINTS,
-            setPoints: false
+            points: false
           });
         }
       }
