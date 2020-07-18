@@ -108,7 +108,6 @@ Room.propTypes = {
 
 const mapStateToProps = ({ rooms, prediction }) => {
   return {
-    // roomData: rooms.roomData,
     roomDataUsers: rooms.roomDataUsers,
     gameData: rooms.gameData,
     gamesData: prediction.gamesData
