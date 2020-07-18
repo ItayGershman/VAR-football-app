@@ -1,17 +1,13 @@
 import React from 'react';
 
-//Screens
 import CreateRoom from './src/comp/gamesRoom/CreateRoom';
 import JoinRoom from './src/comp/gamesRoom/JoinRoom';
 
-//Tab screens
 import MainTabNavigator from './src/comp/MainTabNavigator';
 
-//Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-//Redux
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';

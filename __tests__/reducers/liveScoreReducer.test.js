@@ -86,7 +86,6 @@ const leagues = [
 describe('liveScoreReducer tests', () => {
   test('has initial state', () => {
     const state = liveScoreReducer(undefined, {});
-    // expect(state).toBeDefined();
     expect(state).toHaveProperty('leagues');
     expect(state).toHaveProperty('isLoading', false);
   });

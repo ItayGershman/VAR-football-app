@@ -59,8 +59,8 @@ const JoinRoom = ({
                     {gameData.minute === 0 ? (
                       <Text style={styles.minute}>{gameData.gameTime}</Text>
                     ) : (
-                        <Text style={styles.minute}>{gameData.minute}</Text>
-                      )}
+                      <Text style={styles.minute}>{gameData.minute}</Text>
+                    )}
                   </View>
                   <View style={styles.matchRow}>
                     <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
@@ -103,8 +103,8 @@ const JoinRoom = ({
                 {gameData.minute === 0 ? (
                   <Text style={styles.minute}>{gameData.gameTime}</Text>
                 ) : (
-                    <Text style={styles.minute}>{gameData.minute}</Text>
-                  )}
+                  <Text style={styles.minute}>{gameData.minute}</Text>
+                )}
               </View>
               <View style={styles.matchRow}>
                 <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
@@ -156,8 +156,8 @@ const JoinRoom = ({
           </View>
         </View>
       ) : (
-            <Room roomCode={roomCode} navigation={navigation} />
-          )}
+        <Room roomCode={roomCode} navigation={navigation} />
+      )}
     </View>
   );
 };

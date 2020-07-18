@@ -1,4 +1,3 @@
-// import { ScrollView } from 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
@@ -92,7 +91,6 @@ const Prediction = ({
 Prediction.propTypes = {
   navigation: PropTypes.object,
   getOdds: PropTypes.func,
-  // odds: PropTypes.object,
   match: PropTypes.object,
   advice: PropTypes.string,
   getLeagues: PropTypes.func,

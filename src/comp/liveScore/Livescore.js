@@ -1,4 +1,3 @@
-// import { ScrollView } from 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { View, Text, FlatList, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
