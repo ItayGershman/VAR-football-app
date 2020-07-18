@@ -12,7 +12,6 @@ import { getGame, setUserData, login, gamePreview } from '../actions/roomsAction
 import { connect } from 'react-redux';
 import { OutlinedTextField } from 'react-native-material-textfield';
 import Image from 'react-native-remote-svg';
-import Loader from '../Loader';
 
 const score = [];
 for (let i = 0; i < 10; ++i) {
@@ -32,8 +31,7 @@ const JoinRoom = ({
   gamePreview,
   gameData,
   gamesData,
-  fullName,
-  isLoading
+  fullName
 }) => {
   const { roomCode } = route.params;
   useEffect(() => {
@@ -50,9 +48,7 @@ const JoinRoom = ({
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
-      {isLoading ? (
-        <Loader />
-      ) : !isLoggedIn ? (
+      {!isLoggedIn ? (
         <View style={DataContainerStyles.dataContainer}>
           <View>
             <Text style={styles.text}>Join Room</Text>
@@ -63,19 +59,19 @@ const JoinRoom = ({
                     {gameData.minute === 0 ? (
                       <Text style={styles.minute}>{gameData.gameTime}</Text>
                     ) : (
-                      <Text style={styles.minute}>{gameData.minute}</Text>
-                    )}
+                        <Text style={styles.minute}>{gameData.minute}</Text>
+                      )}
                   </View>
                   <View style={styles.matchRow}>
-                    <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
-                    <Text style={styles.teamName}>{gameData.home}</Text>
+                    <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
+                    <Text style={styles.teamName}>{gameData.away}</Text>
                     <Text style={styles.scoreJoin}>
                       {gameData.goalsHome}
                       {gameData.minute === 0 ? 'VS' : '-'}
                       {gameData.goalsAway}
                     </Text>
-                    <Text style={styles.teamName}>{gameData.away}</Text>
-                    <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
+                    <Text style={styles.teamName}>{gameData.home}</Text>
+                    <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
                   </View>
                 </View>
               )}
@@ -107,19 +103,19 @@ const JoinRoom = ({
                 {gameData.minute === 0 ? (
                   <Text style={styles.minute}>{gameData.gameTime}</Text>
                 ) : (
-                  <Text style={styles.minute}>{gameData.minute}</Text>
-                )}
+                    <Text style={styles.minute}>{gameData.minute}</Text>
+                  )}
               </View>
               <View style={styles.matchRow}>
-                <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
-                <Text style={styles.teamName}>{gameData.home}</Text>
+                <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
+                <Text style={styles.teamName}>{gameData.away}</Text>
                 <Text style={styles.scoreJoin}>
                   {gameData.goalsHome}
                   {gameData.minute === 0 ? 'VS' : '-'}
                   {gameData.goalsAway}
                 </Text>
-                <Text style={styles.teamName}>{gameData.away}</Text>
-                <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
+                <Text style={styles.teamName}>{gameData.home}</Text>
+                <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
               </View>
             </View>
             <Form forwardRef="form">
@@ -160,8 +156,8 @@ const JoinRoom = ({
           </View>
         </View>
       ) : (
-        <Room roomCode={roomCode} navigation={navigation} />
-      )}
+            <Room roomCode={roomCode} navigation={navigation} />
+          )}
     </View>
   );
 };
@@ -176,9 +172,8 @@ JoinRoom.propTypes = {
   login: PropTypes.func,
   gamePreview: PropTypes.func,
   gameData: PropTypes.object,
-  gamesData: PropTypes.array,
-  fullName: PropTypes.string,
-  isLoading: PropTypes.bool
+  gamesData: PropTypes.object,
+  fullName: PropTypes.string
 };
 
 const mapStateToProps = ({ rooms, prediction }) => {
@@ -188,8 +183,7 @@ const mapStateToProps = ({ rooms, prediction }) => {
     isLoggedIn: rooms.isLoggedIn,
     gameData: rooms.gameData,
     gamesData: prediction.gamesData,
-    fullName: rooms.fullName,
-    isLoading: rooms.isLoading
+    fullName: rooms.fullName
   };
 };
 
