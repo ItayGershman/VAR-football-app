@@ -1,4 +1,4 @@
-import { getFixtureID, getTeamsLogo } from '../../src/comp/actions/predictionActions';
+import { getFixtureID } from '../../src/comp/actions/predictionActions';
 
 const gamesData = [
   {
