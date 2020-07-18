@@ -34,7 +34,6 @@ const CreateRoom = ({
   const copyToClipboard = () => {
     Clipboard.setString(roomCode);
   };
-
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />

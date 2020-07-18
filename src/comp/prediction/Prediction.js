@@ -39,7 +39,6 @@ const Prediction = ({
         {isLoading ? (
           <Loader />
         ) : (
-          //predictionStyle.dropdown in <View style={predictionStyle.dropdown}>
           <View>
             <View style={styles.dropdown}>
               <Form forwardRef="form">
