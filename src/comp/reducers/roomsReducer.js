@@ -27,6 +27,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOADING_ROOMS: {
+      // alert(`LOADING_ROOMS:${ action.isLoading }`)
       return {
         ...state,
         isLoading: action.isLoading

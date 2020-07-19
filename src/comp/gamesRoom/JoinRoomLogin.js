@@ -49,7 +49,6 @@ const JoinRoomLogin = ({ gameData, roomCode, login }) => {
               label="Enter full name"
               returnKeyType="go"
               onSubmitEditing={(event) => {
-                // alert(event.nativeEvent.text)
                 login(roomCode, event.nativeEvent.text);
               }}
             />
