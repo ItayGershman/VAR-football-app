@@ -8,6 +8,9 @@ import styles from './RoomStyles';
 import { IconButton, Colors } from 'react-native-paper';
 import DataContainerStyles from '../../styles';
 import Image from 'react-native-remote-svg';
+import RoomMatch from './RoomMatch';
+import RoomTable from './RoomTable';
+import Loader from '../Loader';
 
 const Room = ({
   navigation,
@@ -18,14 +21,10 @@ const Room = ({
   gamesData,
   gameData,
   cleanState,
-  setPoints
+  setPoints,
+  isLoading
 }) => {
   //props is roomCode
-  useEffect(() => {
-    setPoints(roomCode, gamesData);
-    getRoomData(roomCode);
-    gamePreview(roomCode, gamesData);
-  }, []);
   return (
     <View style={DataContainerStyles.dataContainer}>
       <View style={styles.titleAndArrow}>
@@ -42,54 +41,8 @@ const Room = ({
           />
         </View>
       </View>
-      {roomDataUsers.length > 0 && (
-        <View>
-          {gameData !== undefined && (
-            <View style={styles.matchView}>
-              <View style={styles.minuteContainer}>
-                {gameData.minute === 0 ? (
-                  <Text style={styles.minute}>{gameData.gameTime}</Text>
-                ) : (
-                    <Text style={styles.minute}>{gameData.minute}</Text>
-                  )}
-              </View>
-              <View style={styles.matchRow}>
-                <Image style={styles.teamLogo} source={{ uri: gameData.homeLogo }} />
-                <Text style={styles.teamName}>{gameData.away}</Text>
-                <Text style={styles.score}>
-                  {gameData.goalsHome}
-                  {gameData.minute === 0 ? 'VS' : '-'}
-                  {gameData.goalsAway}
-                </Text>
-                <Text style={styles.teamName}>{gameData.home}</Text>
-                <Image style={styles.teamLogo} source={{ uri: gameData.awayLogo }} />
-              </View>
-            </View>
-          )}
-          <View style={styles.headlines}>
-            <View style={styles.tableBox}>
-              <View style={styles.nameHomeAway}>
-                <Text style={styles.columnsTitle}>NAME</Text>
-                <Text style={styles.columnsTitle}>HOME</Text>
-                <Text style={styles.columnsTitle}>AWAY</Text>
-                <Text style={styles.columnsTitle}>POINTS</Text>
-              </View>
-              <FlatList
-                data={roomDataUsers}
-                numColumns={1}
-                renderItem={({ item }) => (
-                  <View keyExtractor={item.id} style={styles.rowContent}>
-                    <Text style={styles.rowFlatList}>{item.fullName}</Text>
-                    <Text style={styles.rowFlatList}>{item.home}</Text>
-                    <Text style={styles.rowFlatList}>{item.away}</Text>
-                    <Text style={styles.rowFlatList}>{item.points}</Text>
-                  </View>
-                )}
-              />
-            </View>
-          </View>
-        </View>
-      )}
+      <RoomMatch gameData={gameData} />
+      <RoomTable roomCode={roomCode} />
     </View>
   );
 };
@@ -103,15 +56,22 @@ Room.propTypes = {
   cleanState: PropTypes.func,
   gameData: PropTypes.object,
   gamesData: PropTypes.object,
-  setPoints: PropTypes.func
+  setPoints: PropTypes.func,
+  isLoading: PropTypes.bool
 };
 
 const mapStateToProps = ({ rooms, prediction }) => {
   return {
     roomDataUsers: rooms.roomDataUsers,
     gameData: rooms.gameData,
-    gamesData: prediction.gamesData
+    gamesData: prediction.gamesData,
+    isLoading: rooms.isLoading
   };
 };
 
-export default connect(mapStateToProps, { getRoomData, gamePreview, cleanState, setPoints })(Room);
+export default connect(mapStateToProps, {
+  getRoomData,
+  gamePreview,
+  cleanState,
+  setPoints
+})(Room);

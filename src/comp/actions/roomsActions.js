@@ -183,12 +183,10 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
         }
       }
     })
-    .catch((e) => alert(`e"${e}`));
+    .catch((e) => alert(`e:${e}`));
 };
 export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
-  // setLoader(true);
-  // dispatch({ type: LOADING_ROOMS, isLoading: true });
-  // alert(`set loader to true and call room_data`)
+  dispatch({ type: LOADING_ROOMS, isLoading: true });
   fetch(`http://var-football-prediction.herokuapp.com/routes/room_data/${roomCode}`, {
     method: 'GET'
   })
@@ -220,19 +218,20 @@ export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
           })
             .then((response) => response.json())
             .then(() => {
+              console.log('dispatch GAME_DATA');
               dispatch({
                 type: GAME_DATA,
                 gameData: match
               });
-              // alert(`before set loader to false`);
-              // setLoader(false);
-              // dispatch({ type: LOADING_ROOMS, isLoading: false });
+              console.log('dispatch LOADING_ROOMS with false');
+              dispatch({ type: LOADING_ROOMS, isLoading: false });
             })
             .catch((e) => alert(e));
-          return;
+          // return;
         }
       }
-    });
+    })
+    .catch((e) => alert(`error:${e}`));
 };
 
 export const cleanState = () => (dispatch) => {

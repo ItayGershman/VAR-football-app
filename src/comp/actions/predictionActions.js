@@ -97,7 +97,7 @@ const organizeData = (data, logos) => {
   return prediction;
 };
 
-const getTeamsLogo = (fixture_id) => {
+export const getTeamsLogo = (fixture_id) => {
   const teamsLogo = {};
   return fetch(
     `https://api-football-v1.p.rapidapi.com/v2/fixtures/id/${fixture_id}?timezone=Asia/Jerusalem`,
