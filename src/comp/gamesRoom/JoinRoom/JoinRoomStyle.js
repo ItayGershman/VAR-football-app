@@ -62,13 +62,12 @@ const styles = StyleSheet.create({
   submit: {
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute',
     borderColor: '#3ED598',
     backgroundColor: '#286053',
     width: 120,
     height: 50,
     borderRadius: 7,
-    marginTop: 65,
+    marginTop: 8,
     shadowColor: 'rgb(255, 197, 66)',
     shadowOffset: {
       width: 0,
@@ -208,8 +207,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#2A3C44'
   },
   submitContainer: {
-    marginBottom: '7%',
-    marginLeft: '6%'
+    marginLeft: '6%',
+    marginTop: 65,
+    width: 120,
+    height: 50,
   },
   inputStyle: {
     color: 'white',

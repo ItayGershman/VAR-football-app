@@ -37,11 +37,6 @@ const JoinRoom = ({
   useEffect(() => {
     gamePreview(roomCode, gamesData);
   }, []);
-  const userScore = {
-    home: -1,
-    away: -1,
-    points: 0
-  };
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
@@ -50,39 +45,38 @@ const JoinRoom = ({
           {isLoading ? (
             <Loader />
           ) : (
-            <View>
-              <Text style={styles.text}>Join Room</Text>
-              <View style={styles.formContainer}>
-                {gameData && <JoinRoomGameData />}
-                {!isLoggedIn ? (
-                  <View style={styles.nameStyleContainer}>
-                    <OutlinedTextField
-                      containerStyle={styles.nameStyle}
-                      textColor={'rgb(255, 197, 66)'}
-                      baseColor={'rgb(255, 197, 66)'}
-                      tintColor={'rgb(255, 197, 66)'}
-                      lineWidth={0}
-                      activeLineWidth={0}
-                      shadeOpacity={0.2}
-                      label="Enter full name"
-                      returnKeyType="go"
-                      onSubmitEditing={(event) => {
-                        login(roomCode, event.nativeEvent.text);
-                      }}
-                    />
-                  </View>
-                ) : (
-                  !isSetResult && (
-                    <JoinRoomResult roomCode={roomCode} userScore={userScore} fullName={fullName} />
-                  )
-                )}
+              <View>
+                <Text style={styles.text}>Join Room</Text>
+                <View style={styles.formContainer}>
+                  {gameData && <JoinRoomGameData />}
+                  {!isLoggedIn ? (
+                    <View style={styles.nameStyleContainer}>
+                      <OutlinedTextField
+                        containerStyle={styles.nameStyle}
+                        textColor={'rgb(255, 197, 66)'}
+                        baseColor={'rgb(255, 197, 66)'}
+                        tintColor={'rgb(255, 197, 66)'}
+                        lineWidth={0}
+                        activeLineWidth={0}
+                        shadeOpacity={0.2}
+                        label="Enter full name"
+                        returnKeyType="go"
+                        onSubmitEditing={(event) => {
+                          login(roomCode, event.nativeEvent.text);
+                        }}
+                      />
+                    </View>
+                  ) : (
+                      !isSetResult &&
+                      <JoinRoomResult roomCode={roomCode} fullName={fullName} />
+                    )}
+                </View>
               </View>
-            </View>
-          )}
+            )}
         </View>
       ) : (
-        <Room roomCode={roomCode} navigation={navigation} />
-      )}
+          <Room roomCode={roomCode} navigation={navigation} />
+        )}
     </View>
   );
 };

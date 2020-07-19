@@ -11,7 +11,6 @@ import RoomMatch from './RoomMatch';
 import RoomTable from './RoomTable';
 
 const Room = ({ navigation, roomCode, gameData, cleanState }) => {
-  //props is roomCode
   return (
     <View style={DataContainerStyles.dataContainer}>
       <View style={styles.titleAndArrow}>

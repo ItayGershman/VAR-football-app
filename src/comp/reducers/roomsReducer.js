@@ -27,7 +27,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOADING_ROOMS: {
-      // alert(`LOADING_ROOMS:${ action.isLoading }`)
       return {
         ...state,
         isLoading: action.isLoading
@@ -60,7 +59,6 @@ export default (state = initialState, action) => {
       };
     }
     case SET_ROOM_DATA: {
-      console.log('SET_ROOM_DATA');
       return {
         ...state,
         roomData: action.roomData,
@@ -68,7 +66,6 @@ export default (state = initialState, action) => {
       };
     }
     case SET_POINTS: {
-      console.log('SET_POINTS');
       return {
         ...state,
         setPoints: action.points
@@ -86,7 +83,8 @@ export default (state = initialState, action) => {
         roomData: [],
         roomDataUsers: [],
         isLoggedIn: false,
-        isSetResult: false
+        isSetResult: false,
+        isLoading: false
       };
     }
     default:
