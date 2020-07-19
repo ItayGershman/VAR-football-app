@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Icon, Input } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
-import styles from './JoinBoxStyles';
+import styles from './/JoinBoxStyles';
 
 const JoinBox = ({ navigation }) => {
   const [isModalVisible, setModalVisible] = useState(false);

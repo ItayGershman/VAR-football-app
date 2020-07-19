@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import styles from './JoinRoomStyle';
 import PropTypes from 'prop-types';
-import { setUserData } from '../actions/roomsActions';
+import { setUserData } from '../../actions/roomsActions';
 import Image from 'react-native-remote-svg';
 import { connect } from 'react-redux';
 

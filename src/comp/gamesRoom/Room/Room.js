@@ -8,7 +8,7 @@ import styles from './RoomStyles';
 import { IconButton, Colors } from 'react-native-paper';
 import DataContainerStyles from '../../../styles';
 import RoomMatch from './RoomMatch';
-import RoomTable from '../RoomTable';
+import RoomTable from './RoomTable';
 
 const Room = ({ navigation, roomCode, gameData, cleanState }) => {
   //props is roomCode

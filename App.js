@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CreateRoom from './src/comp/gamesRoom/CreateRoom';
-import JoinRoom from './src/comp/gamesRoom/JoinRoom';
+import JoinRoom from './src/comp/gamesRoom/JoinRoom/JoinRoom';
 
 import MainTabNavigator from './src/comp/MainTabNavigator';
 

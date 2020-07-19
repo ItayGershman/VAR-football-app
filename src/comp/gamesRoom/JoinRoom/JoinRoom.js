@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
-import styles from '../JoinRoomStyle';
+import styles from './JoinRoomStyle';
 import PropTypes from 'prop-types';
 import Header from '../../Header';
 import DataContainerStyles from '../../../styles';
@@ -9,8 +9,8 @@ import Room from '../Room/Room';
 import { getGame, login, gamePreview } from '../../actions/roomsActions';
 import { connect } from 'react-redux';
 import { OutlinedTextField } from 'react-native-material-textfield';
-import JoinRoomResult from '../JoinRoomResult';
-import JoinRoomGameData from '../JoinRoomGameData';
+import JoinRoomResult from './JoinRoomResult';
+import JoinRoomGameData from './JoinRoomGameData';
 import Loader from '../../Loader';
 
 const score = [];

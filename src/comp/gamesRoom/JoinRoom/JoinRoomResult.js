@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './JoinRoomStyle';
 import PropTypes from 'prop-types';
 import Form from 'react-native-form';
-import { setUserData } from '../actions/roomsActions';
+import { setUserData } from '../../actions/roomsActions';
 import { Dropdown } from 'react-native-material-dropdown';
 import { connect } from 'react-redux';
 

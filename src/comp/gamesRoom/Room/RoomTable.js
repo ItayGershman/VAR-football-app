@@ -2,9 +2,9 @@ import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import PropTypes from 'prop-types';
-import { getRoomData, setPoints } from '../actions/roomsActions';
+import { getRoomData, setPoints } from '../../actions/roomsActions';
 import { connect } from 'react-redux';
-import styles from './Room/RoomStyles';
+import styles from './RoomStyles';
 
 const RoomTable = ({ roomCode, getRoomData, roomDataUsers, setPoints, gamesData }) => {
   useEffect(() => {
