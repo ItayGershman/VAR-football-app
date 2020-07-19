@@ -2,13 +2,13 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import { getRoomData, gamePreview, cleanState, setPoints } from '../actions/roomsActions';
+import { getRoomData, gamePreview, cleanState, setPoints } from '../../actions/roomsActions';
 import { connect } from 'react-redux';
 import styles from './RoomStyles';
 import { IconButton, Colors } from 'react-native-paper';
-import DataContainerStyles from '../../styles';
+import DataContainerStyles from '../../../styles';
 import RoomMatch from './RoomMatch';
-import RoomTable from './RoomTable';
+import RoomTable from '../RoomTable';
 
 const Room = ({ navigation, roomCode, gameData, cleanState }) => {
   //props is roomCode

@@ -4,7 +4,7 @@ import { View, Text, FlatList } from 'react-native';
 import PropTypes from 'prop-types';
 import { getRoomData, setPoints } from '../actions/roomsActions';
 import { connect } from 'react-redux';
-import styles from './RoomStyles';
+import styles from './Room/RoomStyles';
 
 const RoomTable = ({ roomCode, getRoomData, roomDataUsers, setPoints, gamesData }) => {
   useEffect(() => {
