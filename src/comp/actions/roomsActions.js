@@ -29,7 +29,7 @@ export const setGame = (game) => async (dispatch) => {
         roomCode
       });
     })
-    .catch((e) => alert(`ERROR: ${e}`));
+    .catch((e) => console.log(`ERROR: ${e}`));
 };
 
 export const getGame = (roomCode) => async (dispatch) => {
@@ -62,7 +62,7 @@ export const setUserData = (roomCode, userData, fullName) => async (dispatch) =>
         isSetResult: true
       });
     })
-    .catch((e) => alert(`ERROR: ${e}`));
+    .catch((e) => console.log(`ERROR: ${e}`));
 };
 
 export const login = (roomCode, fullName) => async (dispatch) => {
@@ -174,7 +174,7 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
                   points: true
                 });
               })
-              .catch((e) => alert(`e${e}`));
+              .catch((e) => console.log(`e${e}`));
           }
           dispatch({
             type: SET_POINTS,
@@ -183,7 +183,7 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
         }
       }
     })
-    .catch((e) => alert(`e:${e}`));
+    .catch((e) => console.log(`e:${e}`));
 };
 export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
   dispatch({ type: LOADING_ROOMS, isLoading: true });
@@ -226,12 +226,12 @@ export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
               console.log('dispatch LOADING_ROOMS with false');
               dispatch({ type: LOADING_ROOMS, isLoading: false });
             })
-            .catch((e) => alert(e));
+            .catch((e) => console.log(e));
           // return;
         }
       }
     })
-    .catch((e) => alert(`error:${e}`));
+    .catch((e) => console.log(`error:${e}`));
 };
 
 export const cleanState = () => (dispatch) => {

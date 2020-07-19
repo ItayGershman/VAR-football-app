@@ -1,17 +1,12 @@
 import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import styles from './JoinRoomStyle';
 import PropTypes from 'prop-types';
 import Header from '../Header';
-import DataContainerStyles from '../../styles';
-import Form from 'react-native-form';
 import Room from './Room';
-import { Dropdown } from 'react-native-material-dropdown';
 import { getGame, setUserData, login, gamePreview } from '../actions/roomsActions';
 import { connect } from 'react-redux';
-import { OutlinedTextField } from 'react-native-material-textfield';
-import Image from 'react-native-remote-svg';
 import Loader from '../Loader';
 import JoinRoomLogin from './JoinRoomLogin';
 import JoinRoomResult from './JoinRoomResult';
@@ -30,7 +25,6 @@ const JoinRoom = ({
   isSetResult,
   isLoggedIn,
   gamePreview,
-  gameData,
   gamesData,
   fullName,
   isLoading
@@ -71,7 +65,6 @@ JoinRoom.propTypes = {
   isSetResult: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
   gamePreview: PropTypes.func,
-  gameData: PropTypes.object,
   gamesData: PropTypes.array,
   fullName: PropTypes.string,
   isLoading: PropTypes.bool

@@ -1,29 +1,16 @@
 import 'react-native-gesture-handler';
-import React, { useEffect } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import React from 'react';
+import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { getRoomData, gamePreview, cleanState, setPoints } from '../actions/roomsActions';
 import { connect } from 'react-redux';
 import styles from './RoomStyles';
 import { IconButton, Colors } from 'react-native-paper';
 import DataContainerStyles from '../../styles';
-import Image from 'react-native-remote-svg';
 import RoomMatch from './RoomMatch';
 import RoomTable from './RoomTable';
-import Loader from '../Loader';
 
-const Room = ({
-  navigation,
-  getRoomData,
-  gamePreview,
-  roomCode,
-  roomDataUsers,
-  gamesData,
-  gameData,
-  cleanState,
-  setPoints,
-  isLoading
-}) => {
+const Room = ({ navigation, roomCode, gameData, cleanState }) => {
   //props is roomCode
   return (
     <View style={DataContainerStyles.dataContainer}>
@@ -49,15 +36,9 @@ const Room = ({
 
 Room.propTypes = {
   navigation: PropTypes.object,
-  getRoomData: PropTypes.func,
-  gamePreview: PropTypes.func,
   roomCode: PropTypes.string,
-  roomDataUsers: PropTypes.array,
   cleanState: PropTypes.func,
-  gameData: PropTypes.object,
-  gamesData: PropTypes.object,
-  setPoints: PropTypes.func,
-  isLoading: PropTypes.bool
+  gameData: PropTypes.object
 };
 
 const mapStateToProps = ({ rooms, prediction }) => {
