@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import PropTypes from 'prop-types';
-import { getRoomData, setPoints } from '../actions/roomsActions';
+import { getRoomData, setPoints } from '../../actions/roomsActions';
 import { connect } from 'react-redux';
 import styles from './RoomStyles';
 

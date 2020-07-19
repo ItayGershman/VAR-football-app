@@ -6,7 +6,8 @@ import {
   SET_ROOM_DATA,
   SET_POINTS,
   GAME_DATA,
-  CLEAN_STATE
+  CLEAN_STATE,
+  LOADING_ROOMS
 } from './actionsType';
 import { API_KEY, API_HOST } from 'react-native-dotenv';
 const randomString = require('random-string');
@@ -61,7 +62,7 @@ export const setUserData = (roomCode, userData, fullName) => async (dispatch) =>
         isSetResult: true
       });
     })
-    .catch((e) => console.log(`error:${e}`));
+    .catch((e) => console.log(`ERROR: ${e}`));
 };
 
 export const login = (roomCode, fullName) => async (dispatch) => {
@@ -178,6 +179,7 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
     .catch((e) => console.log(`error:${e}`));
 };
 export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
+  dispatch({ type: LOADING_ROOMS, isLoading: true });
   fetch(`http://var-football-prediction.herokuapp.com/routes/room_data/${roomCode}`, {
     method: 'GET'
   })
@@ -208,16 +210,20 @@ export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
           })
             .then((response) => response.json())
             .then(() => {
+              console.log('dispatch GAME_DATA');
               dispatch({
                 type: GAME_DATA,
                 gameData: match
               });
+              console.log('dispatch LOADING_ROOMS with false');
+              dispatch({ type: LOADING_ROOMS, isLoading: false });
             })
             .catch((e) => console.log(`error:${e}`));
           return;
         }
       }
-    });
+    })
+    .catch((e) => console.log(`error:${e}`));
 };
 
 export const cleanState = () => (dispatch) => {

@@ -1,4 +1,4 @@
-import { getFixtureID } from '../../src/comp/actions/predictionActions';
+import { getFixtureID, getTeamsLogo } from '../../src/comp/actions/predictionActions';
 
 const gamesData = [
   {
@@ -46,6 +46,24 @@ const gamesData = [
     fixtureID: '214383'
   }
 ];
+
+const teamsLogo = {
+  home: 'https://media.api-sports.io/football/teams/529.png',
+  away: 'https://media.api-sports.io/football/teams/727.png'
+};
+
+global.fetch = jest.fn(() => {
+  Promise.resolve({
+    json: () => {
+      Promise.resolve({
+        teamsLogo: {
+          home: 'https://media.api-sports.io/football/teams/529.png',
+          away: 'https://media.api-sports.io/football/teams/727.png'
+        }
+      });
+    }
+  });
+});
 
 describe('predictionActions functions testing', () => {
   test('getFixtureID function ', () => {
