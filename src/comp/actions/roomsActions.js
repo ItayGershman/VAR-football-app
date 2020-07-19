@@ -97,7 +97,11 @@ export const login = (roomCode, fullName) => async (dispatch) => {
 
 export const getRoomData = (roomCode) => async (dispatch) => {
   fetch(`http://var-football-prediction.herokuapp.com/routes/room_data/${roomCode}`, {
-    method: 'GET'
+    method: 'GET',
+    cache: 'no-store',
+    headers:{
+      'Cache-Control' : 'no-store'
+    }
   })
     .then((res) => res.json())
     .then((json) => {
@@ -210,15 +214,18 @@ export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
           })
             .then((response) => response.json())
             .then(() => {
-              console.log('dispatch GAME_DATA');
               dispatch({
                 type: GAME_DATA,
                 gameData: match
               });
-              console.log('dispatch LOADING_ROOMS with false');
               dispatch({ type: LOADING_ROOMS, isLoading: false });
             })
             .catch((e) => console.log(`error:${e}`));
+          dispatch({
+            type: GAME_DATA,
+            gameData: match
+          });
+          dispatch({ type: LOADING_ROOMS, isLoading: false });
           return;
         }
       }

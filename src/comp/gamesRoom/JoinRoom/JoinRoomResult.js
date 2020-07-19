@@ -16,10 +16,18 @@ for (let i = 0; i < 10; ++i) {
   score.push(num);
 }
 
-const JoinRoomResult = ({ roomCode, userScore, fullName, setUserData }) => {
-  const submitForm = () => {
-    if (userScore.home >= 0 && userScore.away >= 0) setUserData(roomCode, userScore, fullName);
+const JoinRoomResult = ({ roomCode, fullName, setUserData }) => {
+  const userScore = {
+    home: -1,
+    away: -1,
+    points: 0
   };
+  const submitForm = () => {
+    if (userScore.home >= 0 && userScore.away >= 0) {
+      setUserData(roomCode, userScore, fullName);
+    }
+  };
+
   return (
     <Form forwardRef="form">
       <View style={styles.score}>
@@ -62,7 +70,6 @@ const JoinRoomResult = ({ roomCode, userScore, fullName, setUserData }) => {
 JoinRoomResult.propTypes = {
   roomCode: PropTypes.string,
   fullName: PropTypes.string,
-  userScore: PropTypes.object,
   setUserData: PropTypes.func
 };
 
