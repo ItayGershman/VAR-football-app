@@ -1,19 +1,19 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import GamesRoom from './gamesRoom/GamesRoom';
 import Livescore from './liveScore/Livescore';
 import Prediction from './prediction/Prediction';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import PropTypes from 'prop-types';
+import styles from './MainTabNavigatorStyles';
 
 const Tab = createMaterialBottomTabNavigator();
 
-export default function MainTabNavigator({ navigation }) {
+const MainTabNavigator = ({ navigation }) => {
   return (
     <Tab.Navigator
       labeled={false}
-      initialRouteName="Prediction"
+      initialRouteName="Livescore"
       activeColor="#3DD598"
       inactiveColor="#FFFFFF"
       barStyle={styles.barStyle}
@@ -49,24 +49,13 @@ export default function MainTabNavigator({ navigation }) {
       />
     </Tab.Navigator>
   );
-}
-
-MainTabNavigator.propTypes = {
-  navigation: PropTypes.object
 };
 
-const styles = StyleSheet.create({
-  barStyle: {
-    backgroundColor: '#30444E',
-    width: '100%',
-    height: '8%',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 12
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
-    elevation: 24
-  }
-});
+MainTabNavigator.propTypes = {
+  navigation: PropTypes.object,
+  color: PropTypes.object
+};
+
+MainTabNavigator.displayName = 'MainTabNavigator';
+
+export default MainTabNavigator;

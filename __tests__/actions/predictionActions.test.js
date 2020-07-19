@@ -68,11 +68,6 @@ global.fetch = jest.fn(() => {
 describe('predictionActions functions testing', () => {
   test('getFixtureID function ', () => {
     const fixture = getFixtureID('Barcelona vs Osasuna', gamesData);
-    console.log(fixture);
     expect(fixture).toEqual('214383');
   });
-  // it('get logos', async () => {
-  //   const logos = await getTeamsLogo('214383');
-  //   expect(logos).toBeDefined();
-  // });
 });

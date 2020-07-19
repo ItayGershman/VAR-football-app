@@ -29,7 +29,7 @@ export const setGame = (game) => async (dispatch) => {
         roomCode
       });
     })
-    .catch((e) => console.log(`ERROR: ${e}`));
+    .catch((e) => console.log(`error:${e}`));
 };
 
 export const getGame = (roomCode) => async (dispatch) => {
@@ -76,10 +76,8 @@ export const login = (roomCode, fullName) => async (dispatch) => {
   })
     .then((response) => response.json())
     .then((res) => {
-      //check if user exist
       if (res) {
         dispatch({
-          // Login
           type: LOGIN,
           isSetResult: true,
           isLoggedIn: true,
@@ -87,7 +85,6 @@ export const login = (roomCode, fullName) => async (dispatch) => {
         });
       } else {
         dispatch({
-          // Save name and afterwards sign up
           type: LOGIN,
           isSetResult: false,
           isLoggedIn: true,
@@ -95,7 +92,7 @@ export const login = (roomCode, fullName) => async (dispatch) => {
         });
       }
     })
-    .catch((e) => console.log(e));
+    .catch((e) => console.log(`error:${e}`));
 };
 
 export const getRoomData = (roomCode) => async (dispatch) => {
@@ -116,27 +113,24 @@ export const getRoomData = (roomCode) => async (dispatch) => {
 };
 
 export const setPoints = (roomCode, gamesData) => async (dispatch) => {
-  //insert user points into DB
   fetch(`http://var-football-prediction.herokuapp.com/routes/room_data/${roomCode}`, {
     method: 'GET'
   })
     .then((res) => res.json())
     .then((result) => {
-      console.log(result); //Should get room
       for (let i = 0; i < gamesData.length; ++i) {
         if (
           result.matchString.includes(gamesData[i].home) &&
           result.matchString.includes(gamesData[i].away)
         ) {
           if (gamesData[i].fulltime !== null) {
-            const userData = result.userData; //userData will get points for each user
+            const userData = result.userData;
             for (let j = 0; j < result.userData.length; ++j) {
               let pointsReceived = 0;
               if (
                 userData[j].home === gamesData[i].goalsHome &&
                 userData[j].away === gamesData[i].goalsAway
               ) {
-                //user got the result
                 pointsReceived = 3;
               } else if (
                 userData[j].home > userData[j].away &&
@@ -158,7 +152,6 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
               }
               userData[j].points = pointsReceived;
             }
-            //insert new userData into DB
             fetch(`http://var-football-prediction.herokuapp.com/routes/points`, {
               method: 'POST',
               body: JSON.stringify({ roomCode, userData }),
@@ -174,7 +167,7 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
                   points: true
                 });
               })
-              .catch((e) => console.log(`e${e}`));
+              .catch((e) => console.log(`error:${e}`));
           }
           dispatch({
             type: SET_POINTS,
@@ -183,7 +176,7 @@ export const setPoints = (roomCode, gamesData) => async (dispatch) => {
         }
       }
     })
-    .catch((e) => console.log(`e:${e}`));
+    .catch((e) => console.log(`error:${e}`));
 };
 export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
   dispatch({ type: LOADING_ROOMS, isLoading: true });
@@ -207,7 +200,6 @@ export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
           match.goalsHome = gamesData[i].goalsHome;
           match.goalsAway = gamesData[i].goalsAway;
           match.gameTime = gamesData[i].date;
-          //insert match gameData into DB
           fetch(`http://var-football-prediction.herokuapp.com/routes/game_preview`, {
             method: 'POST',
             body: JSON.stringify({ match, roomCode }),
@@ -226,8 +218,8 @@ export const gamePreview = (roomCode, gamesData) => async (dispatch) => {
               console.log('dispatch LOADING_ROOMS with false');
               dispatch({ type: LOADING_ROOMS, isLoading: false });
             })
-            .catch((e) => console.log(e));
-          // return;
+            .catch((e) => console.log(`error:${e}`));
+          return;
         }
       }
     })
@@ -259,7 +251,7 @@ const getTeamsLogo = (fixture_id) => {
       return teamsLogo;
     })
     .catch((error) => {
-      console.error(`error:${error}`);
+      console.log(`error:${error}`);
       return 'No logos for this teams';
     });
 };

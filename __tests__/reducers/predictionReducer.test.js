@@ -137,7 +137,6 @@ describe('predictionReducer tests', () => {
     expect(matches.length).toBe(2);
     expect(matches).toEqual([{ value: 'Arsenal vs Liverpool' }, { value: 'Burnley vs Wolves' }]);
     expect(state).toHaveProperty('isLoading', false);
-    // expect(state).toHaveProperty('selectedGames', matches);
   });
   test('PREDICTION_LEAGUES', () => {
     const state = predictionReducer(undefined, {

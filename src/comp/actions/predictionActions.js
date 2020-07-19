@@ -5,9 +5,7 @@ import getCurrentDate from '../../constants';
 export const getFixtureID = (match, gamesData) => {
   for (let i = 0; i < gamesData.length; ++i) {
     if (~match.indexOf(gamesData[i].home.toString())) {
-      //Search for home team
       if (~match.indexOf(gamesData[i].away.toString())) {
-        //Search for away tem
         return gamesData[i].fixtureID;
       }
     }
@@ -16,7 +14,6 @@ export const getFixtureID = (match, gamesData) => {
 };
 
 export const getOdds = (match, gamesData) => async (dispatch) => {
-  //find from match the fixture_id
   dispatch({ type: LOADING_PREDICTION });
   const fixture_id = getFixtureID(match, gamesData);
   const logos = await getTeamsLogo(fixture_id);
@@ -40,7 +37,7 @@ export const getOdds = (match, gamesData) => async (dispatch) => {
       });
     })
     .catch((error) => {
-      console.error(`error:${error}`);
+      console.log(`error:${error}`);
     });
 };
 
@@ -116,7 +113,7 @@ export const getTeamsLogo = (fixture_id) => {
       return teamsLogo;
     })
     .catch((error) => {
-      console.error(`error:${error}`);
+      console.log(`error:${error}`);
       return 'No logos for this teams';
     });
 };
