@@ -11,7 +11,7 @@
 6 main european leagues - Germeny, England, Italy, Israel, Spain, French.
 
 ## Prediction results
-We provide statistics between 2 teams the user pick from the current day, head to head and chances to win/lost/tie the game.
+We provide statistics between 2 teams that the user pick from the current day, head to head and chances to win/lost/tie the game.
 
 ## Game rooms
 User can create new room to gemble on a particular match with his friends.
