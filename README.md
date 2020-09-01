@@ -12,7 +12,7 @@
 This page presents matches by league with live results or game time.
 
 ## Prediction results
-We provide statistics between 2 teams that the user pick from the current day, head to head and chances to win/lost/tie the game.
+We provide statistics between 2 teams that the user pick from the current day, head to head and chances to win/lose/tie the game.
 
 ## Game rooms
 User can create new room to gemble on a particular match with his friends.
