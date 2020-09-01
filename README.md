@@ -23,4 +23,3 @@ Data fetched from [Football-api](https://www.api-football.com/), the data contai
 Data from the game room saved to DB - this data contains the match information (date,result,time,etc) and users name, input results and points received
 
 ![Room](/images/Room.png)
-Format: ![Alt Text](url)
