@@ -9,6 +9,7 @@
 
 ## Live games
 6 main european leagues - Germeny, England, Italy, Israel, Spain, French.
+This page presents matches by league with live results or game time.
 
 ## Prediction results
 We provide statistics between 2 teams that the user pick from the current day, head to head and chances to win/lost/tie the game.
