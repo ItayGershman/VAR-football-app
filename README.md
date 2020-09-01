@@ -22,4 +22,4 @@ he/she can enter to the room.
 Data fetched from [Football-api](https://www.api-football.com/), the data contain information about every football league exist.
 Data from the game room saved to DB - this data contains the match information (date,result,time,etc) and users name, input results and points received
 
-![Room](/images/Room.png)
+![Room](/images/Room.jpg)
