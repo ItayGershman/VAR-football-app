@@ -22,7 +22,7 @@ he/she can enter to the room.
 Data fetched from [Football-api](https://www.api-football.com/), the data contain information about every football league exist.
 Data from the game room saved to DB - this data contains the match information (date,result,time,etc) and users name, input results and points received
 
-<div >
+<div style="justify-content: space-between">
   <img src="https://github.com/ItayGershman/VAR-football-app/blob/master/images/Live_Score.jpg" style="marginRight: 50px" width="250" height="400">
   <img src="https://github.com/ItayGershman/VAR-football-app/blob/master/images/Prediction.jpg"  style="marginRight: 50px" width="250" height="400">
   <img src="https://github.com/ItayGershman/VAR-football-app/blob/master/images/Room.jpg"  style="margin: 20px" width="250" height="400">
