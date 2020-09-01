@@ -26,14 +26,28 @@ const CreateRoom = ({
     getLeagues();
   }, []);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [leagueField, setLeagueField] = useState(false);
+  const [matchField, setMatchField] = useState(false)
+
+  const changeStateLeague = () => {
+    setLeagueField(!leagueField)
+  }
+
+  const changeStateMatch = () => {
+    setMatchField(!matchField)
+  }
 
   const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+    if (leagueField && matchField) {
+      setModalVisible(!isModalVisible);
+    }
   };
 
   const copyToClipboard = () => {
     Clipboard.setString(roomCode);
   };
+
+
   return (
     <View style={styles.container}>
       <Header navigation={navigation} />
@@ -57,6 +71,7 @@ const CreateRoom = ({
                 pickerStyle={styles.pickerStyle}
                 shadeOpacity={0.2}
                 onChangeText={(league) => {
+                  changeStateLeague();
                   getLiveGames(league);
                 }}
               />
@@ -70,6 +85,7 @@ const CreateRoom = ({
                 pickerStyle={styles.pickerStyle}
                 shadeOpacity={0.2}
                 onChangeText={(match) => {
+                  changeStateMatch();
                   setGame(match);
                 }}
               />
